@@ -1,0 +1,1053 @@
+﻿
+@{
+    ViewBag.Title = "Dashboard";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- The above 6 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword" content="">
+    <meta name="author" content="" />
+    <!-- Page Title -->
+    <title>Helpdesk Management | Metrical - Multipurpose Admin Dashboard Template</title>
+    <!-- Main CSS -->
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/simple-line-icons.css" rel="stylesheet" />
+    <link href="~/Content/ionicons.css" rel="stylesheet" />
+    <link href="~/Content/toastr.min.css" rel="stylesheet" />
+    <link href="~/Content/apexcharts.css" rel="stylesheet" />
+    <link href="~/Content/app.min.css" rel="stylesheet" />
+    <link href="~/Content/style.min.css" rel="stylesheet" />
+    <link href="~/Content/Katie.css" rel="stylesheet" />
+    <!-- Favicon -->
+    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn"t work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="http://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="http://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+    <!--================================-->
+    <!-- Page Container Start -->
+    <!--================================-->
+    <div class="page-container">
+        <!--================================-->
+        <!-- Page Content Start -->
+        <!--================================-->
+            <!--================================-->
+            <!-- Page Inner Start -->
+            <!--================================-->
+            <div class="page-inner">
+                <!-- Main Wrapper -->
+                <div id="main-wrapper">
+                    <!--================================-->
+                    <!-- Breadcrumb Start -->
+                    <!--================================-->
+                    @*<div class="pageheader pd-t-25 pd-b-35">
+                        <div class="pd-t-5 pd-b-5">
+                            <h1 class="pd-0 mg-0 tx-20">Helpdesk Management</h1>
+                        </div>
+                        <div class="breadcrumb pd-0 mg-0">
+                            <a class="breadcrumb-item" href="index.html"><i class="icon ion-ios-home-outline"></i> Home</a>
+                            <a class="breadcrumb-item" href="">Dashboard</a>
+                            <span class="breadcrumb-item active">Helpdesk Management</span>
+                        </div>
+                    </div>*@
+                    <!--/ Breadcrumb End -->
+                    <!--================================-->
+                    <!-- Counter Start -->
+                    <!--================================-->
+                    <div class="row row-xs">
+                        <div class="col-12 col-sm-6 col-md-6 col-xl-3">
+                            <div class="card mg-b-20">
+                                <div class="card-body">
+                                    <h4 class="tx-uppercase tx-10 mg-b-10">New Tickets</h4>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <h2 class="tx-20 tx-sm-18 tx-md-24 mg-b-0 tx-normal tx-rubik tx-dark"><span class="counter tx-rubik tx-normal">1,181</span><span class="tx-11">/per month</span></h2>
+                                        <div class="tx-danger d-flex justify-content-between align-items-center">
+                                            <i class="ion-android-arrow-down mr-1"></i> <small>40.8%</small>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-center tx-gray-500 tx-11"><span class="tx-danger mr-2 d-flex align-items-center"><i class="ion-android-arrow-down mr-1"></i>+1,551</span>since last month</div>
+                                    <div id="countSpark1" class="mg-t-15"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-6 col-xl-3">
+                            <div class="card mg-b-20">
+                                <div class="card-body">
+                                    <h4 class="tx-uppercase tx-10 mg-b-10">Solved Tickets</h4>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <h2 class="tx-20 tx-sm-18 tx-md-24 mg-b-0 tx-normal tx-rubik tx-dark"><span class="counter tx-rubik tx-normal">4,530</span><span class="tx-11">/per month</span></h2>
+                                        <div class="tx-success d-flex justify-content-between align-items-center">
+                                            <i class="ion-android-arrow-up mr-1"></i> <small>53.8%</small>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-center tx-gray-500 tx-11"><span class="tx-success mr-2 d-flex align-items-center"><i class="ion-android-arrow-up mr-1"></i>+2,030</span>since last month</div>
+                                    <div id="countSpark2" class="mg-t-15"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-6 col-xl-3">
+                            <div class="card mg-b-20">
+                                <div class="card-body">
+                                    <h4 class="tx-uppercase tx-10 mg-b-10">Open Tickets</h4>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <h2 class="tx-20 tx-sm-18 tx-md-24 mg-b-0 tx-normal tx-rubik tx-dark"><span class="counter tx-rubik tx-normal">1,285</span><span class="tx-11">/per month</span></h2>
+                                        <div class="tx-success d-flex justify-content-between align-items-center">
+                                            <i class="ion-android-arrow-up mr-1"></i> <small>30.2%</small>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-center tx-gray-500 tx-11"><span class="tx-success mr-2 d-flex align-items-center"><i class="ion-android-arrow-up mr-1"></i>+685</span>since last month</div>
+                                    <div id="countSpark3" class="mg-t-15"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-6 col-xl-3">
+                            <div class="card mg-b-20">
+                                <div class="card-body">
+                                    <h4 class="tx-uppercase tx-10 mg-b-10">Unresolved Tickets</h4>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <h2 class="tx-20 tx-sm-18 tx-md-24 mg-b-0 tx-normal tx-rubik tx-dark"><span class="counter tx-rubik tx-normal">1,020</span><span class="tx-11">/per month</span></h2>
+                                        <div class="tx-danger d-flex justify-content-between align-items-center">
+                                            <i class="ion-android-arrow-down mr-1"></i> <small>60.5%</small>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-center tx-gray-500 tx-11"><span class="tx-danger mr-2 d-flex align-items-center"><i class="ion-android-arrow-down mr-1"></i>+1,035</span>since last month</div>
+                                    <div id="countSpark4" class="mg-t-15"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/ Counter End -->
+                    <div class="row row-xs clearfix">
+                        <!--================================-->
+                        <!-- Support Tickets Metrics Start -->
+                        <!--================================-->
+                        <div class="col-xl-12">
+                            <div class="card mg-b-20">
+                                <div class="card-header">
+                                    <h4 class="card-header-title">
+                                        Support Tickets Metrics
+                                    </h4>
+                                    <div class="card-header-btn">
+                                        <a href="" data-toggle="collapse" class="btn card-collapse" data-target="#supportTicketsMetrics" aria-expanded="true"><i class="ion-ios-arrow-down"></i></a>
+                                        <a href="" data-toggle="refresh" class="btn card-refresh"><i class="ion-android-refresh"></i></a>
+                                        <a href="" data-toggle="expand" class="btn card-expand"><i class="ion-android-expand"></i></a>
+                                        <a href="" data-toggle="remove" class="btn card-remove" data-original-title="" title="" data-init="true"><i class="ion-android-close"></i></a>
+                                    </div>
+                                </div>
+                                <div class="card-body collapse show" id="supportTicketsMetrics">
+                                    <div class="row">
+                                        <div class="col-xl-9">
+                                            <div id="supportTicketchart"></div>
+                                        </div>
+                                        <div class="col-xl-3">
+                                            <div class="row">
+                                                <div class="col-sm-12 col-md-6 col-xl-12 mg-t-40 mg-xl-t-0">
+                                                    <div class="d-flex justify-content-between">
+                                                        <h6 class="tx-uppercase tx-10 mg-b-0 tx-gray-500">New Tickets</h6>
+                                                        <span class="tx-10 tx-gray-500">65% goal reached</span>
+                                                    </div>
+                                                    <div class="d-flex align-items-end justify-content-between mg-b-5">
+                                                        <h5 class="mg-b-0 tx-dark tx-rubik tx-normal"><span class="counter">1,860</span></h5>
+                                                        <div class="d-flex align-items-center tx-gray-600"><span class="small text-success mr-2 d-flex align-items-center"><i class="ion-android-arrow-up mr-1"></i>+351</span></div>
+                                                    </div>
+                                                    <div class="progress ht-3 mg-b-0 op-5">
+                                                        <div class="progress-bar bg-teal wd-70p" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-12 mg-t-40">
+                                                    <div class="d-flex justify-content-between">
+                                                        <h6 class="tx-uppercase tx-10 mg-b-0 tx-gray-500">Solved Tickets</h6>
+                                                        <span class="tx-10 tx-gray-500">65% goal reached</span>
+                                                    </div>
+                                                    <div class="d-flex align-items-end justify-content-between mg-b-5">
+                                                        <h5 class="mg-b-0 tx-dark tx-rubik tx-normal"><span class="counter">2,530</span></h5>
+                                                        <div class="d-flex align-items-center tx-gray-600"><span class="small text-success mr-2 d-flex align-items-center"><i class="ion-android-arrow-up mr-1"></i>+425</span></div>
+                                                    </div>
+                                                    <div class="progress ht-3 mg-b-0 op-5">
+                                                        <div class="progress-bar bg-success wd-80p" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-12 mg-t-40">
+                                                    <div class="d-flex justify-content-between">
+                                                        <h6 class="tx-uppercase tx-10 mg-b-0 tx-gray-500">Open Tickets</h6>
+                                                        <span class="tx-10 tx-gray-500">65% goal reached</span>
+                                                    </div>
+                                                    <div class="d-flex align-items-end justify-content-between mg-b-5">
+                                                        <h5 class="mg-b-0 tx-dark tx-rubik tx-normal"><span class="counter">2,148</span></h5>
+                                                        <div class="d-flex align-items-center tx-gray-600"><span class="small text-danger mr-2 d-flex align-items-center"><i class="ion-android-arrow-down mr-1"></i>-211</span></div>
+                                                    </div>
+                                                    <div class="progress ht-3 mg-b-0 op-5">
+                                                        <div class="progress-bar bg-danger wd-70p" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-xl-12 mg-t-40">
+                                                    <div class="d-flex justify-content-between">
+                                                        <h6 class="tx-uppercase tx-10 mg-b-0 tx-gray-500">Unresolved Tickets</h6>
+                                                        <span class="tx-10 tx-gray-500">65% goal reached</span>
+                                                    </div>
+                                                    <div class="d-flex align-items-end justify-content-between mg-b-5">
+                                                        <h5 class="mg-b-0 tx-dark tx-rubik tx-normal"><span class="counter">1,290</span></h5>
+                                                        <div class="d-flex align-items-center tx-gray-600"><span class="small text-success mr-2 d-flex align-items-center"><i class="ion-android-arrow-up mr-1"></i>+151</span></div>
+                                                    </div>
+                                                    <div class="progress ht-3 mg-b-0 op-5">
+                                                        <div class="progress-bar bg-primary wd-65p" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/ Support Tickets Metrics End -->
+                    </div>
+                    <div class="row row-xs clearfix">
+                        <!--================================-->
+                        <!-- Recent Tickets Start -->
+                        <!--================================-->
+                        <div class="col-md-6 col-xl-4">
+                            <div class="card mg-b-20">
+                                <div class="card-header">
+                                    <h4 class="card-header-title">
+                                        Recent Tickets
+                                    </h4>
+                                    <div class="card-header-btn">
+                                        <a href="" data-toggle="collapse" class="btn card-collapse" data-target="#recentTickets" aria-expanded="true"><i class="ion-ios-arrow-down"></i></a>
+                                        <a href="" data-toggle="refresh" class="btn card-refresh"><i class="ion-android-refresh"></i></a>
+                                        <a href="" data-toggle="expand" class="btn card-expand"><i class="ion-android-expand"></i></a>
+                                        <a href="" data-toggle="remove" class="btn card-remove" data-original-title="" title="" data-init="true"><i class="ion-android-close"></i></a>
+                                    </div>
+                                </div>
+                                <div class="card-body pd-0 collapse show" id="recentTickets">
+                                    <div class="list-group">
+                                        <a href="" class="list-group-item list-group-item-action flex-column align-items-start border-top-1 pd-y-10">
+                                            <div class="ft-left mg-r-20 hidden-xs">
+                                                <div class="d-flex justify-content-center align-items-center">
+                                                    <div class="d-flex justify-content-center align-items-center">
+                                                        <h5 class="mb-0 mr-2 tx-rubik tx-normal">03</h5>
+                                                        <div>
+                                                            <p class="mb-0 tx-12 tx-gray-500">Mar</p>
+                                                            <p class="mb-0 tx-12 tx-gray-500">2019</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="">
+                                                <div class="d-flex justify-content-between">
+                                                    <h5 class="mb-1 tx-13 tx-dark tx-medium">Lorem ipsum dolor sit amit</h5>
+                                                    <span class="tx-12">21 minute ago</span>
+                                                </div>
+                                                <div class="d-flex justify-content-between">
+                                                    <p class="tx-12 mg-b-0 tx-gray-500 tx-normal">03-03-2019, 11:32AM</p>
+                                                    <span class="badge badge-outlined badge-warning">Important</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <a href="" class="list-group-item list-group-item-action flex-column align-items-start border-top-1 pd-y-10">
+                                            <div class="ft-left mg-r-20 hidden-xs">
+                                                <div class="d-flex justify-content-center align-items-center">
+                                                    <div class="d-flex justify-content-center align-items-center">
+                                                        <h5 class="mb-0 mr-2 tx-rubik tx-normal">07</h5>
+                                                        <div>
+                                                            <p class="mb-0 tx-12 tx-gray-500">Mar</p>
+                                                            <p class="mb-0 tx-12 tx-gray-500">2019</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div class="d-flex justify-content-between">
+                                                    <h5 class="mb-1 tx-13 tx-dark tx-medium">Lorem ipsum dolor sit amit</h5>
+                                                    <span class="tx-12">21 minute ago</span>
+                                                </div>
+                                                <div class="d-flex justify-content-between">
+                                                    <p class="tx-12 mg-b-0 tx-gray-500 tx-normal">07-03-2019, 11:32AM</p>
+                                                    <span class="badge badge-outlined badge-warning">Important</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <a href="" class="list-group-item list-group-item-action flex-column align-items-start border-top-1 pd-y-10">
+                                            <div class="ft-left mg-r-20 hidden-xs">
+                                                <div class="d-flex justify-content-center align-items-center">
+                                                    <div class="d-flex justify-content-center align-items-center">
+                                                        <h5 class="mb-0 mr-2 tx-rubik tx-normal">12</h5>
+                                                        <div>
+                                                            <p class="mb-0 tx-12 tx-gray-500">Mar</p>
+                                                            <p class="mb-0 tx-12 tx-gray-500">2019</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div class="d-flex justify-content-between">
+                                                    <h5 class="mb-1 tx-13 tx-dark tx-medium">Lorem ipsum dolor sit amit</h5>
+                                                    <span class="tx-12">23 minute ago</span>
+                                                </div>
+                                                <div class="d-flex justify-content-between">
+                                                    <p class="tx-12 mg-b-0 tx-gray-500 tx-normal">12-03-2019, 11:32AM</p>
+                                                    <span class="badge badge-outlined badge-danger">Critical</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <a href="" class="list-group-item list-group-item-action flex-column align-items-start border-top-1 pd-y-10">
+                                            <div class="ft-left mg-r-20 hidden-xs">
+                                                <div class="d-flex justify-content-center align-items-center">
+                                                    <div class="d-flex justify-content-center align-items-center">
+                                                        <h5 class="mb-0 mr-2 tx-rubik tx-normal">15</h5>
+                                                        <div>
+                                                            <p class="mb-0 tx-12 tx-gray-500">Mar</p>
+                                                            <p class="mb-0 tx-12 tx-gray-500">2019</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div class="d-flex justify-content-between">
+                                                    <h5 class="mb-1 tx-13 tx-dark tx-medium">Lorem ipsum dolor sit amit</h5>
+                                                    <span class="tx-12">29 minute ago</span>
+                                                </div>
+                                                <div class="d-flex justify-content-between">
+                                                    <p class="tx-12 mg-b-0 tx-gray-500 tx-normal">15-03-2019, 11:32AM</p>
+                                                    <span class="badge badge-outlined badge-danger">Critical</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <a href="" class="list-group-item list-group-item-action flex-column align-items-start border-top-1 pd-y-10">
+                                            <div class="ft-left mg-r-20 hidden-xs">
+                                                <div class="d-flex justify-content-center align-items-center">
+                                                    <div class="d-flex justify-content-center align-items-center">
+                                                        <h5 class="mb-0 mr-2 tx-rubik tx-normal">18</h5>
+                                                        <div>
+                                                            <p class="mb-0 tx-12 tx-gray-500">Mar</p>
+                                                            <p class="mb-0 tx-12 tx-gray-500">2019</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div class="d-flex justify-content-between">
+                                                    <h5 class="mb-1 tx-13 tx-dark tx-medium">Lorem ipsum dolor sit amit</h5>
+                                                    <span class="tx-12">48 minute ago</span>
+                                                </div>
+                                                <div class="d-flex justify-content-between">
+                                                    <p class="tx-12 mg-b-0 tx-gray-500 tx-normal">18-03-2019, 11:32AM</p>
+                                                    <span class="badge badge-outlined badge-success">Normal</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <a href="" class="list-group-item list-group-item-action flex-column align-items-start border-top-1 pd-y-10">
+                                            <div class="ft-left mg-r-20 hidden-xs">
+                                                <div class="d-flex justify-content-center align-items-center">
+                                                    <div class="d-flex justify-content-center align-items-center">
+                                                        <h5 class="mb-0 mr-2 tx-rubik tx-normal">27</h5>
+                                                        <div>
+                                                            <p class="mb-0 tx-12 tx-gray-500">Mar</p>
+                                                            <p class="mb-0 tx-12 tx-gray-500">2019</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div class="d-flex justify-content-between">
+                                                    <h5 class="mb-1 tx-13 tx-dark tx-medium">Lorem ipsum dolor sit amit</h5>
+                                                    <span class="tx-12">52 minute ago</span>
+                                                </div>
+                                                <div class="d-flex justify-content-between">
+                                                    <p class="tx-12 mg-b-0 tx-gray-500 tx-normal">27-03-2019, 01:12PM</p>
+                                                    <span class="badge badge-outlined badge-success">Normal</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <a href="" class="list-group-item list-group-item-action flex-column align-items-start border-top-1 pd-y-10">
+                                            <div class="ft-left mg-r-20 hidden-xs">
+                                                <div class="d-flex justify-content-center align-items-center">
+                                                    <div class="d-flex justify-content-center align-items-center">
+                                                        <h5 class="mb-0 mr-2 tx-rubik tx-normal">29</h5>
+                                                        <div>
+                                                            <p class="mb-0 tx-12 tx-gray-500">Mar</p>
+                                                            <p class="mb-0 tx-12 tx-gray-500">2019</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div class="d-flex justify-content-between">
+                                                    <h5 class="mb-1 tx-13 tx-dark tx-medium">Lorem ipsum dolor sit amit</h5>
+                                                    <span class="tx-12">58 minute ago</span>
+                                                </div>
+                                                <div class="d-flex justify-content-between">
+                                                    <p class="tx-12 mg-b-0 tx-gray-500 tx-normal">29-03-2019, 01:12PM</p>
+                                                    <span class="badge badge-outlined badge-success">Normal</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/ Recent Tickets End -->
+                        <!--================================-->
+                        <!-- Clients Feedback Start -->
+                        <!--================================-->
+                        <div class="col-md-6 col-xl-4">
+                            <div class="card mg-b-20">
+                                <div class="card-header">
+                                    <h4 class="card-header-title">
+                                        Clients Feedback
+                                    </h4>
+                                    <div class="card-header-btn">
+                                        <a href="" data-toggle="collapse" class="btn card-collapse" data-target="#clientsFeedback" aria-expanded="true"><i class="ion-ios-arrow-down"></i></a>
+                                        <a href="" data-toggle="refresh" class="btn card-refresh"><i class="ion-android-refresh"></i></a>
+                                        <a href="" data-toggle="expand" class="btn card-expand"><i class="ion-android-expand"></i></a>
+                                        <a href="" data-toggle="remove" class="btn card-remove" data-original-title="" title="" data-init="true"><i class="ion-android-close"></i></a>
+                                    </div>
+                                </div>
+                                <div class="card-body pd-0 collapse show" id="clientsFeedback">
+                                    <ul class="list-group list-group-flush pd-y-5 tx-13">
+                                        <li class="list-group-item d-flex pd-x-20">
+                                            <div class="avatar"><span class="avatar-initial rounded-circle bg-primary op-6">C</span></div>
+                                            <div class="pd-l-10">
+                                                <p class="tx-medium mg-b-0"><a href="">Stanley C. Owens</a></p>
+                                                <span class="tx-12 mg-b-0 tx-gray-500">Clients ID: #251362</span>
+                                            </div>
+                                            <div class="mg-l-auto d-flex align-self-center">
+                                                <nav class="nav nav-icon-only">
+                                                    <div class="tx-right">
+                                                        <div class="tx-15 mg-l-10">
+                                                            <i class="icon ion-star lh-0 tx-warning"></i>
+                                                            <i class="icon ion-star lh-0 tx-warning"></i>
+                                                            <i class="icon ion-star lh-0 tx-warning"></i>
+                                                            <i class="icon ion-star lh-0 tx-warning"></i>
+                                                            <i class="icon ion-star lh-0 tx-warning"></i>
+                                                        </div>
+                                                        <span class="mb-0 tx-10 tx-gray-500">03-03-2019</span>
+                                                    </div>
+                                                </nav>
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item d-flex pd-x-20">
+                                            <div class="avatar"><span class="avatar-initial rounded-circle bg-success op-6">B</span></div>
+                                            <div class="pd-l-10">
+                                                <p class="tx-medium mg-b-0"><a href="">Bongcaras Owen</a></p>
+                                                <span class="tx-12 mg-b-0 tx-gray-500">Clients ID: #251362</span>
+                                            </div>
+                                            <div class="mg-l-auto d-flex align-self-center">
+                                                <nav class="nav nav-icon-only">
+                                                    <div class="tx-right">
+                                                        <div class="tx-15 mg-l-10">
+                                                            <i class="icon ion-star lh-0 tx-warning"></i>
+                                                            <i class="icon ion-star lh-0 tx-warning"></i>
+                                                            <i class="icon ion-star lh-0 tx-warning"></i>
+                                                            <i class="icon ion-star lh-0 tx-warning"></i>
+                                                            <i class="icon ion-star lh-0 tx-gray-300"></i>
+                                                        </div>
+                                                        <span class="mb-0 tx-10 tx-gray-500">04-03-2019</span>
+                                                    </div>
+                                                </nav>
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item d-flex pd-x-20">
+                                            <div class="avatar"><span class="avatar-initial rounded-circle bg-indigo">E</span></div>
+                                            <div class="pd-l-10">
+                                                <p class="tx-medium mg-b-0"><a href="">Effery M. Jensen</a></p>
+                                                <span class="tx-12 mg-b-0 tx-gray-500">Clients ID: #369521</span>
+                                            </div>
+                                            <div class="mg-l-auto d-flex align-self-center">
+                                                <nav class="nav nav-icon-only">
+                                                    <div class="tx-right">
+                                                        <div class="tx-15 mg-l-10">
+                                                            <i class="icon ion-star lh-0 tx-warning"></i>
+                                                            <i class="icon ion-star lh-0 tx-warning"></i>
+                                                            <i class="icon ion-star lh-0 tx-warning"></i>
+                                                            <i class="icon ion-star lh-0 tx-warning"></i>
+                                                            <i class="icon ion-star lh-0 tx-warning"></i>
+                                                        </div>
+                                                        <span class="mb-0 tx-10 tx-gray-500">06-03-2019</span>
+                                                    </div>
+                                                </nav>
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item d-flex pd-x-20">
+                                            <div class="avatar"><span class="avatar-initial rounded-circle bg-danger op-6">J</span></div>
+                                            <div class="pd-l-10">
+                                                <p class="tx-medium mg-b-0"><a href="">John Doe</a></p>
+                                                <span class="tx-12 mg-b-0 tx-gray-500">Clients ID: #541236</span>
+                                            </div>
+                                            <div class="mg-l-auto d-flex align-self-center">
+                                                <nav class="nav nav-icon-only">
+                                                    <div class="tx-right">
+                                                        <div class="tx-15 mg-l-10">
+                                                            <i class="icon ion-star lh-0 tx-warning"></i>
+                                                            <i class="icon ion-star lh-0 tx-warning"></i>
+                                                            <i class="icon ion-star lh-0 tx-warning"></i>
+                                                            <i class="icon ion-star lh-0 tx-warning"></i>
+                                                            <i class="ion-android-star-half lh-0 tx-warning"></i>
+                                                        </div>
+                                                        <span class="mb-0 tx-10 tx-gray-500">07-03-2019</span>
+                                                    </div>
+                                                </nav>
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item d-flex pd-x-20">
+                                            <div class="avatar"><span class="avatar-initial rounded-circle bg-warning op-6">S</span></div>
+                                            <div class="pd-l-10">
+                                                <p class="tx-medium mg-b-0"><a href="">Stanley Owens</a></p>
+                                                <span class="tx-12 mg-b-0 tx-gray-500">Clients ID: #258463</span>
+                                            </div>
+                                            <div class="mg-l-auto d-flex align-self-center">
+                                                <nav class="nav nav-icon-only">
+                                                    <div class="tx-right">
+                                                        <div class="tx-15 mg-l-10">
+                                                            <i class="icon ion-star lh-0 tx-warning"></i>
+                                                            <i class="icon ion-star lh-0 tx-warning"></i>
+                                                            <i class="icon ion-star lh-0 tx-warning"></i>
+                                                            <i class="icon ion-star lh-0 tx-warning"></i>
+                                                            <i class="icon ion-star lh-0 tx-warning"></i>
+                                                        </div>
+                                                        <span class="mb-0 tx-10 tx-gray-500">10-03-2019</span>
+                                                    </div>
+                                                </nav>
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item d-flex pd-x-20">
+                                            <div class="avatar"><span class="avatar-initial rounded-circle bg-teal op-6">A</span></div>
+                                            <div class="pd-l-10">
+                                                <p class="tx-medium mg-b-0"><a href="">Adam L. Easter</a></p>
+                                                <span class="tx-12 mg-b-0 tx-gray-500">Clients ID: #248563</span>
+                                            </div>
+                                            <div class="mg-l-auto d-flex align-self-center">
+                                                <nav class="nav nav-icon-only">
+                                                    <div class="tx-right">
+                                                        <div class="tx-15 mg-l-10">
+                                                            <i class="icon ion-star lh-0 tx-warning"></i>
+                                                            <i class="icon ion-star lh-0 tx-warning"></i>
+                                                            <i class="icon ion-star lh-0 tx-warning"></i>
+                                                            <i class="icon ion-star lh-0 tx-warning"></i>
+                                                            <i class="icon ion-star lh-0 tx-warning"></i>
+                                                        </div>
+                                                        <span class="mb-0 tx-10 tx-gray-500">16-03-2019</span>
+                                                    </div>
+                                                </nav>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/ Clients Feedback End -->
+                        <!--================================-->
+                        <!-- Support Agents Start -->
+                        <!--================================-->
+                        <div class="col-md-6 col-xl-4">
+                            <div class="card mg-b-20">
+                                <div class="card-header">
+                                    <h4 class="card-header-title">
+                                        Support Agents
+                                    </h4>
+                                    <div class="card-header-btn">
+                                        <a href="" data-toggle="collapse" class="btn card-collapse" data-target="#supportAgents" aria-expanded="true"><i class="ion-ios-arrow-down"></i></a>
+                                        <a href="" data-toggle="refresh" class="btn card-refresh"><i class="ion-android-refresh"></i></a>
+                                        <a href="" data-toggle="expand" class="btn card-expand"><i class="ion-android-expand"></i></a>
+                                        <a href="" data-toggle="remove" class="btn card-remove" data-original-title="" title="" data-init="true"><i class="ion-android-close"></i></a>
+                                    </div>
+                                </div>
+                                <div class="card-body collapse show" id="supportAgents">
+                                    <div class="row row-xs">
+                                        <div class="col-12 col-md-4 mg-b-10 d-flex align-items-center">
+                                            <div class="tx-center d-block pd-y-10 pd-x-15 bg-gray-100 wd-100p">
+                                                <a href="">
+                                                    <img alt="" src="https://via.placeholder.com/100x100" class="wd-50 rounded-circle img-fluid">
+                                                    <div class="mg-t-5 tx-10 tx-uppercase">John Doe</div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-md-8">
+                                            <div class="align-items-center clearfix">
+                                                <ul class="list-unstyled tx-9 tx-uppercase mg-b-5">
+                                                    <li>Last Login: <span class="tx-success">Online Now</span></li>
+                                                    <li>Tickets: <span class="tx-gray-500">80+</span> (<span class="tx-success mr-1"><i class="ion-android-arrow-up mr-1"></i>185+</span><span class="tx-gray-500">since last month)</span></li>
+                                                    <li>
+                                                        Response Time: <span class="tx-gray-500">2 hours</span>
+                                                    </li>
+                                                </ul>
+                                                <div class="clearfix"> <span class="float-left tx-uppercase tx-9">Average Speed</span> <small class="float-right"><span class="mg-b-0">6m:42s / Goal: 10m:0s</span></small> </div>
+                                                <div class="progress ht-3 mg-b-10 op-5">
+                                                    <div class="progress-bar bg-primary wd-80p" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                                <a class="btn btn-label-primary btn-sm" href="">Send Message</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <div class="row row-xs">
+                                        <div class="col-12 col-md-4 mg-b-10 d-flex align-items-center">
+                                            <div class="tx-center d-block pd-y-10 pd-x-15 bg-gray-100 wd-100p">
+                                                <a href="">
+                                                    <img alt="" src="https://via.placeholder.com/100x100" class="wd-50 rounded-circle img-fluid">
+                                                    <div class="mg-t-5 tx-10 tx-uppercase">Tyler Mark</div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-md-8">
+                                            <div class="align-items-center clearfix">
+                                                <ul class="list-unstyled tx-9 tx-uppercase mg-b-5">
+                                                    <li>Last Login: <span class="tx-danger">Offline Now</span></li>
+                                                    <li>Tickets: <span class="tx-gray-500">70+</span> (<span class="tx-danger mr-1"><i class="ion-android-arrow-down mr-1"></i>35+</span><span class="tx-gray-500">since last month)</span></li>
+                                                    <li>
+                                                        Response Time: <span class="tx-gray-500">4 hours</span>
+                                                    </li>
+                                                </ul>
+                                                <div class="clearfix"> <span class="float-left tx-uppercase tx-9">Average Speed</span> <small class="float-right"><span class="mg-b-0">11m:12s / Goal: 10m:0s</span></small> </div>
+                                                <div class="progress ht-3 mg-b-10 op-5">
+                                                    <div class="progress-bar bg-danger wd-60p" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                                <a class="btn btn-label-danger btn-sm" href="">Send Message</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <div class="row row-xs">
+                                        <div class="col-12 col-md-4 mg-b-10 d-flex align-items-center">
+                                            <div class="tx-center d-block pd-y-10 pd-x-15 bg-gray-100 wd-100p">
+                                                <a href="">
+                                                    <img alt="" src="https://via.placeholder.com/100x100" class="wd-50 rounded-circle img-fluid">
+                                                    <div class="mg-t-5 tx-10 tx-uppercase">Theron Deo</div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-md-8">
+                                            <div class="align-items-center clearfix">
+                                                <ul class="list-unstyled tx-9 tx-uppercase mg-b-5">
+                                                    <li>Last Login: <span class="tx-success">Online Now</span></li>
+                                                    <li>Tickets: <span class="tx-gray-500">95+</span> (<span class="tx-success mr-1"><i class="ion-android-arrow-up mr-1"></i>225+</span><span class="tx-gray-500">since last month)</span></li>
+                                                    <li>
+                                                        Response Time: <span class="tx-gray-500">2 hours</span>
+                                                    </li>
+                                                </ul>
+                                                <div class="clearfix"> <span class="float-left tx-uppercase tx-9">Average Speed</span> <small class="float-right"><span class="mg-b-0">5m:34s / Goal: 10m:0s</span></small> </div>
+                                                <div class="progress ht-3 mg-b-10 op-5">
+                                                    <div class="progress-bar bg-success wd-85p" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                                <a class="btn btn-label-success btn-sm" href="">Send Message</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/ Support Agents End -->
+                        <!--================================-->
+                        <!-- Transaction History Start -->
+                        <!--================================-->
+                        <div class="col-md-6 col-xl-4">
+                            <div class="card mg-b-20">
+                                <div class="card-header">
+                                    <h4 class="card-header-title">
+                                        Transaction History
+                                    </h4>
+                                    <div class="card-header-btn">
+                                        <a href="" data-toggle="collapse" class="btn card-collapse" data-target="#transactionHistory" aria-expanded="true"><i class="ion-ios-arrow-down"></i></a>
+                                        <a href="" data-toggle="refresh" class="btn card-refresh" data-original-title="" title=""><i class="ion-android-refresh"></i></a>
+                                        <a href="" data-toggle="expand" class="btn card-expand"><i class="ion-android-expand"></i></a>
+                                        <a href="" data-toggle="remove" class="btn card-remove"><i class="ion-android-close"></i></a>
+                                    </div>
+                                </div>
+                                <div class="collapse show" id="transactionHistory">
+                                    <ul class="list-group list-group-flush tx-13 pd-t-10">
+                                        <li class="list-group-item d-flex pd-sm-x-20">
+                                            <div class="d-none d-sm-block"><span class="wd-40 ht-40 mg-r-10 d-flex align-items-center justify-content-center rounded card-icon-success"><i class="icon ion-checkmark"></i></span></div>
+                                            <div class="pd-sm-l-10">
+                                                <p class="tx-dark mg-b-0">Payment from <a href="" class="tx-dark mg-b-0 tx-semibold">#985632</a></p>
+                                                <span class="tx-12 mg-b-0 tx-gray-500">Customar ID: #857423</span>
+                                            </div>
+                                            <div class="mg-l-auto text-right">
+                                                <p class="mg-b-0 tx-rubik tx-dark">+$450<small class="tx-10">.50</small></p>
+                                                <span class="tx-12 tx-success mg-b-0">Completed</span>
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item d-flex pd-sm-x-20">
+                                            <div class="d-none d-sm-block"><span class="wd-40 ht-40 mg-r-10 d-flex align-items-center justify-content-center rounded card-icon-success"><i class="icon ion-checkmark"></i></span></div>
+                                            <div class="pd-sm-l-10">
+                                                <p class="tx-dark mg-b-0">Process refund to <a href="" class="tx-dark mg-b-0 tx-semibold">#458762</a></p>
+                                                <span class="tx-12 mg-b-0 tx-gray-500">Customar ID: #354155</span>
+                                            </div>
+                                            <div class="mg-l-auto text-right">
+                                                <p class="mg-b-0 tx-rubik tx-dark">+$180<small class="tx-10">.50</small></p>
+                                                <span class="tx-12 tx-success mg-b-0">Completed</span>
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item d-flex pd-sm-x-20">
+                                            <div class="d-none d-sm-block"><span class="wd-40 ht-40 mg-r-10 d-flex align-items-center justify-content-center rounded card-icon-warning"><i class="icon ion-shuffle"></i></span></div>
+                                            <div class="pd-sm-l-10">
+                                                <p class="tx-dark mg-b-0">Process delivery to <a href="" class="tx-dark mg-b-0 tx-semibold">#698524</a></p>
+                                                <span class="tx-12 mg-b-0 tx-gray-500">Customar ID: #452356</span>
+                                            </div>
+                                            <div class="mg-l-auto text-right">
+                                                <p class="mg-b-0 tx-rubik tx-dark">5 Items</p>
+                                                <span class="tx-12 tx-warning mg-b-0">For pickup</span>
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item d-flex pd-sm-x-20">
+                                            <div class="d-none d-sm-block"><span class="wd-40 ht-40 mg-r-10 d-flex align-items-center justify-content-center rounded card-icon-success"><i class="icon ion-checkmark"></i></span></div>
+                                            <div class="pd-sm-l-10">
+                                                <p class="tx-dark mg-b-0">Payment from <a href="" class="tx-dark mg-b-0 tx-semibold">#365845</a></p>
+                                                <span class="tx-12 mg-b-0 tx-gray-500">Customar ID: #748562</span>
+                                            </div>
+                                            <div class="mg-l-auto text-right">
+                                                <p class="mg-b-0 tx-rubik tx-dark">+$129<small class="tx-10">.50</small></p>
+                                                <span class="tx-12 tx-success mg-b-0">Completed</span>
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item d-flex pd-sm-x-20">
+                                            <div class="d-none d-sm-block"><span class="wd-40 ht-40 mg-r-10 d-flex align-items-center justify-content-center rounded card-icon-danger"><i class="icon ion-close"></i></span></div>
+                                            <div class="pd-sm-l-10">
+                                                <p class="tx-dark mg-b-0">Payment failed from <a href="" class="tx-dark mg-b-0 tx-semibold">#475821</a></p>
+                                                <span class="tx-12 mg-b-0 tx-gray-500">Customar ID: #457771</span>
+                                            </div>
+                                            <div class="mg-l-auto text-right">
+                                                <p class="mg-b-0 tx-rubik tx-dark">-$150<small class="tx-10">.50</small></p>
+                                                <span class="tx-12 tx-danger mg-b-0">Declined</span>
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item d-flex pd-sm-x-20">
+                                            <div class="d-none d-sm-block"><span class="wd-40 ht-40 mg-r-10 d-flex align-items-center justify-content-center rounded card-icon-danger"><i class="icon ion-close"></i></span></div>
+                                            <div class="pd-sm-l-10">
+                                                <p class="tx-dark mg-b-0">Payment failed from <a href="" class="tx-dark mg-b-0 tx-semibold">#985324</a></p>
+                                                <small class="tx-12 mg-b-0 tx-gray-500">Customar ID: #548596</small>
+                                            </div>
+                                            <div class="mg-l-auto text-right">
+                                                <p class="mg-b-0 tx-rubik tx-dark">-$190<small class="tx-10">.50</small></p>
+                                                <span class="tx-12 tx-danger mg-b-0">Declined</span>
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item d-flex pd-sm-x-20">
+                                            <div class="d-none d-sm-block"><span class="wd-40 ht-40 mg-r-10 d-flex align-items-center justify-content-center rounded card-icon-warning"><i class="icon ion-shuffle"></i></span></div>
+                                            <div class="pd-sm-l-10">
+                                                <p class="tx-dark mg-b-0">Process delivery to <a href="" class="tx-dark mg-b-0 tx-semibold">#698524</a></p>
+                                                <span class="tx-12 mg-b-0 tx-gray-500">Customar ID: #452356</span>
+                                            </div>
+                                            <div class="mg-l-auto text-right">
+                                                <p class="mg-b-0 tx-rubik tx-dark">5 Items</p>
+                                                <span class="tx-12 tx-warning mg-b-0">For pickup</span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/ Transaction History End -->
+                        <!--================================-->
+                        <!-- Support Status Start -->
+                        <!--================================-->
+                        <div class="col-xl-8">
+                            <div class="card mg-b-20">
+                                <div class="card-header">
+                                    <h4 class="card-header-title">
+                                        Support Status
+                                    </h4>
+                                    <div class="card-header-btn">
+                                        <a href="" data-toggle="collapse" class="btn card-collapse" data-target="#supportStatus" aria-expanded="true"><i class="ion-ios-arrow-down"></i></a>
+                                        <a href="" data-toggle="refresh" class="btn card-refresh"><i class="ion-android-refresh"></i></a>
+                                        <a href="" data-toggle="expand" class="btn card-expand"><i class="ion-android-expand"></i></a>
+                                        <a href="" data-toggle="remove" class="btn card-remove" data-original-title="" title="" data-init="true"><i class="ion-android-close"></i></a>
+                                    </div>
+                                </div>
+                                <div class="card-body pd-0 collapse show" id="supportStatus">
+                                    <div class="row pd-x-30 clearfix">
+                                        <div class="col-lg-4 col-md-4 col-sm-12 pd-y-20">
+                                            <span class="tx-uppercase tx-10 mg-b-10">Customer Satisfaction</span>
+                                            <h3 class="tx-dark tx-20 mg-b-0 tx-rubik tx-normal">
+                                                <span class="counter">9.7</span>
+                                                <span class="tx-15 mg-l-10">
+                                                    <i class="icon ion-star lh-0 tx-warning"></i>
+                                                    <i class="icon ion-star lh-0 tx-warning"></i>
+                                                    <i class="icon ion-star lh-0 tx-warning"></i>
+                                                    <i class="icon ion-star lh-0 tx-warning"></i>
+                                                    <i class="ion-ios-star-half lh-0 tx-warning"></i>
+                                                </span>
+                                            </h3>
+                                            <div class="tx-11 d-flex tx-gray-500"><span class="text-success mr-2 d-flex align-items-center"><i class="ion-android-arrow-up mr-1"></i>+535%</span>avg. per month</div>
+                                        </div>
+                                        <div class="col-lg-4 col-md-4 col-sm-12 pd-y-20">
+                                            <span class="tx-uppercase tx-10 mg-b-10">Overall Rating</span>
+                                            <h3 class="tx-dark tx-20 mg-b-0 tx-rubik tx-normal">
+                                                <span class="counter">9.9</span>
+                                                <span class="tx-15 mg-l-10">
+                                                    <i class="icon ion-star lh-0 tx-warning"></i>
+                                                    <i class="icon ion-star lh-0 tx-warning"></i>
+                                                    <i class="icon ion-star lh-0 tx-warning"></i>
+                                                    <i class="icon ion-star lh-0 tx-warning"></i>
+                                                    <i class="ion-ios-star-half lh-0 tx-warning"></i>
+                                                </span>
+                                            </h3>
+                                            <div class="tx-11 d-flex tx-gray-500"><span class="text-success mr-2 d-flex align-items-center"><i class="ion-android-arrow-up mr-1"></i>+128%</span>avg. per month</div>
+                                        </div>
+                                        <div class="col-lg-4 col-md-4 col-sm-12 pd-y-20">
+                                            <span class="tx-uppercase tx-10 mg-b-10">Agent Performance</span>
+                                            <h3 class="tx-dark tx-20 mg-b-0 tx-rubik tx-normal">
+                                                <span class="counter">9.4</span>
+                                                <span class="tx-15 mg-l-10">
+                                                    <i class="icon ion-star lh-0 tx-warning"></i>
+                                                    <i class="icon ion-star lh-0 tx-warning"></i>
+                                                    <i class="icon ion-star lh-0 tx-warning"></i>
+                                                    <i class="icon ion-star lh-0 tx-warning"></i>
+                                                    <i class="icon ion-star lh-0 tx-gray-300"></i>
+                                                </span>
+                                            </h3>
+                                            <div class="tx-11 d-flex tx-gray-500"><span class="text-danger mr-2 d-flex align-items-center"><i class="ion-android-arrow-down mr-1"></i>-143%</span>avg. per month</div>
+                                        </div>
+                                    </div>
+                                    <div class="table-responsive">
+                                        <table class="table table-hover mg-0">
+                                            <thead class="tx-10 tx-uppercase">
+                                                <tr>
+                                                    <th>Customer Name</th>
+                                                    <th>Location</th>
+                                                    <th>Tickets</th>
+                                                    <th>Tickets Status</th>
+                                                    <th>Customer Satisfaction</th>
+                                                    <th class="text-right">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <div class="d-flex align-items-center">
+                                                            <div class="avatar mr-2">
+                                                                <img src="https://via.placeholder.com/100x100" class="img-fluid wd-40 ht-40 rounded-circle" alt="">
+                                                            </div>
+                                                            <span class="d-none d-xl-inline-block">John Mayers</span>
+                                                        </div>
+                                                    </td>
+                                                    <td><i class="flag-icon flag-icon-es tx-20"></i></td>
+                                                    <td>120+</td>
+                                                    <td><span class="badge badge-outlined badge-primary">Open</span></td>
+                                                    <td>
+                                                        <div class="clearfix">
+                                                            <span class="tx-dark tx-uppercase">4.8</span><small><span class="mg-b-0">/120</span></small>
+                                                            <span class="tx-15 mg-l-10 float-right">
+                                                                <i class="icon ion-star lh-0 tx-warning"></i>
+                                                                <i class="icon ion-star lh-0 tx-warning"></i>
+                                                                <i class="icon ion-star lh-0 tx-warning"></i>
+                                                                <i class="icon ion-star lh-0 tx-warning"></i>
+                                                                <i class="icon ion-star lh-0 tx-gray-300"></i>
+                                                            </span>
+                                                        </div>
+                                                        <div class="progress ht-3 mg-b-10 op-5">
+                                                            <div class="progress-bar bg-primary wd-90p" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                                                        </div>
+                                                    </td>
+                                                    <td class="tx-right">
+                                                        <ul class="list-unstyled list-inline mg-b-0">
+                                                            <li class="list-inline-item"><a href=""><i class="ion-android-close"></i></a></li>
+                                                            <li class="list-inline-item"><a href=""><i class="ion-android-create"></i></a></li>
+                                                        </ul>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <div class="d-flex align-items-center">
+                                                            <div class="avatar mr-2">
+                                                                <img src="https://via.placeholder.com/100x100" class="img-fluid wd-40 ht-40 rounded-circle" alt="">
+                                                            </div>
+                                                            <span class="d-none d-xl-inline-block">Kelly Brans</span>
+                                                        </div>
+                                                    </td>
+                                                    <td><i class="flag-icon flag-icon-us tx-20"></i></td>
+                                                    <td>352+</td>
+                                                    <td><span class="badge badge-outlined badge-success">Completed</span></td>
+                                                    <td>
+                                                        <div class="clearfix">
+                                                            <span class="tx-dark tx-uppercase">5.0</span><small><span class="mg-b-0">/352</span></small>
+                                                            <span class="tx-15 mg-l-10 float-right">
+                                                                <i class="icon ion-star lh-0 tx-warning"></i>
+                                                                <i class="icon ion-star lh-0 tx-warning"></i>
+                                                                <i class="icon ion-star lh-0 tx-warning"></i>
+                                                                <i class="icon ion-star lh-0 tx-warning"></i>
+                                                                <i class="icon ion-star lh-0 tx-warning"></i>
+                                                            </span>
+                                                        </div>
+                                                        <div class="progress ht-3 mg-b-10 op-5">
+                                                            <div class="progress-bar bg-success wd-100p" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                                        </div>
+                                                    </td>
+                                                    <td class="tx-right">
+                                                        <ul class="list-unstyled list-inline mg-b-0">
+                                                            <li class="list-inline-item"><a href=""><i class="ion-android-close"></i></a></li>
+                                                            <li class="list-inline-item"><a href=""><i class="ion-android-create"></i></a></li>
+                                                        </ul>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <div class="d-flex align-items-center">
+                                                            <div class="avatar mr-2">
+                                                                <img src="https://via.placeholder.com/100x100" class="img-fluid wd-40 ht-40 rounded-circle" alt="">
+                                                            </div>
+                                                            <span class="d-none d-xl-inline-block">Tim Howard</span>
+                                                        </div>
+                                                    </td>
+                                                    <td><i class="flag-icon flag-icon-de tx-20"></i></td>
+                                                    <td>65+</td>
+                                                    <td><span class="badge badge-outlined badge-warning">Pending</span></td>
+                                                    <td>
+                                                        <div class="clearfix">
+                                                            <span class="tx-dark tx-uppercase">4.5</span><small><span class="mg-b-0">/65</span></small>
+                                                            <span class="tx-15 mg-l-10 float-right">
+                                                                <i class="icon ion-star lh-0 tx-warning"></i>
+                                                                <i class="icon ion-star lh-0 tx-warning"></i>
+                                                                <i class="icon ion-star lh-0 tx-warning"></i>
+                                                                <i class="icon ion-star lh-0 tx-gray-300"></i>
+                                                                <i class="icon ion-star lh-0 tx-gray-300"></i>
+                                                            </span>
+                                                        </div>
+                                                        <div class="progress ht-3 mg-b-10 op-5">
+                                                            <div class="progress-bar bg-primary wd-75p" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                                                        </div>
+                                                    </td>
+                                                    <td class="tx-right">
+                                                        <ul class="list-unstyled list-inline mg-b-0">
+                                                            <li class="list-inline-item"><a href=""><i class="ion-android-close"></i></a></li>
+                                                            <li class="list-inline-item"><a href=""><i class="ion-android-create"></i></a></li>
+                                                        </ul>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <div class="d-flex align-items-center">
+                                                            <div class="avatar mr-2">
+                                                                <img src="https://via.placeholder.com/100x100" class="img-fluid wd-40 ht-40 rounded-circle" alt="">
+                                                            </div>
+                                                            <span class="d-none d-xl-inline-block">Brans Tim</span>
+                                                        </div>
+                                                    </td>
+                                                    <td><i class="flag-icon flag-icon-gb tx-20"></i></td>
+                                                    <td>113+</td>
+                                                    <td><span class="badge badge-outlined badge-primary">Open</span></td>
+                                                    <td>
+                                                        <div class="clearfix">
+                                                            <span class="tx-dark tx-uppercase">4.2</span><small><span class="mg-b-0">/113</span></small>
+                                                            <span class="tx-15 mg-l-10 float-right">
+                                                                <i class="icon ion-star lh-0 tx-warning"></i>
+                                                                <i class="icon ion-star lh-0 tx-warning"></i>
+                                                                <i class="icon ion-star lh-0 tx-warning"></i>
+                                                                <i class="icon ion-star lh-0 tx-warning"></i>
+                                                                <i class="icon ion-star lh-0 tx-gray-300"></i>
+                                                            </span>
+                                                        </div>
+                                                        <div class="progress ht-3 mg-b-10 op-5">
+                                                            <div class="progress-bar bg-primary wd-90p" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                                                        </div>
+                                                    </td>
+                                                    <td class="tx-right">
+                                                        <ul class="list-unstyled list-inline mg-b-0">
+                                                            <li class="list-inline-item"><a href=""><i class="ion-android-close"></i></a></li>
+                                                            <li class="list-inline-item"><a href=""><i class="ion-android-create"></i></a></li>
+                                                        </ul>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <div class="d-flex align-items-center">
+                                                            <div class="avatar mr-2">
+                                                                <img src="https://via.placeholder.com/100x100" class="img-fluid wd-40 ht-40 rounded-circle" alt="">
+                                                            </div>
+                                                            <span class="d-none d-xl-inline-block">Tim Brans</span>
+                                                        </div>
+                                                    </td>
+                                                    <td><i class="flag-icon flag-icon-fr tx-20"></i></td>
+                                                    <td>60+</td>
+                                                    <td><span class="badge badge-outlined badge-danger">closed</span></td>
+                                                    <td>
+                                                        <div class="clearfix">
+                                                            <span class="tx-dark tx-uppercase">3.8</span><small><span class="mg-b-0">/60</span></small>
+                                                            <span class="tx-15 mg-l-10 float-right">
+                                                                <i class="icon ion-star lh-0 tx-warning"></i>
+                                                                <i class="icon ion-star lh-0 tx-warning"></i>
+                                                                <i class="icon ion-star lh-0 tx-warning"></i>
+                                                                <i class="icon ion-star lh-0 tx-gray-300"></i>
+                                                                <i class="icon ion-star lh-0 tx-gray-300"></i>
+                                                            </span>
+                                                        </div>
+                                                        <div class="progress ht-3 mg-b-10 op-5">
+                                                            <div class="progress-bar bg-danger wd-60p" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                                                        </div>
+                                                    </td>
+                                                    <td class="tx-right">
+                                                        <ul class="list-unstyled list-inline mg-b-0">
+                                                            <li class="list-inline-item"><a href=""><i class="ion-android-close"></i></a></li>
+                                                            <li class="list-inline-item"><a href=""><i class="ion-android-create"></i></a></li>
+                                                        </ul>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/ Support Status End -->
+                    </div>
+                    <!--/ Main Wrapper End -->
+                </div>
+                <!--/ Page Inner End -->
+            </div>
+        <!--/ Page Content End -->
+    </div>
+    <!--/ Page Container End -->
+    <!--================================-->
+    <!-- Scroll To Top Start-->
+    <!--================================-->
+    <a href="" data-click="scroll-top" class="btn-scroll-top fade"><i class="fa fa-arrow-up"></i></a>
+    <!--/ Scroll To Top End -->
+    <!--================================-->
+    <!--================================-->
+    <!-- Footer Script -->
+    <!--================================-->
+    <script src="~/Scripts/jquery.min.js"></script>
+    <script src="~/Scripts/jquery-ui.js"></script>
+    <script src="~/Scripts/popper.js"></script>
+    <script src="~/Scripts/feather.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/pace.min.js"></script>
+    <script src="~/Scripts/toastr.min.js"></script>
+    <script src="~/Scripts/chartjs.js"></script>
+    <script src="~/Scripts/counterup.min.js"></script>
+    <script src="~/Scripts/waypoints.min.js"></script>
+    <script src="~/Scripts/apexcharts.min.js"></script>
+    <script src="~/Scripts/apex-sample.js"></script>
+    <script src="~/Scripts/jquery.simpler-sidebar.min.js"></script>
+    <script src="~/Scripts/helpdesk-dashboard-init.js"></script>
+    <script src="~/Scripts/jquery.slimscroll.min.js"></script>
+    <script src="~/Scripts/highlight.min.js"></script>
+    <script src="~/Scripts/app.js"></script>
+    <script src="~/Scripts/custom.js"></script>
+
+    @section scripts {
+        <script>
+            var unAuthorizedTicketAccess = '@TempData["UnAuthorizedTicketAccess"]';
+            if (unAuthorizedTicketAccess != "") {
+                Swal.fire({
+                    title: "You are not authorized!",
+                    text: UnAuthorizedTicketAccess,
+                    icon: 'error',
+                    confirmButtonText: "OK"
+                })
+            }
+
+        </script>
+        }
+
+</body>
+</html>

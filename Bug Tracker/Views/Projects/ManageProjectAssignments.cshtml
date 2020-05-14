@@ -1,0 +1,61 @@
+﻿@model IEnumerable<Bug_Tracker.ViewModel.CustomUserData>
+@{
+    ViewBag.Title = "Manage Project Assignments";
+}
+
+<h2>@ViewBag.Title</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="row">
+        <div class="col">
+            @Html.ListBox("UserIds")
+        </div>
+
+        <div class="col">
+            @Html.ListBox("ProjectIds")
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <button type="submit" class="btn btn-primary" style="width:100%;">Manage Projects Assignments</button>
+        </div>
+    </div>
+}
+
+<table class="table table-striped">
+    <tr>
+        <th>
+            @Html.DisplayName("Full Name")
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayName("Projects")
+        </th>
+    </tr>
+
+    @foreach (var user in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(model => user.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(model => user.Email)
+            </td>
+            <td>
+                @foreach (var projName in user.ProjectNames)
+                {
+                    @projName <br>
+                }
+            </td>
+        </tr>
+    }
+
+</table>

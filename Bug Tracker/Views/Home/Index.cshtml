@@ -1,0 +1,102 @@
+﻿@{ Layout = null; }
+
+@using Bug_Tracker.Models
+
+@model LoginViewModel
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- The above 6 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword" content="">
+    <meta name="author" content="" />
+    <!-- Page Title -->
+    <title>Katie Rosario's Bug Tracker</title>
+    <!-- Main CSS -->
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/simple-line-icons.css" rel="stylesheet" />
+    <link href="~/Content/ionicons.css" rel="stylesheet" />
+    <link href="~/Content/app.min.css" rel="stylesheet" />
+    <link href="~/Content/style.min.css" rel="stylesheet" />
+
+    <!-- Favicon -->
+    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+
+</head>
+<body>
+    <!--================================-->
+    <!-- User Singin Start -->
+    <!--================================-->
+    <div class="ht-100v d-flex">
+        <div class="card shadow-none pd-20 mx-auto wd-400 text-center bd-1 align-self-center">
+            <h4 class="card-title mt-3 text-center">Sign In</h4>
+            <p class="text-center">Sign in to your account</p>
+
+            <div class="row">
+                <div class="col">
+                    <a href="" class="btn btn-block btn-google tx-13 hover-white"> <i class="fa fa-google"></i>   Login via Google</a>
+                </div>
+                <div class="col">
+                    <a href="" class="btn btn-block btn-facebook tx-13 hover-white"> <i class="fa fa-facebook-f"></i>   Login via facebook</a>
+                </div>
+            </div>
+            <hr />
+            <p class="divider-text">
+                <span class="bg-light">OR</span>
+            </p>
+            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group input-group">
+                    <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+                    @Html.TextBoxFor(m => m.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "Email Address", type = "email" } })
+                </div>
+
+                <div class="form-group input-group">
+                    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                    @Html.PasswordFor(m => m.Password, new { htmlAttributes = new { @class = "form-control", placeholder = "Password", type = "password" } })
+                </div>
+
+                <p class="text-center"><a href="@Url.Action("ForgotPassword", "Account")">Forgot Password?</a></p>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-custom-primary btn-block tx-13 hover-white"> Login </button>
+                </div>
+            }
+
+            <p class="text-center">Don't have an account?<br /> <a href="@Url.Action("Register", "Account")">Create Account</a> </p>
+        </div>
+    </div>
+    <!--/ User Singin End -->
+    <!--================================-->
+    <!-- Footer Script -->
+    <!--================================-->
+    <script src="~/Scripts/jquery.min.js"></script>
+    <script src="~/Scripts/jquery-ui.js"></script>
+    <script src="~/Scripts/popper.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/pace.min.js"></script>
+    <script src="~/Scripts/jquery.slimscroll.min.js"></script>
+    <script src="~/Scripts/custom.js"></script>
+
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
+    <script>
+        var unconfirmedEmailError = '@TempData["UnconfirmedEmailError"]';
+        if (unconfirmedEmailError != "") {
+            Swal.fire({
+                title: "Account Error!",
+                text: unconfirmedEmailError,
+                icon: 'error',
+                confirmButtonText: "OK"
+            })
+        }
+    </script>
+
+</body>
+</html>

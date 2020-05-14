@@ -1,0 +1,26 @@
+﻿@model Bug_Tracker.Models.Project
+
+@{
+    ViewBag.Title = "ManageProjectLevelUsers";
+}
+
+<h2>Managing Members for the @Model.Name Project</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.Hidden("ProjectId", Model.Id)
+
+    <div class="row">
+        <div class="col">
+            @Html.ListBox("UserIds")
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <button type="submit" class="btn btn-primary" style="width:100%;">Manage Projects Assignments</button>
+        </div>
+    </div>
+}
+
