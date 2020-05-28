@@ -17,8 +17,9 @@ namespace Bug_Tracker.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         private ProjectsHelper projHelper = new ProjectsHelper();
+        private RolesHelper rolesHelper = new RolesHelper();
 
-        [Authorize(Roles = "ProjectManager")]
+        [Authorize(Roles = "ProjectManager, Admin")]
         public ActionResult ManageProjectAssignments()
         {
             var emptyCustomUserDataList = new List<CustomUserData>();
@@ -27,7 +28,7 @@ namespace Bug_Tracker.Controllers
 
             ViewBag.UserIds = new MultiSelectList(db.Users, "Id", "FullName");
 
-            ViewBag.ProjectsIds = new MultiSelectList(db.Projects, "Id", "Name");
+            ViewBag.ProjectIds = new MultiSelectList(db.Projects, "Id", "Name");
 
             foreach (var user in users)
             {
@@ -86,6 +87,12 @@ namespace Bug_Tracker.Controllers
             {
                 foreach(var projectId in projectIds)
                 {
+                    if(rolesHelper.IsUserInRole(userId, "ProjectManager"))
+                    {
+                        var proj = db.Projects.Find(projectId);
+                        proj.ProjectManagerId = userId;
+                        db.SaveChanges();
+                    }
                     projHelper.AddUserToProject(userId, projectId);
                 }
             }
@@ -112,7 +119,7 @@ namespace Bug_Tracker.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Project project = db.Projects.Find(id);
-            ViewBag.ProjectManager = db.Users.Find(project.ProjectManagerId).FullName;
+            //ViewBag.ProjectManagerId = db.Users.Find(project.ProjectManagerId).FullName;
             if (project == null)
             {
                 return HttpNotFound();

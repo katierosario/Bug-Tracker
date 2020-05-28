@@ -1,106 +1,356 @@
-﻿@model Bug_Tracker.Models.Ticket
+﻿@using Bug_Tracker.Models
+
+@model Ticket
+
+@using Bug_Tracker.Helpers
+
 
 @{
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<div class="page-inner">
+    <!-- Main Wrapper -->
+    <div id="main-wrapper">
+        <!--================================-->
+        <!-- Breadcrumb Start -->
+        <!--================================-->
+        <div class="pageheader pd-t-25 pd-b-35">
+            <div class="pd-t-5 pd-b-5">
+                <h1 class="pd-0 mg-0 tx-20">@Model.Title</h1>
+            </div>
+            <div class="breadcrumb pd-0 mg-0">
+                @Html.ActionLink("All Tickets", "Index", null, new { @class = "breadcrumb-item" })
+                <span class="breadcrumb-item active">@Model.Description</span>
+            </div>
+        </div>
+        <!--/ Breadcrumb End -->
+        <!--================================-->
+        <!-- Count Card Start-->
+        <!--================================-->
+        <div class="row row-xs clearfix">
+            <div class="col-sm-6 col-xl-3">
+                <div class="card mg-b-20">
+                    <div class="card-body pd-y-0">
+                        <div class="custom-fieldset mb-4">
+                            <div class="clearfix">
+                                <label>Developer</label>
+                            </div>
+                            <div class="d-flex align-items-center text-dark">
+                                <div class="wd-40 wd-md-50 ht-40 ht-md-50 mg-r-10 mg-md-r-10 d-flex align-items-center justify-content-center rounded card-icon-warning">
+                                    <i class="icon-screen-desktop tx-warning tx-20"></i>
+                                </div>
+                                <div>
+                                    @if (Model.DeveloperId == null)
+                                    {
+                                        <h2 class="tx-20 tx-sm-18 tx-md-24 mb-0 mt-2 mt-sm-0 tx-normal tx-rubik tx-dark"><span class="counter">Unassigned</span><small class="tx-15"></small></h2>
+                                    }
+                                    else
+                                    {
+                                        <h2 class="tx-20 tx-sm-18 tx-md-24 mb-0 mt-2 mt-sm-0 tx-normal tx-rubik tx-dark"><span class="counter">@Model.Developer.FullName</span><small class="tx-15"></small></h2>
 
-<div>
-    <h4>Ticket</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Developer.FirstName)
-        </dt>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-xl-3">
+                <div class="card mg-b-20">
+                    <div class="card-body pd-y-0">
+                        <div class="custom-fieldset mb-4">
+                            <div class="clearfix">
+                                <label>Status</label>
+                            </div>
+                            <div class="d-flex align-items-center text-dark">
+                                <div class="wd-40 wd-md-50 ht-40 ht-md-50 mg-r-10 mg-md-r-10 d-flex align-items-center justify-content-center rounded card-icon-success">
+                                    <i class="icon-flag tx-success tx-20"></i>
+                                </div>
+                                <div>
+                                    <h2 class="tx-20 tx-sm-18 tx-md-24 mb-0 mt-2 mt-sm-0 tx-normal tx-rubik tx-dark"><span class="counter">@Model.TicketStatus.Name</span><small class="tx-15"></small></h2>
+                                    @*<div class="d-flex align-items-center tx-gray-500"><span class="text-danger mr-2 d-flex align-items-center"><i class="ion-android-arrow-down mr-1"></i>-310</span>avg. sales</div>*@
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-xl-3">
+                <div class="card mg-b-20">
+                    <div class="card-body pd-y-0">
+                        <div class="custom-fieldset mb-4">
+                            <div class="clearfix">
+                                <label>Priority</label>
+                            </div>
+                            <div class="d-flex align-items-center text-dark">
+                                <div class="wd-40 wd-md-50 ht-40 ht-md-50 mg-r-10 mg-md-r-10 d-flex align-items-center justify-content-center rounded card-icon-primary">
+                                    <i class="icon-arrow-up-circle tx-primary tx-20"></i>
+                                </div>
+                                <div>
+                                    <h2 class="tx-20 tx-sm-18 tx-md-24 mb-0 mt-2 mt-sm-0 tx-normal tx-rubik tx-dark"><span class="counter">@Model.TicketPriority.Name</span><small class="tx-15"></small></h2>
+                                    @*<div class="d-flex align-items-center tx-gray-500"><span class="text-success mr-2 d-flex align-items-center"><i class="ion-android-arrow-up mr-1"></i>+350</span>avg. sales</div>*@
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-xl-3">
+                <div class="card mg-b-20">
+                    <div class="card-body pd-y-0">
+                        <div class="custom-fieldset mb-4">
+                            <div class="clearfix">
+                                <label>Type</label>
+                            </div>
+                            <div class="d-flex align-items-center text-dark">
+                                <div class="wd-40 wd-md-50 ht-40 ht-md-50 mg-r-10 mg-md-r-10 d-flex align-items-center justify-content-center rounded card-icon-danger">
+                                    <i class="icon-note tx-danger tx-20"></i>
+                                </div>
+                                <div>
+                                    <h2 class="tx-20 tx-sm-18 tx-md-24 mb-0 mt-2 mt-sm-0 tx-normal tx-rubik tx-dark"><span class="counter">@Model.TicketType.Name</span><small class="tx-15"></small></h2>
+                                    @*<div class="d-flex align-items-center tx-gray-500"><span class="text-danger mr-2 d-flex align-items-center"><i class="ion-android-arrow-down mr-1"></i>+130</span>avg. sales</div>*@
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Start of 2nd row-->
+        <!--================================-->
+        <div class="row row-xs">
+            <!--================================-->
+            <!-- Ticket History Start-->
+            <!--================================-->
+            <div class="col-sm-6 col-xl-4">
+                <div class="card mg-b-20">
+                    <div class="card-header">
+                        <h4 class="card-header-title">
+                            Ticket History
+                        </h4>
+                        <div class="card-header-btn">
+                            <a href="" data-toggle="collapse" class="btn card-collapse" data-target="#activityLog2" aria-expanded="true"><i class="ion-ios-arrow-down"></i></a>
+                            <a href="" data-toggle="refresh" class="btn card-refresh"><i class="ion-android-refresh"></i></a>
+                            <a href="" data-toggle="expand" class="btn card-expand" data-original-title="" title="" data-init="true"><i class="ion-android-expand"></i></a>
+                            <a href="" data-toggle="remove" class="btn card-remove" data-original-title="" title="" data-init="true"><i class="ion-android-close"></i></a>
+                        </div>
+                    </div>
+                    <div class="card-body collapse show" id="activityLog2">
+                        <div class="activity">
+                            @foreach (var ticketHistory in Model.Histories.OrderByDescending(h => h.ChangedOn).ToList())
+                            {
+                                <i class="icon-check bg-soft-teal"></i>
+                                <div class="time-item">
+                                    <div class="item-info ">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <h6 class="tx-dark tx-13 mb-0">@ticketHistory.Property</h6>
+                                            <span class="small">@ticketHistory.ChangedOn.ToString("MM/dd/yyyy h:mm tt") </span>
+                                        </div>
+                                        <p class="mt-2 tx-12">@ticketHistory.Property changed from @ticketHistory.OldValue to @ticketHistory.NewValue by @HistoriesDisplayHelper.DisplayData(ticketHistory)</p>
+                                        <div><span class="badge bg-soft-primary tx-uppercase">Design</span> <span class="badge bg-soft-danger  tx-uppercase">HTML</span> <span class="badge bg-soft-success  tx-uppercase">Css</span> <span class="badge bg-soft-teal  tx-uppercase">Dashboard</span></div>
+                                    </div>
+                                </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Developer.FirstName)
-        </dd>
+                            }
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Project.Name)
-        </dt>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--================================-->
+            <!-- Comments Start-->
+            <!--================================-->
+            <div class="col-sm-6 col-xl-4">
+                <div class="card mg-b-20">
+                    <div class="card-header">
+                        <h4 class="card-header-title">
+                            Ticket Comments
+                        </h4>
+                        <div class="card-header-btn">
+                            <a href="" data-toggle="collapse" class="btn card-collapse" data-target="#recentComment" aria-expanded="true" data-original-title="" title="" data-init="true"><i class="ion-ios-arrow-down"></i></a>
+                            <a href="" data-toggle="refresh" class="btn card-refresh"><i class="ion-android-refresh"></i></a>
+                            <a href="" data-toggle="expand" class="btn card-expand"><i class="ion-android-expand"></i></a>
+                            <a href="" data-toggle="remove" class="btn card-remove"><i class="ion-android-close"></i></a>
+                        </div>
+                    </div>
+                    <div class="card-body collapse show" id="recentComment">
+                        <div class="media-list">
+                            @foreach (var ticketComment in Model.Comments.OrderByDescending(c => c.Created).ToList())
+                            {
+                                <div class="ml-3">
+                                    @{
+                                        var userHelper = new UserHelper();
+                                    }
+                                    <img src="@userHelper.GetUserAvatar()" class="img-fluid wd-35 ht-35 rounded-circle" alt="">
+                                    <h3 class="tx-dark tx-13">@ticketComment.User.FullName<span class="small float-right tx-gray-500">@ticketComment.Created.ToString("MM/dd/yyyy h:mm tt")</span></h3>
+                                    <p>@ticketComment.Body</p>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--================================-->
+            <!--/ Comments End -->
+            <!--================================-->
+            <!--/ Add A Comment -->
+            <div class="col-sm-6 col-lg-4">
+                <div class="card mg-b-20">
+                    <div class="card-header">
+                        <h4 class="card-header-title">
+                            Add a Ticket Comment
+                        </h4>
+                        <div class="card-header-btn">
+                            <a href="" data-toggle="collapse" class="btn card-collapse" data-target="#collapse8" aria-expanded="true"><i class="ion-ios-arrow-down"></i></a>
+                            <a href="" data-toggle="refresh" class="btn card-refresh"><i class="ion-android-refresh"></i></a>
+                            <a href="" data-toggle="expand" class="btn card-expand"><i class="ion-android-expand"></i></a>
+                            <a href="" data-toggle="remove" class="btn card-remove"><i class="ion-android-close"></i></a>
+                        </div>
+                    </div>
+                    <div class="card-body collapse show" id="collapse8">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            using (Html.BeginForm("Create", "TicketComments", FormMethod.Post, null))
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.Hidden("TicketId", Model.Id)
 
-        <dd>
-            @Html.DisplayFor(model => model.Project.Name)
-        </dd>
+                                @Html.TextArea("CommentBody", new { rows = 14, cols = 60 })
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Submitter.FirstName)
-        </dt>
+                                <button type="submit" class="btn btn-round btn-brand">Add Comment</button>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+            <!--================================-->
+            <!-- Upload Attachment Start -->
+            <!--================================-->
+            <div class="col-md-6 col-lg-6">
+                <div class="card mg-b-20">
+                    <div class="card-header">
+                        <h4 class="card-header-title">
+                            Upload An Attachment
+                        </h4>
+                        <div class="card-header-btn">
+                            <a href="" data-toggle="collapse" class="btn card-collapse" data-target="#collapse9" aria-expanded="true"><i class="ion-ios-arrow-down"></i></a>
+                            <a href="" data-toggle="refresh" class="btn card-refresh"><i class="ion-android-refresh"></i></a>
+                            <a href="" data-toggle="expand" class="btn card-expand"><i class="ion-android-expand"></i></a>
+                            <a href="" data-toggle="remove" class="btn card-remove"><i class="ion-android-close"></i></a>
+                        </div>
+                    </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Submitter.FirstName)
-        </dd>
+                    @using (Html.BeginForm("Create", "TicketAttachments", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.Hidden("TicketId", Model.Id)
 
-        <dt>
-            @Html.DisplayNameFor(model => model.TicketTypeId)
-        </dt>
+                        <div class="card-body collapse show" id="inputcollapse9">
+                            <input type="file" name="newAttachment" class="dropify" data-show-loader="false" />
+                            <br />
+                            <input type="text" name="FileName" class="form-control" placeholder="Please Enter a File Name">
+                            <br />
+                            <div class="file-group file-group-inline">
+                                <button class="btn btn-custom-primary file-browser" type="submit">Upload Attachment</button>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            <!-- Attachment List Start-->
+            <!--================================-->
+            <div class="col-md-6 col-lg-6">
+                <div class="card mg-b-20">
+                    <div class="card-header">
+                        <h4 class="card-header-title">
+                            Uploaded Attachments
+                        </h4>
+                        <div class="card-header-btn">
+                            <a href="#" data-toggle="collapse" class="btn card-collapse" data-target="#collapse3" aria-expanded="true"><i class="ion-ios-arrow-down"></i></a>
+                            <a href="#" data-toggle="refresh" class="btn card-refresh"><i class="ion-android-refresh"></i></a>
+                            <a href="#" data-toggle="expand" class="btn card-expand"><i class="ion-android-expand"></i></a>
+                            <a href="#" data-toggle="remove" class="btn card-remove"><i class="ion-android-close"></i></a>
+                        </div>
+                    </div>
+                    <div class="card-body collapse show" id="collapse3">
+                        <div class="row">
+                            <div class="mg-20 form-inline wd-100p">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Status</label>
+                                        <select id="foo-filter-status" class="form-control">
+                                            <option value="">Show all</option>
+                                            <option value="active">Active</option>
+                                            <option value="disabled">Disabled</option>
+                                            <option value="suspended">Suspended</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <table id="foo-filtering" class="table table-bordered table-hover toggle-circle" data-page-size="7">
+                            <thead>
+                                <tr>
 
-        <dd>
-            @Html.DisplayFor(model => model.TicketTypeId)
-        </dd>
+                                    <th>
+                                        @Html.DisplayName("File Type")
+                                    </th>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.TicketStatusId)
-        </dt>
+                                    <th>
+                                        @Html.DisplayName("File Name")
+                                    </th>
 
-        <dd>
-            @Html.DisplayFor(model => model.TicketStatusId)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.TicketPriorityId)
-        </dt>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var attachment in Model.Attachments)
+                                {
+                                    <tr>
+                                        <td>
+                                            <img src="@AttachmentHelper.ShowIcon(attachment.FilePath)" />
+                                        </td>
 
-        <dd>
-            @Html.DisplayFor(model => model.TicketPriorityId)
-        </dd>
+                                        <td>
+                                            <a target="_blank" href="@Html.DisplayFor(model => attachment.FilePath)">@attachment.FileName</a>
+                                        </td>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
+                                    </tr>
+                                }
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="5">
+                                        <div class="ft-right">
+                                            <ul class="pagination"></ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!--================================-->
+            <!--/ Ticket Attachment List End -->
+            <!--/ showLoader End -->
+            <!--================================-->
+            <!--================================-->
+            <!--/ Activity Card End -->
+            <!--/ Main Wrapper End -->
+            <div>
+                <div>
+                    <p>
+                        @Html.ActionLink("Edit Ticket", "Edit", new { id = Model.Id }, new { @class = "btn btn-warning" }) |
+                        @Html.ActionLink("Back to Ticket Index", "Index")
+                    </p>
+                    <hr />
+                </div>
+            </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Created)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Created)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Updated)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Updated)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.IsArchived)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.IsArchived)
-        </dd>
-
-    </dl>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+ 

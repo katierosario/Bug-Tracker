@@ -8,6 +8,7 @@ namespace Bug_Tracker.Migrations
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
+    using System.Web.Configuration;
 
     internal sealed class Configuration : DbMigrationsConfiguration<Bug_Tracker.Models.ApplicationDbContext>
     {
@@ -18,9 +19,9 @@ namespace Bug_Tracker.Migrations
 
         protected override void Seed(Bug_Tracker.Models.ApplicationDbContext context)
         {
-            #region Roles
-            var roleManager = new RoleManager<IdentityRole>(
-                                new RoleStore<IdentityRole>(context));
+            #region Seeded Roles
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+
 
             if (!context.Roles.Any(r => r.Name == "Admin"))
             {
@@ -43,9 +44,10 @@ namespace Bug_Tracker.Migrations
             }
             #endregion
 
-            #region Add User creation here
+            #region Seeded Users
             var userStore = new UserStore<ApplicationUser>(context);
             var userManager = new UserManager<ApplicationUser>(userStore);
+            var demoPassword = WebConfigurationManager.AppSettings["DemoPassword"];
 
             if (!context.Users.Any(u => u.Email == "katieliz@gmail.com"))
             {
@@ -55,7 +57,9 @@ namespace Bug_Tracker.Migrations
                     Email = "katieliz@gmail.com",
                     FirstName = "Katie",
                     LastName = "Rosario",
-                    DisplayName = "OwnerAdmin"
+                    DisplayName = "OwnerAdmin",
+                    EmailConfirmed = true,
+                    AvatarPath = "/Images/Avatar/avatar-637258669950770737.png"
                 };
 
 
@@ -65,7 +69,6 @@ namespace Bug_Tracker.Migrations
 
             }
 
-
             if (!context.Users.Any(u => u.Email == "JasonTwichell@coderfoundry.com"))
             {
                 var user = new ApplicationUser
@@ -74,14 +77,32 @@ namespace Bug_Tracker.Migrations
                     Email = "JasonTwichell@coderfoundry.com",
                     FirstName = "Jason",
                     LastName = "Twichell",
-                    DisplayName = "Prof"
+                    DisplayName = "Prof",
+                    EmailConfirmed = true,
+                    AvatarPath = "/Images/Avatar/avatar_boy3.png"
                 };
-
 
                 userManager.Create(user, "Abc&123!");
 
                 userManager.AddToRoles(user.Id, "Developer");
+            }
 
+            if (!context.Users.Any(u => u.Email == "developer@mailinator.com"))
+            {
+                var user = new ApplicationUser
+                {
+                    UserName = "developer@mailinator.com",
+                    Email = "developer@mailinator.com",
+                    FirstName = "Mister",
+                    LastName = "Developer",
+                    DisplayName = "NumThreeDev",
+                    EmailConfirmed = true,
+                    AvatarPath = "/Images/Avatar/avatar_boy3.png"
+                };
+
+                userManager.Create(user, "Abc&123!");
+
+                userManager.AddToRoles(user.Id, "Developer");
             }
 
             if (!context.Users.Any(u => u.Email == "submitter@mailinator.com"))
@@ -92,9 +113,28 @@ namespace Bug_Tracker.Migrations
                     Email = "submitter@mailinator.com",
                     FirstName = "Ronald",
                     LastName = "Weasley",
-                    DisplayName = "Ronnie"
+                    DisplayName = "Ronnie",
+                    EmailConfirmed = true,
+                    AvatarPath = "/Images/Avatar/avatar_boy2.png"
                 };
 
+                userManager.Create(user, "Abc&123!");
+
+                userManager.AddToRoles(user.Id, "Submitter");
+
+            }
+
+            if (!context.Users.Any(u => u.Email == "submitterdos@mailinator.com"))
+            {
+                var user = new ApplicationUser
+                {
+                    UserName = "submitterdos@mailinator.com",
+                    Email = "submitterdos@mailinator.com",
+                    FirstName = "Missy",
+                    LastName = "Submittor",
+                    DisplayName = "MissSUB",
+                    EmailConfirmed = true,
+                };
 
                 userManager.Create(user, "Abc&123!");
 
@@ -110,7 +150,9 @@ namespace Bug_Tracker.Migrations
                     Email = "projectmanager@mailinator.com",
                     FirstName = "Hermonie",
                     LastName = "Granger",
-                    DisplayName = "MissWizard"
+                    DisplayName = "MissWizard",
+                    EmailConfirmed = true,
+                    AvatarPath = "/Images/Avatar/avatar_girl2.png"
                 };
 
 
@@ -120,19 +162,96 @@ namespace Bug_Tracker.Migrations
 
             }
 
+            //demoUsers
+
+            if (!context.Users.Any(u => u.Email == "demoadmin@mailinator.com"))
+            {
+                var user = new ApplicationUser
+                {
+                    UserName = "demoadmin@mailinator.com",
+                    Email = "demoadmin@mailinator.com",
+                    FirstName = "Demmy",
+                    LastName = "Tester",
+                    DisplayName = "DemoAdmin",
+                    EmailConfirmed = true,
+                    AvatarPath = "/Images/Avatar/avatar_boy2.png"
+                };
+
+                userManager.Create(user, demoPassword);
+
+                userManager.AddToRoles(user.Id, "Admin");
+
+            }
+
+            if (!context.Users.Any(u => u.Email == "demopm@mailinator.com"))
+            {
+                var user = new ApplicationUser
+                {
+                    UserName = "demopm@mailinator.com",
+                    Email = "demopm@mailinator.com",
+                    FirstName = "Mister",
+                    LastName = "Manager",
+                    DisplayName = "DemoPM",
+                    EmailConfirmed = true,
+                    AvatarPath = "/Images/Avatar/avatar_boy.png"
+                };
+
+                userManager.Create(user, demoPassword);
+
+                userManager.AddToRoles(user.Id, "ProjectManager");
+
+            }
+
+            if (!context.Users.Any(u => u.Email == "demosubmitter@mailinator.com"))
+            {
+                var user = new ApplicationUser
+                {
+                    UserName = "demosubmitter@mailinator.com",
+                    Email = "demosubmitter@mailinator.com",
+                    FirstName = "Miss",
+                    LastName = "Submitter",
+                    DisplayName = "DemoSub",
+                    EmailConfirmed = true,
+                    AvatarPath = "/Images/Avatar/avatar_girl2.png"
+                };
+
+                userManager.Create(user, demoPassword);
+
+                userManager.AddToRoles(user.Id, "Submitter");
+
+            }
+
+            if (!context.Users.Any(u => u.Email == "demodeveloper@mailinator.com"))
+            {
+                var user = new ApplicationUser
+                {
+                    UserName = "demodeveloper@mailinator.com",
+                    Email = "demodeveloper@mailinator.com",
+                    FirstName = "Mister",
+                    LastName = "Developer",
+                    DisplayName = "DemoDev",
+                    EmailConfirmed = true,
+                    AvatarPath = "/Images/Avatar/avatar_boy2.png"
+                };
+
+                userManager.Create(user, demoPassword);
+
+                userManager.AddToRoles(user.Id, "Developer");
+
+            }
             #endregion
 
-            #region Load Up Ticket Types
+            #region Ticket Types
             context.TicketTypes.AddOrUpdate(
                 t => t.Name, 
-                    new TicketType { Name = "Defect", Description = "Represents the classic Bug in software."},
-                    new TicketType { Name = "New Functionality", Description = "Represents request for new funtionality." },
-                    new TicketType { Name = "Training", Description = "Represents request for training." },
-                    new TicketType { Name = "Videos", Description = "Represents training video request." }
+                    new TicketType { Name = "Software", Description = "Represents the classic Bug in software."},
+                    new TicketType { Name = "New Feature", Description = "Represents request for new funtionality." },
+                    new TicketType { Name = "Incident", Description = "Report and incident or service outage." },
+                    new TicketType { Name = "Support", Description = "Request help from customer support." }
                 );
             #endregion
 
-            #region Load Up Ticket Priorities
+            #region Ticket Priorities
             context.TicketPriorities.AddOrUpdate(
                 t => t.Name,
                     new TicketPriority { Name = "Immediate"},
@@ -143,7 +262,7 @@ namespace Bug_Tracker.Migrations
                 );
             #endregion
 
-            #region Load Up Ticket Statuses
+            #region Ticket Statuses
             context.TicketStatus.AddOrUpdate(
                 t => t.Name,
                     new TicketStatus { Name = "New", Description = "Newly created and unasssigned." },
@@ -154,48 +273,83 @@ namespace Bug_Tracker.Migrations
                 );
             #endregion
 
-            #region Seed a Demo Project
+            #region Seeded Projects
             context.Projects.AddOrUpdate(
                 t => t.Name,
                     new Project { 
-                        Name = "Seeded Project", 
-                        Description = "A seeded project.",
-                        Created = DateTime.Now
+                        Name = "Bumblebee Website Project", 
+                        Description = "A seeded project for the company website.",
+                        Created = DateTime.Now.AddDays(-7),
                     });
+
+             context.Projects.AddOrUpdate(
+                 t => t.Name,
+                    new Project
+                    {
+                        Name = "Ladybug E-Commerce Project",
+                        Description = "A seeded project for the company's E-Commerce project.",
+                        Created = DateTime.Now.AddDays(-7),
+                    });
+
+             context.Projects.AddOrUpdate(
+                  t => t.Name,
+                    new Project
+                    {
+                        Name = "Butterfly Internal Employee Hub",
+                        Description = "A seeded project for the employee software system.",
+                        Created = DateTime.Now.AddDays(-7),
+                    });
+
+            #endregion
 
             context.SaveChanges();
-            #endregion
 
-            #region Seed a Demo Ticket
-
-            var seededProjectId = context.Projects.FirstOrDefault(p => p.Name == "Seeded Project").Id;
-
-            var seededTicketTypeId = context.TicketTypes.FirstOrDefault(t => t.Name == "Defect").Id;
-
-            var seededTicketPriorityId = context.TicketPriorities.FirstOrDefault(t => t.Name == "Medium").Id;
-
-            var seededTicketStatusId = context.TicketStatus.FirstOrDefault(t => t.Name == "New").Id;
-
-            var seededSubmitterId = context.Users.FirstOrDefault(u => u.Email == "submitter@mailinator.com").Id;
-
-            var projHelper = new ProjectsHelper();
-            projHelper.AddUserToProject(seededSubmitterId, seededProjectId);
-
-            context.Tickets.AddOrUpdate(
-                t => t.Title,
-                    new Ticket() {
-                        Title = "Seed Ticket 1",
-                        Description = "There is a defect in the software",
-                        Created = DateTime.Now,
-                        ProjectId = seededProjectId,
-                        TicketTypeId = seededTicketTypeId, 
-                        TicketPriorityId = seededTicketPriorityId,
-                        TicketStatusId = seededTicketStatusId,
-                        SubmitterId = seededSubmitterId
-                    });
-            #endregion
-
+            CreateTickets();
         }
+
+        private void Create(ApplicationUser user, string demoPassword)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CreateTickets(int numberOfTix = 10)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            Random rand = new Random();
+            var rolesHelper = new Bug_Tracker.Helpers.RolesHelper();
+            var projHelper = new Bug_Tracker.Helpers.ProjectsHelper();
+
+            var developers = rolesHelper.UsersInRole("Developer").ToList();
+            var submitters = rolesHelper.UsersInRole("Submitter").ToList();
+
+            var seedTicketType = db.TicketTypes.Select(t => t.Id).ToList();
+            var seedTicketPriority = db.TicketPriorities.Select(t => t.Id).ToList();
+            var seedTicketStatus = db.TicketStatus.FirstOrDefault(t => t.Name == "New").Id;
+            var projects = db.Projects.ToList();
+
+            foreach (var project in projects)
+            {
+                var seedSub = submitters[rand.Next(0, submitters.Count)];
+                projHelper.AddUserToProject(seedSub.Id, project.Id);
+
+                for (int j = 1; j <= 10; j++)
+                {
+                    db.Tickets.AddOrUpdate(t => t.Title, new Ticket
+                    {
+                        Title = $"Ticket {db.Tickets.Count() + 1}",
+                        ProjectId = project.Id,
+                        Description = "This is a seeded demo Ticket.",
+                        TicketTypeId = seedTicketType[rand.Next(0, seedTicketType.Count)],
+                        TicketPriorityId = seedTicketPriority[rand.Next(0, seedTicketPriority.Count)],
+                        TicketStatusId = seedTicketStatus,
+                        SubmitterId = seedSub.Id,
+                        Created = DateTime.Now.AddDays(-7),
+                    });
+                }
+                db.SaveChanges();
+            }
+        }
+
     }
 }
 

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Web;
 
 namespace Bug_Tracker.Models
 {
@@ -100,6 +101,8 @@ namespace Bug_Tracker.Models
         [DataType(DataType.Password)]
         [Display(Name = "Display Name")]
         public string DisplayName { get; set; }
+
+        public HttpPostedFileBase Avatar { get; set; }
     }
 
     public class ResetPasswordViewModel

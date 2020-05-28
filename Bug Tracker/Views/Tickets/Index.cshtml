@@ -1,9 +1,16 @@
-﻿@model IEnumerable<Bug_Tracker.Models.Ticket>
+﻿
+@model Bug_Tracker.ViewModel.TicketsViewModel
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Ticket Index";
 }
-    <div class="page-inner">
+<div class="page-inner">
+   
+        <div class="card-body">
+            <h2>@ViewBag.Title</h2>
+            <br />
+            @if (User.IsInRole("Admin"))
+            {
                 <div class="col-md-12 col-lg-12">
                     <div class="card mg-b-20">
                         <div class="card-header">
@@ -30,100 +37,418 @@
                                             </select>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                            <table id="foo-filtering" class="table table-hover toggle-circle" data-page-size="7">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            @Html.DisplayName("Developer")
+                                        </th>
+                                        <th>
+                                            @Html.DisplayName("Project")
+                                        </th>
+                                        <th>
+                                            @Html.DisplayName("Type")
+                                        </th>
+                                        <th>
+                                            @Html.DisplayName("Status")
+                                        </th>
+                                        <th>
+                                            @Html.DisplayName("Priority")
+                                        </th>
+                                        <th>
+                                            @Html.DisplayName("Title")
+                                        </th>
+                                        <th>
+                                            @Html.DisplayName("Created")
+                                        </th>
+                                        <th>
+                                            @Html.DisplayName("Updated")
+                                        </th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.AllTickets)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Developer.FullName)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Project.Name)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.TicketType.Name)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.TicketStatus.Name)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.TicketPriority.Name)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Title)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Created)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Updated)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.IsArchived)
+                                            </td>
+                                            <td>
+                                                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                                                @*@Html.ActionLink("Edit", "Edit", new { id = item.Id }) |*@
+                                                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            }
+
+            @if (User.IsInRole("ProjectManager") || User.IsInRole("Developer"))
+            {
+
+                <div class="col-md-12 col-lg-12">
+                    <div class="card mg-b-20">
+                        <div class="card-header">
+                            <h4 class="card-header-title">
+                                Tickets on Your Projects
+                            </h4>
+                            <div class="card-header-btn">
+                                <a href="#" data-toggle="collapse" class="btn card-collapse" data-target="#collapse3" aria-expanded="true"><i class="ion-ios-arrow-down"></i></a>
+                                <a href="#" data-toggle="refresh" class="btn card-refresh"><i class="ion-android-refresh"></i></a>
+                                <a href="#" data-toggle="expand" class="btn card-expand"><i class="ion-android-expand"></i></a>
+                                <a href="#" data-toggle="remove" class="btn card-remove"><i class="ion-android-close"></i></a>
+                            </div>
+                        </div>
+                        <div class="card-body collapse show" id="collapse3">
+                            <div class="row">
+                                <div class="mg-20 form-inline wd-100p">
                                     <div class="col-sm-6">
-                                        <div class="form-group ft-right">
-                                            <input id="foo-search" type="text" placeholder="Search" class="form-control" autocomplete="off">
+                                        <div class="form-group">
+                                            <label class="control-label">Status</label>
+                                            <select id="foo-filter-status" class="form-control">
+                                                <option value="">Show all</option>
+                                                <option value="active">Active</option>
+                                                <option value="disabled">Disabled</option>
+                                                <option value="suspended">Suspended</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
-                            <table id="foo-filtering" class="table table-hover toggle-circle" data-page-size="7">
-                                <tr>
-                                    <th>
-                                        @Html.DisplayName("Developer")
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.Project.Name)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayName("Submitter")
-                                    </th>
-                                    <th>
-                                        @Html.DisplayName("Type")
-                                    </th>
-                                    <th>
-                                        @Html.DisplayName("Status")
-                                    </th>
-                                    <th>
-                                        @Html.DisplayName("Priority")
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.Title)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.Description)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.Created)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.Updated)
-                                    </th>
-                                    <th></th>
-                                </tr>
-
-                                @foreach (var item in Model)
-                                {
+                            <table id="foo-filtering" class="table table-bordered table-hover toggle-circle" data-page-size="7">
+                                <thead>
                                     <tr>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Developer.FirstName)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Project.Name)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Submitter.Email)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.TicketTypeId)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.TicketStatusId)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.TicketPriorityId)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Title)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Description)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Created)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Updated)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.IsArchived)
-                                        </td>
-                                        <td>
-                                            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                                            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                                            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                                        <th>
+                                            @Html.DisplayName("Developer")
+                                        </th>
+                                        <th>
+                                            @Html.DisplayName("Project")
+                                        </th>
+                                        <th>
+                                            @Html.DisplayName("Type")
+                                        </th>
+                                        <th>
+                                            @Html.DisplayName("Status")
+                                        </th>
+                                        <th>
+                                            @Html.DisplayName("Priority")
+                                        </th>
+                                        <th>
+                                            @Html.DisplayName("Title")
+                                        </th>
+                                        <th>
+                                            @Html.DisplayName("Created")
+                                        </th>
+                                        <th>
+                                            @Html.DisplayName("Updated")
+                                        </th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.ProjectTickets)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Developer.FullName)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Project.Name)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.TicketType.Name)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.TicketStatus.Name)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.TicketPriority.Name)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Title)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Created)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Updated)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.IsArchived)
+                                            </td>
+                                            <td>
+                                                @*@Html.ActionLink("Edit", "Edit", new { id = item.Id }) |*@
+                                                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                                                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="5">
+                                            <div class="ft-right">
+                                                <ul class="pagination"></ul>
+                                            </div>
                                         </td>
                                     </tr>
-                                }
+                                </tfoot>
                             </table>
-
-                            <p>
-                                @Html.ActionLink("Create New Ticket", "Create", null, new { @class = "btn btn-primary" })
-                            </p>
                         </div>
                     </div>
                 </div>
-            </div>
 
+            }
+
+            @if (User.IsInRole("Developer"))
+            {
+                <div class="col-md-12 col-lg-12">
+                    <div class="card mg-b-20">
+                        <div class="card-header">
+                            <h4 class="card-header-title">
+                                Your Tickets
+                            </h4>
+                            <div class="card-header-btn">
+                                <a href="#" data-toggle="collapse" class="btn card-collapse" data-target="#collapse3" aria-expanded="true"><i class="ion-ios-arrow-down"></i></a>
+                                <a href="#" data-toggle="refresh" class="btn card-refresh"><i class="ion-android-refresh"></i></a>
+                                <a href="#" data-toggle="expand" class="btn card-expand"><i class="ion-android-expand"></i></a>
+                                <a href="#" data-toggle="remove" class="btn card-remove"><i class="ion-android-close"></i></a>
+                            </div>
+                        </div>
+                        <div class="card-body collapse show" id="collapse3">
+                            <div class="row">
+                                <div class="mg-20 form-inline wd-100p">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="control-label">Status</label>
+                                            <select id="foo-filter-status" class="form-control">
+                                                <option value="">Show all</option>
+                                                <option value="active">Active</option>
+                                                <option value="disabled">Disabled</option>
+                                                <option value="suspended">Suspended</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <table id="foo-filtering" class="table table-hover toggle-circle" data-page-size="7">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            @Html.DisplayName("Project")
+                                        </th>
+                                        <th>
+                                            @Html.DisplayName("Type")
+                                        </th>
+                                        <th>
+                                            @Html.DisplayName("Status")
+                                        </th>
+                                        <th>
+                                            @Html.DisplayName("Priority")
+                                        </th>
+                                        <th>
+                                            @Html.DisplayName("Title")
+                                        </th>
+                                        <th>
+                                            @Html.DisplayName("Created")
+                                        </th>
+                                        <th>
+                                            @Html.DisplayName("Updated")
+                                        </th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.DevTickets)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Project.Name)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.TicketType.Name)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.TicketStatus.Name)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.TicketPriority.Name)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Title)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Created)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Updated)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.IsArchived)
+                                            </td>
+                                            <td>
+                                                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                                                @Html.ActionLink("Details", "Details", new { id = item.Id })
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            }
+
+            @if (User.IsInRole("Submitter"))
+            {
+                <div class="col-md-12 col-lg-12">
+                    <div class="card mg-b-20">
+                        <div class="card-header">
+                            <h4 class="card-header-title">
+                                Your Tickets
+                            </h4>
+                            <div class="card-header-btn">
+                                <a href="#" data-toggle="collapse" class="btn card-collapse" data-target="#collapse3" aria-expanded="true"><i class="ion-ios-arrow-down"></i></a>
+                                <a href="#" data-toggle="refresh" class="btn card-refresh"><i class="ion-android-refresh"></i></a>
+                                <a href="#" data-toggle="expand" class="btn card-expand"><i class="ion-android-expand"></i></a>
+                                <a href="#" data-toggle="remove" class="btn card-remove"><i class="ion-android-close"></i></a>
+                            </div>
+                        </div>
+                        <div class="card-body collapse show" id="collapse3">
+                            <div class="row">
+                                <div class="mg-20 form-inline wd-100p">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="control-label">Status</label>
+                                            <select id="foo-filter-status" class="form-control">
+                                                <option value="">Show all</option>
+                                                <option value="active">Active</option>
+                                                <option value="disabled">Disabled</option>
+                                                <option value="suspended">Suspended</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <table id="foo-filtering" class="table table-hover toggle-circle" data-page-size="7">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            @Html.DisplayName("Developer")
+                                        </th>
+                                        <th>
+                                            @Html.DisplayName("Project")
+                                        </th>
+                                        <th>
+                                            @Html.DisplayName("Type")
+                                        </th>
+                                        <th>
+                                            @Html.DisplayName("Status")
+                                        </th>
+                                        <th>
+                                            @Html.DisplayName("Priority")
+                                        </th>
+                                        <th>
+                                            @Html.DisplayName("Title")
+                                        </th>
+                                        <th>
+                                            @Html.DisplayName("Created")
+                                        </th>
+                                        <th>
+                                            @Html.DisplayName("Updated")
+                                        </th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.SubTickets)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Developer.FullName)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Project.Name)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.TicketType.Name)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.TicketStatus.Name)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.TicketPriority.Name)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Title)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Created)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Updated)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.IsArchived)
+                                            </td>
+                                            <td>
+                                                @*@Html.ActionLink("Edit", "Edit", new { id = item.Id }) |*@
+                                                @Html.ActionLink("Details", "Details", new { id = item.Id })
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            }
+
+            @if (User.IsInRole("Submitter"))
+            {
+                <p>
+                    @Html.ActionLink("Create New Ticket", "Create", null, new { @class = "btn btn-primary" })
+                </p>
+            }
+
+            <br />
+
+        </div>
+
+</div>
 

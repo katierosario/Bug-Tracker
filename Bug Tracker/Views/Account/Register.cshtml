@@ -40,19 +40,19 @@
     <!--================================-->
     <div class="ht-100v d-flex">
         <div class="card shadow-none pd-20 mx-auto wd-400 text-center bd-1 align-self-center">
+            <div class="row">
+                <div class="col">
+                    <img src="~/Images/bug_lab_register.png" />
+                </div>
+            </div>
             <h4 class="card-title mt-3 text-center">Create Account</h4>
-            <p class="text-center">Get started with your free account</p>
-            <p>
-                <a href="" class="btn btn-block btn-google tx-13 hover-white"> <i class="fa fa-google"></i>   Login via Google</a>
-                <a href="" class="btn btn-block btn-facebook tx-13 hover-white"> <i class="fa fa-facebook-f"></i>   Login via facebook</a>
-            </p>
-            <p class="divider-text">
-                <span class="bg-light">OR</span>
-            </p>
+            <p class="text-center">Get started with your free account!</p>
 
             @using (Html.BeginForm("Register", "Account", FormMethod.Post))
             {
                 @Html.AntiForgeryToken()
+                @Html.Hidden("Key", "")
+
                 <div class="form-group input-group">
                     <span class="input-group-text"> <i class="fa fa-user"></i> </span>
                     @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", placeholder = "First Name", type = "text" } })
@@ -64,7 +64,7 @@
                 </div>
 
                 <div class="form-group input-group">
-                    <span class="input-group-text"> <i class="fa fa-user-circle-o"></i> </span>
+                    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
                     @Html.EditorFor(model => model.DisplayName, new { htmlAttributes = new { @class = "form-control", placeholder = "Display Name", type = "text" } })
                 </div>
 
@@ -72,19 +72,6 @@
                     <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
                     @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "Email", type = "email" } })
                 </div>
-
-                @*<div class="form-group input-group">
-                <div class="input-group-prepend">
-                    @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control-sm" } })
-                    <span class="input-group-text pd-x-9"> <i class="fa fa-building"></i> </span>
-                </div>
-                <select class="form-control form-control-sm">
-                    <option selected=""> Select job type</option>
-                    <option>Administrator</option>
-                    <option>Project Manager</option>
-                    <option>Developer</option>
-                </select>
-            </div>*@
 
                 <div class="form-group input-group">
                     <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
@@ -97,17 +84,21 @@
                 </div>
 
                 @*<div class="custom-control custom-checkbox mg-t-25" style="display: initial;">
-                    <input type="checkbox" class="custom-control-input form-control-sm" id="customCheck1">
-                    <label class="custom-control-label tx-12 tx-gray-500" for="customCheck1">I agree to this <a href="">Terms & Conditions</a></label>
-                </div>
-                <div class="custom-control custom-checkbox mg-b-10 pd-l-0">
-                    <input type="checkbox" class="custom-control-input form-control-sm" id="customCheck2">
-                    <label class="custom-control-label tx-12 tx-gray-500" for="customCheck2">I agree to this <a href="">Privacy & Policy</a></label>
-                </div>*@
+                <input type="checkbox" class="custom-control-input form-control-sm" id="customCheck1">
+                <label class="custom-control-label tx-12 tx-gray-500" for="customCheck1">I agree to this <a href="">Terms & Conditions</a></label>
+            </div>
+
+            <div class="custom-control custom-checkbox mg-b-10 pd-l-0">
+                <input type="checkbox" class="custom-control-input form-control-sm" id="customCheck2">
+                <label class="custom-control-label tx-12 tx-gray-500" for="customCheck2">I agree to this <a href="">Privacy & Policy</a></label>
+            </div>*@
                 <div class="form-group">
-                    <button type="submit" class="btn btn-custom-primary btn-block tx-13"> Create Account </button>
+                    <button type="submit" class="btn btn-warning btn-block tx-13"> Create Account </button>
                 </div>
+                @Html.ActionLink("Want to Demo?", "DemoLogin", "Account", null, new { @class = "btn btn-primary btn-block tx-13 hover-white" })
+
             }
+            <br />
             <p class="text-center">Already Signed Up? <a href="@Url.Action("Index", "Home")">Sign In</a> </p>
 
         </div>

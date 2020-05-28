@@ -6,8 +6,11 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
+using System.Web.UI.WebControls;
 using Bug_Tracker.Helpers;
 using Bug_Tracker.Models;
+using Bug_Tracker.ViewModel;
 using Microsoft.AspNet.Identity;
 
 namespace Bug_Tracker.Controllers
@@ -15,35 +18,54 @@ namespace Bug_Tracker.Controllers
     public class TicketsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        private TixHelper tixHelper = new TixHelper();
         private ProjectsHelper projHelper = new ProjectsHelper();
+        private RolesHelper rolesHelper = new RolesHelper();
+        private HistoryHelper historyHelper = new HistoryHelper();
+        private NotificationHelper notificationHelper = new NotificationHelper();
 
-        // GET: Tickets
+        public ActionResult Dashboard()
+        {
+            return View();
+        }
+
+        //GET: Tickets
         public ActionResult Index()
         {
-            var tickets = db.Tickets.Include(t => t.Developer).Include(t => t.Project).Include(t => t.Submitter);
-            return View(tickets.ToList());
+            var tickets = new TicketsViewModel();
+
+            tickets.AllTickets = db.Tickets.ToList();
+            tickets.SubTickets = tixHelper.ListSubmitterTickets(User.Identity.GetUserId()).ToList();
+            tickets.ProjectTickets = tixHelper.TicketsOnUserProject(User.Identity.GetUserId()).ToList();
+            tickets.DevTickets = tixHelper.ListDeveloperTickets(User.Identity.GetUserId()).ToList();
+
+            return View(tickets);
         }
 
         // GET: Tickets/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int? id, int? notificationId)
         {
-            if (id == null)
+            if (notificationId == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+                return View(db.Tickets.Find(id));
             }
-            Ticket ticket = db.Tickets.Find(id);
-            if (ticket == null)
+            else
             {
-                return HttpNotFound();
+                TicketNotification notification = db.TicketNotifications.Find(notificationId);
+
+                notification.IsRead = true;
+
+                db.SaveChanges();
+
+                return View(db.Tickets.Find(id));
             }
-            return View(ticket);
+            
         }
 
         // GET: Tickets/Create
         public ActionResult Create(int? projectId)
         {
-            ViewBag.DeveloperId = new SelectList(db.Users, "Id", "FirstName");
-
             var myUserId = User.Identity.GetUserId();
             var myProjects = projHelper.ListUserProjects(myUserId);
             var newTicket = new Ticket();
@@ -51,6 +73,7 @@ namespace Bug_Tracker.Controllers
             ViewBag.TicketTypeId = new SelectList(db.TicketTypes, "Id", "Name");
             ViewBag.TicketPriorityId = new SelectList(db.TicketPriorities, "Id", "Name");
             ViewBag.ProjectId = new SelectList(myProjects, "Id", "Name");
+            ViewBag.DeveloperId = new SelectList(db.Users, "Id", "FirstName");
             //ViewBag.TicketStatusId = new SelectList(db.TicketStatus, "Id", "Name");
             return View();
         }
@@ -102,9 +125,20 @@ namespace Bug_Tracker.Controllers
 
             var currentUserId = User.Identity.GetUserId();
 
-            if (User.IsInRole("Developer") && ticket.DeveloperId != currentUserId)
+            var authorized = true;
+
+            if ((User.IsInRole("Developer") && ticket.DeveloperId != currentUserId) ||
+                (User.IsInRole("Submitter") && ticket.SubmitterId != currentUserId))
+                {
+                authorized = false;
+                }
+
+            if (!authorized)
+            {
                 TempData["UnAuthorizedTicketAccess"] = $"You are no authorized to edit this ticket {id}.";
                 return RedirectToAction("Dashboard", "Home");
+            }
+
 
             if (User.IsInRole("Submitter") && ticket.DeveloperId == currentUserId)
             if (User.IsInRole("ProjectManager") && ticket.DeveloperId == currentUserId)
@@ -116,9 +150,10 @@ namespace Bug_Tracker.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.TicketType = new SelectList(db.TicketTypes, "Id", "Name", ticket.TicketTypeId);
-            ViewBag.TicketPriority = new SelectList(db.TicketPriorities, "Id", "Name", ticket.TicketPriorityId);
-            ViewBag.TicketStatus = new SelectList(db.TicketStatus, "Id", "Name", ticket.TicketStatusId);
+            ViewBag.TicketTypeId = new SelectList(db.TicketTypes, "Id", "Name", ticket.TicketTypeId);
+            ViewBag.TicketPriorityId = new SelectList(db.TicketPriorities, "Id", "Name", ticket.TicketPriorityId);
+            ViewBag.TicketStatusId = new SelectList(db.TicketStatus, "Id", "Name", ticket.TicketStatusId);
+            ViewBag.DeveloperId = new SelectList(rolesHelper.UsersInRole("Developer"), "Id", "FullName");
             return View(ticket);
         }
 
@@ -127,15 +162,24 @@ namespace Bug_Tracker.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,ProjectId,TicketTypeId,TicketStatus,TicketPriorityId,SubmitterId,DeveloperId,Title,Description,Created,Updated,IsArchived")] Ticket ticket)
+        public ActionResult Edit([Bind(Include = "Id,ProjectId,TicketTypeId,TicketStatusId,TicketPriorityId,SubmitterId,DeveloperId,Title,Created,Description,IsArchived")] Ticket ticket)
         {
             if (ModelState.IsValid)
             {
+                var oldTicket = db.Tickets.AsNoTracking().FirstOrDefault(t => t.Id == ticket.Id);
+
+                ticket.Updated = DateTime.Now;
                 db.Entry(ticket).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+
+                var newTicket = db.Tickets.AsNoTracking().FirstOrDefault(t => t.Id == ticket.Id);
+
+                historyHelper.ManageHistoryRecordCreation(oldTicket, newTicket);
+                notificationHelper.ManageNotifications(oldTicket, newTicket);
+
+                return RedirectToAction("Details", "Tickets", new { id = ticket.Id });
             }
-            ViewBag.DeveloperId = new SelectList(db.Users, "Id", "FirstName", ticket.DeveloperId);
+            ViewBag.DeveloperId = new SelectList(db.Users, "Id", "FullName", ticket.DeveloperId);
             ViewBag.ProjectId = new SelectList(db.Projects, "Id", "Name", ticket.ProjectId);
             ViewBag.SubmitterId = new SelectList(db.Users, "Id", "FirstName", ticket.SubmitterId);
             return View(ticket);

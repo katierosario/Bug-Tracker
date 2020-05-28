@@ -1,66 +1,176 @@
-﻿@model Bug_Tracker.Models.Project
+﻿@using Bug_Tracker.Models
+
+@model Project
+
+@using Bug_Tracker.Helpers
 
 @{
     ViewBag.Title = "Details";
 }
+<div class="page-inner">
+    <!-- Main Wrapper -->
+    <div id="main-wrapper">
+        <!--================================-->
+        <!-- Breadcrumb Start -->
+        <!--================================-->
+        <div class="pageheader pd-t-25 pd-b-35">
+            <div class="pd-t-5 pd-b-5">
+                <h1 class="pd-0 mg-0 tx-20">@Model.Name</h1>
+            </div>
+            <div class="breadcrumb pd-0 mg-0">
+                @Html.ActionLink("All Tickets", "Index", null, new { @class = "breadcrumb-item" })
+                <span class="breadcrumb-item active">@Model.Description</span>
+            </div>
+        </div>
+        <!--/ Breadcrumb End -->
+        <!--================================-->
+        <!-- Count Card Start-->
+        <!--================================-->
+        <div class="row row-xs clearfix">
+            <div class="col-sm-6 col-xl-3">
+                <div class="card mg-b-20">
+                    <div class="card-body pd-y-0">
+                        <div class="custom-fieldset mb-4">
+                            <div class="clearfix">
+                                <label>Project Manager</label>
+                            </div>
+                            <div class="d-flex align-items-center text-dark">
+                                <div class="wd-40 wd-md-50 ht-40 ht-md-50 mg-r-10 mg-md-r-10 d-flex align-items-center justify-content-center rounded card-icon-warning">
+                                    <i class="icon-user tx-warning tx-20"></i>
+                                </div>
+                                <div>
+                                    @if (Model.ProjectManagerId == null)
+                                    {
+                                        <h2 class="tx-20 tx-sm-18 tx-md-24 mb-0 mt-2 mt-sm-0 tx-normal tx-rubik tx-dark"><span class="counter">Unassigned</span><small class="tx-15"></small></h2>
+                                    }
+                                    else
+                                    {
+                                        <h2 class="tx-20 tx-sm-18 tx-md-24 mb-0 mt-2 mt-sm-0 tx-normal tx-rubik tx-dark"><span class="counter">@Model.ProjectManagerId</span><small class="tx-15"></small></h2>
 
-<h2>Details</h2>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-<div>
-    <h4>Project</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
+            @*<div class="col-sm-6 col-xl-3">
+            <div class="card mg-b-20">
+                <div class="card-body pd-y-0">
+                    <div class="custom-fieldset mb-4">
+                        <div class="clearfix">
+                            <label>Type</label>
+                        </div>
+                        <div class="d-flex align-items-center text-dark">
+                            <div class="wd-40 wd-md-50 ht-40 ht-md-50 mg-r-10 mg-md-r-10 d-flex align-items-center justify-content-center rounded card-icon-success">
+                                <i class="icon-screen-desktop tx-success tx-20"></i>
+                            </div>
+                            <div>
+                                <h2 class="tx-20 tx-sm-18 tx-md-24 mb-0 mt-2 mt-sm-0 tx-normal tx-rubik tx-dark"><span class="counter">@Model.Name</span><small class="tx-15"></small></h2>
+                                <div class="d-flex align-items-center tx-gray-500"><span class="text-danger mr-2 d-flex align-items-center"><i class="ion-android-arrow-down mr-1"></i>-310</span>avg. sales</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>*@
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
+            <div class="col-sm-6 col-xl-3">
+                <div class="card mg-b-20">
+                    <div class="card-body pd-y-0">
+                        <div class="custom-fieldset mb-4">
+                            <div class="clearfix">
+                                <label>Tickets</label>
+                            </div>
+                            <div class="d-flex align-items-center text-dark">
+                                <div class="wd-40 wd-md-50 ht-40 ht-md-50 mg-r-10 mg-md-r-10 d-flex align-items-center justify-content-center rounded card-icon-danger">
+                                    <i class="icon-tag tx-danger tx-20"></i>
+                                </div>
+                                <div>
+                                    <h2 class="tx-20 tx-sm-18 tx-md-24 mb-0 mt-2 mt-sm-0 tx-normal tx-rubik tx-dark"><span class="counter">@Model.Tickets.Count</span><small class="tx-15"></small></h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
+            <div class="col-sm-6 col-xl-3">
+                <div class="card mg-b-20">
+                    <div class="card-body pd-y-0">
+                        <div class="custom-fieldset mb-4">
+                            <div class="clearfix">
+                                <label>Users On Project</label>
+                            </div>
+                            <div class="d-flex align-items-center text-dark">
+                                <div class="wd-40 wd-md-50 ht-40 ht-md-50 mg-r-10 mg-md-r-10 d-flex align-items-center justify-content-center rounded card-icon-primary">
+                                    <i class="icon-user-follow tx-primary tx-20"></i>
+                                </div>
+                                <div>
+                                    <h2 class="tx-20 tx-sm-18 tx-md-24 mb-0 mt-2 mt-sm-0 tx-normal tx-rubik tx-dark"><span class="counter">@Model.Users.Count</span><small class="tx-15"></small></h2>
+                                    @*<div class="d-flex align-items-center tx-gray-500"><span class="text-success mr-2 d-flex align-items-center"><i class="ion-android-arrow-up mr-1"></i>+350</span>avg. sales</div>*@
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
+        </div>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ProjectManagerId)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.ProjectManagerId)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Created)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Created)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ProjectManagerId)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Updated)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ProjectManagerId)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Updated)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Created)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.IsArchived)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Created)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.IsArchived)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Updated)
+            </dt>
 
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+            <dd>
+                @Html.DisplayFor(model => model.Updated)
+            </dd>
+
+            @*<dt>
+                    @Html.DisplayNameFor(model => model.IsArchived)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.IsArchived)
+                </dd>*@
+
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>

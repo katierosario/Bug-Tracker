@@ -64,6 +64,14 @@ namespace Bug_Tracker.Controllers
         }
 
         //
+        // GET: /Account/DemoLogin
+        [AllowAnonymous]
+        public ActionResult DemoLogin()
+        {
+            return View();
+        }
+
+        //
         // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
@@ -101,6 +109,27 @@ namespace Bug_Tracker.Controllers
                 default:
                     ModelState.AddModelError("", "Invalid login attempt.");
                     return View(model);
+            }
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> DemoLoginAsync (string emailKey)
+        {
+            var email = WebConfigurationManager.AppSettings[emailKey];
+            var password = WebConfigurationManager.AppSettings["DemoPassword"];
+
+            // This doesn't count login failures towards account lockout
+            // To enable password failures to trigger account lockout, change to shouldLockout: true
+            var result = await SignInManager.PasswordSignInAsync(email, password, false, shouldLockout: false);
+            switch (result)
+            {
+                case SignInStatus.Success:
+                    return RedirectToAction("Dashboard", "Home");
+                case SignInStatus.Failure:
+                default:
+                    return RedirectToAction("DemoLogin", "Account");
             }
         }
 
@@ -170,8 +199,11 @@ namespace Bug_Tracker.Controllers
                     LastName = model.LastName,
                     DisplayName = model.DisplayName,
                     UserName = model.Email,
-                    Email = model.Email                   
+                    Email = model.Email,
+                    AvatarPath = "/Images/avatar-placeholder.png"
                 };
+
+
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -179,7 +211,7 @@ namespace Bug_Tracker.Controllers
                     {
                         string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
 
-                        var callbackUrl = Url.Action("ConfirmEmail", "Index", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                        var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
 
                         var emailAddress = WebConfigurationManager.AppSettings["EmailFrom"];
 

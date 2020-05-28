@@ -1,4 +1,7 @@
-﻿using Bug_Tracker.Models;
+﻿using Bug_Tracker.Helpers;
+using Bug_Tracker.Models;
+using Bug_Tracker.ViewModel;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +15,9 @@ namespace Bug_Tracker.Controllers
 {
     public class HomeController : Controller
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
+        private RolesHelper roleHelper = new RolesHelper();
+
         public ActionResult Index()
         {
             return View();
@@ -31,9 +37,22 @@ namespace Bug_Tracker.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "Admin, Submitter, ProjectManager, Developer")]
         public ActionResult Dashboard()
         {
-            ViewBag.Message = "Your landing page.";
+            var allTickets = db.Tickets.ToList();
+            //var dashboardVM = new DashboardViewModel()
+            //{
+            //    TicketCount = allTickets.Count(),
+            //    HighPriorityTicketCount = allTickets.Where(t => t.TicketStatus.Name == "High").Count(),
+            //    NewTicketCount = allTickets.Where,
+            //    TotalComments = 20
+            //    AllTickets = db.Tickets.ToList()
+            //};
+
+            //dashboardVM.ProjectVM.ProjectCount = 5;
+            //dashboardVM.ProjectVM.AllProjects = db.Projects.ToList();
+            
 
             return View();
         }
@@ -67,6 +86,12 @@ namespace Bug_Tracker.Controllers
             }
 
             return View(new EmailModel());
+        }
+
+        public PartialViewResult _TopNav()
+        {
+            var model = db.Users.Find(User.Identity.GetUserId());
+            return PartialView(model);
         }
     }
 }

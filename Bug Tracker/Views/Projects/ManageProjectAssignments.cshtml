@@ -3,59 +3,68 @@
     ViewBag.Title = "Manage Project Assignments";
 }
 
-<h2>@ViewBag.Title</h2>
 
+<div class="page-inner">
+    <div class="card">
+        <div class="card-body">
+            <h2>@ViewBag.Title</h2>
+            <br />
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
+                <div class="row">
+                    <div class="col-3">
+                        <h6>Choose 1 or more Users:</h6>
+                        @Html.ListBox("UserIds", null, new { @style = "width: 300px"})
+                    </div>
+                    <br />
+                    <div class="col-3">
+                        <h6>Choose 1 or more Projects:</h6>
+                        @Html.ListBox("ProjectIds", null, new { @style = "width: 300px" })
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col">
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Manage Projects Assignments</button>
+                    </div>
+                </div>
+                <br />
+            }
 
-    <div class="row">
-        <div class="col">
-            @Html.ListBox("UserIds")
-        </div>
+            <table class="table table-striped">
+                <tr>
+                    <th>
+                        @Html.DisplayName("Name")
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Email)
+                    </th>
+                    <th>
+                        @Html.DisplayName("Projects")
+                    </th>
+                </tr>
 
-        <div class="col">
-            @Html.ListBox("ProjectIds")
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col">
-            <button type="submit" class="btn btn-primary" style="width:100%;">Manage Projects Assignments</button>
-        </div>
-    </div>
-}
-
-<table class="table table-striped">
-    <tr>
-        <th>
-            @Html.DisplayName("Full Name")
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Email)
-        </th>
-        <th>
-            @Html.DisplayName("Projects")
-        </th>
-    </tr>
-
-    @foreach (var user in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(model => user.FullName)
-            </td>
-            <td>
-                @Html.DisplayFor(model => user.Email)
-            </td>
-            <td>
-                @foreach (var projName in user.ProjectNames)
+                @foreach (var user in Model)
                 {
-                    @projName <br>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(model => user.FullName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => user.Email)
+                        </td>
+                        <td>
+                            @foreach (var projName in user.ProjectNames)
+                            {
+                                @projName <br>
+                            }
+                        </td>
+                    </tr>
                 }
-            </td>
-        </tr>
-    }
 
-</table>
+            </table>
+        </div>
+    </div>
+</div>

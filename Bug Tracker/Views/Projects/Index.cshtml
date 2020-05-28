@@ -2,13 +2,173 @@
 @model Bug_Tracker.ViewModel.ProjectsViewModel
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Projects";
 }
 
-<div class="page-inner">
-    <div class="card">
+    <div class="page-inner">
+
         <div class="card-body">
-            <h1>Project Dashboard</h1>
+            <h2>@ViewBag.Title</h2>
+            <br />
+
+            @if (User.IsInRole("Admin"))
+            {
+
+                <div class="col-md-12 col-lg-12">
+                    <div class="card mg-b-20">
+                        <div class="card-header">
+                            <h4 class="card-header-title">
+                                Your Projects
+                            </h4>
+                            <div class="card-header-btn">
+                                <a href="#" data-toggle="collapse" class="btn card-collapse" data-target="#collapse3" aria-expanded="true"><i class="ion-ios-arrow-down"></i></a>
+                            </div>
+                        </div>
+                        <div class="card-body collapse show" id="collapse3">
+                            <table id="foo-filtering" class="table table-bordered table-hover toggle-circle" data-page-size="7">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Name
+                                        </th>
+                                        <th>
+                                            Description
+                                        </th>
+                                        <th>
+                                            Project Manager
+                                        </th>
+                                        <th>
+                                            Created
+                                        </th>
+                                        <th>
+                                            Updated
+                                        </th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.MyProjects)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Name)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Description)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.ProjectManagerId)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Created)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Updated)
+                                            </td>
+                                            <td>
+                                                @Html.ActionLink("Manage Members", "ManageProjectLevelUsers", new { id = item.Id }) |
+                                                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                                                @Html.ActionLink("Details", "Details", new { id = item.Id })
+
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="5">
+                                            <div class="ft-right">
+                                                <ul class="pagination"></ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            }
+
+            @if (User.IsInRole("ProjectManger"))
+            {
+
+                <div class="col-md-12 col-lg-12">
+                    <div class="card mg-b-20">
+                        <div class="card-header">
+                            <h4 class="card-header-title">
+                                Your Projects
+                            </h4>
+                            <div class="card-header-btn">
+                                <a href="#" data-toggle="collapse" class="btn card-collapse" data-target="#collapse3" aria-expanded="true"><i class="ion-ios-arrow-down"></i></a>
+                            </div>
+                        </div>
+                        <div class="card-body collapse show" id="collapse3">
+                            <table id="foo-filtering" class="table table-bordered table-hover toggle-circle" data-page-size="7">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Name
+                                        </th>
+                                        <th>
+                                            Description
+                                        </th>
+                                        <th>
+                                            Project Manager
+                                        </th>
+                                        <th>
+                                            Created
+                                        </th>
+                                        <th>
+                                            Updated
+                                        </th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    @foreach (var item in Model.MyProjects)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Name)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Description)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.ProjectManagerId)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Created)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Updated)
+                                            </td>
+                                            <td>
+                                                @Html.ActionLink("Manage Members", "ManageProjectLevelUsers", new { id = item.Id }) |
+                                                @Html.ActionLink("Edit", "Edit", new { id = item.Id })
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="5">
+                                            <div class="ft-right">
+
+                                                <ul class="pagination"></ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            }
+
             <div class="col-md-12 col-lg-12">
                 <div class="card mg-b-20">
                     <div class="card-header">
@@ -17,32 +177,9 @@
                         </h4>
                         <div class="card-header-btn">
                             <a href="#" data-toggle="collapse" class="btn card-collapse" data-target="#collapse3" aria-expanded="true"><i class="ion-ios-arrow-down"></i></a>
-                            <a href="#" data-toggle="refresh" class="btn card-refresh"><i class="ion-android-refresh"></i></a>
-                            <a href="#" data-toggle="expand" class="btn card-expand"><i class="ion-android-expand"></i></a>
-                            <a href="#" data-toggle="remove" class="btn card-remove"><i class="ion-android-close"></i></a>
                         </div>
                     </div>
                     <div class="card-body collapse show" id="collapse3">
-                        <div class="row">
-                            <div class="mg-20 form-inline wd-100p">
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label class="control-label">Status</label>
-                                        <select id="foo-filter-status" class="form-control">
-                                            <option value="">Show all</option>
-                                            <option value="active">Active</option>
-                                            <option value="disabled">Disabled</option>
-                                            <option value="suspended">Suspended</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group ft-right">
-                                        <input id="foo-search" type="text" placeholder="Search" class="form-control" autocomplete="off">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         <table id="foo-filtering" class="table table-bordered table-hover toggle-circle" data-page-size="7">
                             <thead>
                                 <tr>
@@ -85,6 +222,7 @@
                                         </td>
                                         <td>
                                             @Html.ActionLink("Manage Members", "ManageProjectLevelUsers", new { id = item.Id }) |
+                                            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
                                             @Html.ActionLink("Edit", "Edit", new { id = item.Id })
                                         </td>
                                     </tr>
@@ -104,126 +242,16 @@
                 </div>
             </div>
 
-            @if (User.IsInRole("Admin"))
-            {
-
-        <table id="foo-filtering" class="table table-bordered table-hover toggle-circle" data-page-size="7">
-            <thead>
-                <tr>
-                    <th>
-                        Name
-                    </th>
-                    <th>
-                        Description
-                    </th>
-                    <th>
-                        Project Manager
-                    </th>
-                    <th>
-                        Created
-                    </th>
-                    <th>
-                        Updated
-                    </th>
-                    <th></th>
-                </tr>
-            </thead>
-
-            @foreach (var item in Model.MyProjects)
-            {
-                <thead>
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Description)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ProjectManagerId)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Created)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Updated)
-                        </td>
-                        <td>
-                            @Html.ActionLink("Manage Members", "ManageProjectLevelUsers", new { id = item.Id }) |
-                            @Html.ActionLink("Edit", "Edit", new { id = item.Id })
-                        </td>
-                    </tr>
-                </thead>
-                    }
-            </table>
-            }
 
 
+            <div class="col-md-12 col-lg-12">
 
 
+                <p>
+                    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })
+                </p>
 
 
-
-
-
-
-            @if (User.IsInRole("ProjectManager"))
-            {
-                <h1>Your Assigned Projects</h1>
-
-                <table id="foo-filtering" class="table table-bordered table-hover toggle-circle" data-page-size="7">
-                    <thead>
-                        <tr>
-                            <th>
-                                Name
-                            </th>
-                            <th>
-                                Description
-                            </th>
-                            <th>
-                                Project Manager
-                            </th>
-                            <th>
-                                Created
-                            </th>
-                            <th>
-                                Updated
-                            </th>
-                            <th></th>
-                        </tr>
-
-                        @foreach (var item in Model.MyProjects)
-                        {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Name)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Description)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.ProjectManagerId)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Created)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Updated)
-                                </td>
-                                <td>
-                                    @Html.ActionLink("Manage Members", "ManageProjectLevelUsers", new { id = item.Id }) |
-                                    @Html.ActionLink("Edit", "Edit", new { id = item.Id })
-                                </td>
-                            </tr>
-                        }
-
-                </table>
-            }
-
-            <p>
-                @Html.ActionLink("Create New", "Create")
-            </p>
-        </div>
-
-    </div>
             </div>
+        </div>
+    </div>

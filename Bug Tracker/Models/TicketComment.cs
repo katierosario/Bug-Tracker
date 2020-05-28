@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -13,6 +14,8 @@ namespace Bug_Tracker.Models
 
         public DateTime Created { get; set; }
 
+        public DateTime? Updated { get; set; }
+
         public int TicketId { get; set; }
 
         public string UserId { get; set; }
@@ -20,5 +23,6 @@ namespace Bug_Tracker.Models
         public virtual Ticket Ticket { get; set; }
 
         public virtual ApplicationUser User { get; set; }
+
     }
 }

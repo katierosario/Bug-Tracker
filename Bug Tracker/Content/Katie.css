@@ -4,3 +4,10 @@
     background: #f7f7fe;
     width: 100%;
 }
+
+.card-body-profile {
+    -webkit-box-flex: 1;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    padding: 3rem;
+}

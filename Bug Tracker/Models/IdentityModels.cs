@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿
+using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Security.Claims;
@@ -10,7 +12,6 @@ using Microsoft.SqlServer.Server;
 
 namespace Bug_Tracker.Models
 {
-    // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit https://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
         public string FirstName { get; set; }
@@ -32,6 +33,8 @@ namespace Bug_Tracker.Models
 
         public virtual ICollection<Project> Projects { get; set; }
 
+        public virtual ICollection<Ticket> Tickets { get; set; }
+
         public virtual ICollection<TicketComment> Comments { get; set; }
 
         public virtual ICollection<TicketAttachment> Attachments { get; set; }
@@ -41,6 +44,7 @@ namespace Bug_Tracker.Models
         public ApplicationUser()
         {
             Projects = new HashSet<Project>();
+            Tickets = new HashSet<Ticket>();
             Comments = new HashSet<TicketComment>();
             Attachments = new HashSet<TicketAttachment>();
             Histories = new HashSet<TicketHistory>();
@@ -84,5 +88,6 @@ namespace Bug_Tracker.Models
         public virtual DbSet<Bug_Tracker.Models.TicketStatus> TicketStatus { get; set; }
 
         public virtual DbSet<Bug_Tracker.Models.TicketType> TicketTypes { get; set; }
+
     }
 }

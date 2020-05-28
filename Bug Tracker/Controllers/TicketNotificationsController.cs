@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Bug_Tracker.Models;
+using Microsoft.AspNet.Identity;
 
 namespace Bug_Tracker.Controllers
 {
@@ -17,7 +18,9 @@ namespace Bug_Tracker.Controllers
         // GET: TicketNotifications
         public ActionResult Index()
         {
-            var ticketNotifications = db.TicketNotifications.Include(t => t.Receipient).Include(t => t.Sender).Include(t => t.Ticket);
+            var userId = User.Identity.GetUserId();
+            var ticketNotifications = db.TicketNotifications.Include(t => t.Receipient).Include(t => t.Sender).Include(t => t.Ticket).Where(t => t.ReceipientId == userId);
+
             return View(ticketNotifications.ToList());
         }
 

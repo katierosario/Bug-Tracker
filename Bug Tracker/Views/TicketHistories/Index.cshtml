@@ -1,4 +1,7 @@
-﻿@model IEnumerable<Bug_Tracker.Models.TicketHistory>
+﻿@using Bug_Tracker.Helpers
+@using Bug_Tracker.Models
+
+@model IEnumerable<Bug_Tracker.Models.TicketHistory>
 
 @{
     ViewBag.Title = "Index";
@@ -12,10 +15,7 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Ticket.SubmitterId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.User.FirstName)
+            @Html.DisplayName("Changed By")
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Property)
@@ -35,10 +35,7 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Ticket.SubmitterId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.User.FirstName)
+            @Html.DisplayFor(modelItem => item.User.FullName)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Property)
@@ -47,7 +44,7 @@
             @Html.DisplayFor(modelItem => item.OldValue)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.NewValue)
+            @HistoriesDisplayHelper.DisplayData(item.NewValue)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.ChangedOn)

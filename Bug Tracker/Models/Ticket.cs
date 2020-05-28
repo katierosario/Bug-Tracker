@@ -12,19 +12,32 @@ namespace Bug_Tracker.Models
         #region Ids
         public int Id { get; set; }
 
+        [Display(Name = "Project")]
         public int ProjectId { get; set; }
 
         [Display(Name = "Ticket Type")]
         public int TicketTypeId { get; set; }
 
+        [Display(Name = "Ticket Status")]
         public int TicketStatusId { get; set; }
 
         [Display(Name = "Ticket Priority")]
         public int TicketPriorityId { get; set; }
 
+        [Display(Name = "Submitter")]
         public string SubmitterId { get; set; }
 
+        [Display(Name = "Developer")]
         public string DeveloperId { get; set; }
+
+        public virtual ICollection<ApplicationUser> Users { get; set; }
+
+        public virtual TicketPriority TicketPriority { get; set; }
+
+        public virtual TicketStatus TicketStatus { get; set; }
+
+        public virtual TicketType TicketType { get; set; }
+
 
         #endregion
 

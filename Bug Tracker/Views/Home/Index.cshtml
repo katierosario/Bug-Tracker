@@ -32,23 +32,16 @@
     <!--================================-->
     <!-- User Singin Start -->
     <!--================================-->
+
     <div class="ht-100v d-flex">
         <div class="card shadow-none pd-20 mx-auto wd-400 text-center bd-1 align-self-center">
-            <h4 class="card-title mt-3 text-center">Sign In</h4>
-            <p class="text-center">Sign in to your account</p>
-
             <div class="row">
                 <div class="col">
-                    <a href="" class="btn btn-block btn-google tx-13 hover-white"> <i class="fa fa-google"></i>   Login via Google</a>
-                </div>
-                <div class="col">
-                    <a href="" class="btn btn-block btn-facebook tx-13 hover-white"> <i class="fa fa-facebook-f"></i>   Login via facebook</a>
+                    <img src="~/Images/bug_lab_signin.png" />
                 </div>
             </div>
             <hr />
-            <p class="divider-text">
-                <span class="bg-light">OR</span>
-            </p>
+            <p class="text-center">Sign in to Your Account</p>
             @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
                 @Html.AntiForgeryToken()
@@ -65,14 +58,17 @@
 
                 <p class="text-center"><a href="@Url.Action("ForgotPassword", "Account")">Forgot Password?</a></p>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-custom-primary btn-block tx-13 hover-white"> Login </button>
+                    <button type="submit" class="btn btn-warning btn-block tx-13 hover-white"> Login </button>
                 </div>
-            }
 
+                @Html.ActionLink("Want to Demo?", "DemoLogin", "Account", null, new { @class = "btn btn-primary btn-block tx-13 hover-white"})
+
+            }
+            <br />
             <p class="text-center">Don't have an account?<br /> <a href="@Url.Action("Register", "Account")">Create Account</a> </p>
         </div>
     </div>
-    <!--/ User Singin End -->
+    <!--/ User Signin End -->
     <!--================================-->
     <!-- Footer Script -->
     <!--================================-->

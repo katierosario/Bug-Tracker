@@ -1,0 +1,111 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- The above 6 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword" content="">
+    <meta name="author" content="" />
+    <!-- Page Title -->
+    <title>Katie Rosario's Bug Tracker</title>
+    <!-- Main CSS -->
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/simple-line-icons.css" rel="stylesheet" />
+    <link href="~/Content/ionicons.css" rel="stylesheet" />
+    <link href="~/Content/app.min.css" rel="stylesheet" />
+    <link href="~/Content/style.min.css" rel="stylesheet" />
+
+    <!-- Favicon -->
+    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+
+</head>
+<body>
+    <!--================================-->
+    <!-- User Singin Start -->
+    <!--================================-->
+
+    <div class="ht-100v d-flex">
+        <div class="card shadow-none pd-20 mx-auto wd-400 text-center bd-1 align-self-center">
+            <div class="row">
+                <div class="col">
+                    <img src="~/Images/bug_lab_signin.png" />
+                </div>
+            </div>
+            <hr />
+
+            @using (Html.BeginForm("DemoLoginAsync", "Account", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                @Html.Hidden("emailKey", "DemoAdminEmail")
+                <button type="submit" class="btn btn-warning btn-block tx-13 hover-white"> Administrator </button>
+            }
+            <p class="text-center">Control Almost Everything</p>
+
+            @using (Html.BeginForm("DemoLoginAsync", "Account", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                @Html.Hidden("emailKey", "DemoPMEmail")
+
+                <button type="submit" class="btn btn-warning btn-block tx-13 hover-white"> Project Manager </button>
+            }
+            <p class="text-center">Manage Projects and Users</p>
+
+            @using (Html.BeginForm("DemoLoginAsync", "Account", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                @Html.Hidden("emailKey", "DemoDeveloperEmail")
+
+                <button type="submit" class="btn btn-warning btn-block tx-13 hover-white"> Developer </button>
+            }
+            <p class="text-center">Manage Assigned Tickets</p>
+
+            @using (Html.BeginForm("DemoLoginAsync", "Account", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                @Html.Hidden("emailKey", "DemoSubmitterEmail")
+
+                <button type="submit" class="btn btn-warning btn-block tx-13 hover-white"> Submitter </button>
+            }
+            <p class="text-center">Create New Tickets</p>
+
+            <hr />
+
+            <p class="text-center">Want to Create An Account?<br /> <a href="@Url.Action("Register", "Account")">Create Account</a> </p>
+        </div>
+    </div>
+    <!--/ User Signin End -->
+    <!--================================-->
+    <!-- Footer Script -->
+    <!--================================-->
+    <script src="~/Scripts/jquery.min.js"></script>
+    <script src="~/Scripts/jquery-ui.js"></script>
+    <script src="~/Scripts/popper.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/pace.min.js"></script>
+    <script src="~/Scripts/jquery.slimscroll.min.js"></script>
+    <script src="~/Scripts/custom.js"></script>
+
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
+    <script>
+        var unconfirmedEmailError = '@TempData["UnconfirmedEmailError"]';
+        if (unconfirmedEmailError != "") {
+            Swal.fire({
+                title: "Account Error!",
+                text: unconfirmedEmailError,
+                icon: 'error',
+                confirmButtonText: "OK"
+            })
+        }
+    </script>
+
+</body>
+</html>

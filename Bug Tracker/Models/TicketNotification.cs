@@ -19,6 +19,8 @@ namespace Bug_Tracker.Models
 
         public bool IsRead { get; set; }
 
+        public string Subject { get; set; }
+
         public string NotificationBody { get; set; }
 
         public DateTime Created { get; set; }
