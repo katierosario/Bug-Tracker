@@ -55,13 +55,18 @@ namespace Bug_Tracker.Controllers
         {
             if (ModelState.IsValid)
             {
+                var userId = User.Identity.GetUserId();
                 var newComment = new TicketComment
+
                 {
                     Body = commentBody,
                     TicketId = TicketId,
-                    UserId = User.Identity.GetUserId(),
+                    UserId = userId,
                     Created = DateTime.Now,
+                    AvatarPath = db.Users.Find(userId).AvatarPath
+
                 };
+
                 db.TicketComments.Add(newComment);
                 db.SaveChanges();
                 return RedirectToAction("Details", "Tickets", new { id = TicketId });

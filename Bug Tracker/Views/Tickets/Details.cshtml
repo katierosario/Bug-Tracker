@@ -182,7 +182,7 @@
                                     @{
                                         var userHelper = new UserHelper();
                                     }
-                                    <img src="@userHelper.GetUserAvatar()" class="img-fluid wd-35 ht-35 rounded-circle" alt="">
+                                    <img src="@ticketComment.AvatarPath" class="img-fluid wd-35 ht-35 rounded-circle" alt="">
                                     <h3 class="tx-dark tx-13">@ticketComment.User.FullName<span class="small float-right tx-gray-500">@ticketComment.Created.ToString("MM/dd/yyyy h:mm tt")</span></h3>
                                     <p>@ticketComment.Body</p>
                                 </div>
@@ -216,11 +216,14 @@
                                 @Html.AntiForgeryToken()
                                 @Html.Hidden("TicketId", Model.Id)
 
-                                @Html.TextArea("CommentBody", new { rows = 14, cols = 60 })
+                                @Html.TextArea("CommentBody", new { @class = "form-control", rows = 11 })
 
-                                <button type="submit" class="btn btn-round btn-brand">Add Comment</button>
+                                <br />
+                                <hr />
+                                <button type="submit" class="btn btn-custom-primary btn-brand">Add Comment</button>
                             }
                         }
+
                     </div>
                 </div>
             </div>
@@ -274,21 +277,6 @@
                         </div>
                     </div>
                     <div class="card-body collapse show" id="collapse3">
-                        <div class="row">
-                            <div class="mg-20 form-inline wd-100p">
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label class="control-label">Status</label>
-                                        <select id="foo-filter-status" class="form-control">
-                                            <option value="">Show all</option>
-                                            <option value="active">Active</option>
-                                            <option value="disabled">Disabled</option>
-                                            <option value="suspended">Suspended</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         <table id="foo-filtering" class="table table-bordered table-hover toggle-circle" data-page-size="7">
                             <thead>
                                 <tr>
@@ -332,6 +320,7 @@
                         </table>
                     </div>
                 </div>
+
             </div>
             <!--================================-->
             <!--/ Ticket Attachment List End -->

@@ -3,6 +3,7 @@
 @model Project
 
 @using Bug_Tracker.Helpers
+@using Bug_Tracker.ViewModel
 
 @{
     ViewBag.Title = "Details";
@@ -45,7 +46,7 @@
                                     }
                                     else
                                     {
-                                        <h2 class="tx-20 tx-sm-18 tx-md-24 mb-0 mt-2 mt-sm-0 tx-normal tx-rubik tx-dark"><span class="counter">@Model.ProjectManagerId</span><small class="tx-15"></small></h2>
+                                        <h2 class="tx-20 tx-sm-18 tx-md-24 mb-0 mt-2 mt-sm-0 tx-normal tx-rubik tx-dark"><span class="counter">@Model.ProjectManager.FullName</span><small class="tx-15"></small></h2>
 
                                     }
                                 </div>
@@ -137,11 +138,11 @@
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.ProjectManagerId)
+                @Html.DisplayNameFor(model => model.ProjectManager.FullName)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.ProjectManagerId)
+                @Html.DisplayFor(model => model.ProjectManager.FullName)
             </dd>
 
             <dt>

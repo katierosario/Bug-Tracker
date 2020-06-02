@@ -20,6 +20,8 @@ namespace Bug_Tracker.Models
 
         public string UserId { get; set; }
 
+        public string AvatarPath { get; set; }
+
         public virtual Ticket Ticket { get; set; }
 
         public virtual ApplicationUser User { get; set; }

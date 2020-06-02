@@ -25,7 +25,7 @@
                             </div>
                         </div>
                         <div class="card-body collapse show" id="collapse3">
-                            <div class="row">
+                            @*<div class="row">
                                 <div class="mg-20 form-inline wd-100p">
                                     <div class="col-sm-6">
                                         <div class="form-group">
@@ -38,7 +38,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div>*@
                             <table id="foo-filtering" class="table table-hover toggle-circle" data-page-size="7">
                                 <thead>
                                     <tr>
@@ -66,7 +66,6 @@
                                         <th>
                                             @Html.DisplayName("Updated")
                                         </th>
-                                        <th></th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -99,11 +98,8 @@
                                                 @Html.DisplayFor(modelItem => item.Updated)
                                             </td>
                                             <td>
-                                                @Html.DisplayFor(modelItem => item.IsArchived)
-                                            </td>
-                                            <td>
                                                 @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                                                @*@Html.ActionLink("Edit", "Edit", new { id = item.Id }) |*@
+                                                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                                                 @Html.ActionLink("Delete", "Delete", new { id = item.Id })
                                             </td>
                                         </tr>
@@ -127,26 +123,10 @@
                             </h4>
                             <div class="card-header-btn">
                                 <a href="#" data-toggle="collapse" class="btn card-collapse" data-target="#collapse3" aria-expanded="true"><i class="ion-ios-arrow-down"></i></a>
-                                <a href="#" data-toggle="refresh" class="btn card-refresh"><i class="ion-android-refresh"></i></a>
-                                <a href="#" data-toggle="expand" class="btn card-expand"><i class="ion-android-expand"></i></a>
-                                <a href="#" data-toggle="remove" class="btn card-remove"><i class="ion-android-close"></i></a>
                             </div>
                         </div>
                         <div class="card-body collapse show" id="collapse3">
                             <div class="row">
-                                <div class="mg-20 form-inline wd-100p">
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label class="control-label">Status</label>
-                                            <select id="foo-filter-status" class="form-control">
-                                                <option value="">Show all</option>
-                                                <option value="active">Active</option>
-                                                <option value="disabled">Disabled</option>
-                                                <option value="suspended">Suspended</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                             <table id="foo-filtering" class="table table-bordered table-hover toggle-circle" data-page-size="7">
                                 <thead>
@@ -207,9 +187,6 @@
                                                 @Html.DisplayFor(modelItem => item.Updated)
                                             </td>
                                             <td>
-                                                @Html.DisplayFor(modelItem => item.IsArchived)
-                                            </td>
-                                            <td>
                                                 @*@Html.ActionLink("Edit", "Edit", new { id = item.Id }) |*@
                                                 @Html.ActionLink("Details", "Details", new { id = item.Id }) |
                                                 @Html.ActionLink("Delete", "Delete", new { id = item.Id })
@@ -218,13 +195,6 @@
                                     }
                                 </tbody>
                                 <tfoot>
-                                    <tr>
-                                        <td colspan="5">
-                                            <div class="ft-right">
-                                                <ul class="pagination"></ul>
-                                            </div>
-                                        </td>
-                                    </tr>
                                 </tfoot>
                             </table>
                         </div>
@@ -239,30 +209,15 @@
                     <div class="card mg-b-20">
                         <div class="card-header">
                             <h4 class="card-header-title">
-                                Your Tickets
+                                Your Assigned Tickets
                             </h4>
                             <div class="card-header-btn">
                                 <a href="#" data-toggle="collapse" class="btn card-collapse" data-target="#collapse3" aria-expanded="true"><i class="ion-ios-arrow-down"></i></a>
-                                <a href="#" data-toggle="refresh" class="btn card-refresh"><i class="ion-android-refresh"></i></a>
-                                <a href="#" data-toggle="expand" class="btn card-expand"><i class="ion-android-expand"></i></a>
-                                <a href="#" data-toggle="remove" class="btn card-remove"><i class="ion-android-close"></i></a>
                             </div>
                         </div>
                         <div class="card-body collapse show" id="collapse3">
                             <div class="row">
-                                <div class="mg-20 form-inline wd-100p">
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label class="control-label">Status</label>
-                                            <select id="foo-filter-status" class="form-control">
-                                                <option value="">Show all</option>
-                                                <option value="active">Active</option>
-                                                <option value="disabled">Disabled</option>
-                                                <option value="suspended">Suspended</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
+
                             </div>
                             <table id="foo-filtering" class="table table-hover toggle-circle" data-page-size="7">
                                 <thead>
@@ -317,9 +272,6 @@
                                                 @Html.DisplayFor(modelItem => item.Updated)
                                             </td>
                                             <td>
-                                                @Html.DisplayFor(modelItem => item.IsArchived)
-                                            </td>
-                                            <td>
                                                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                                                 @Html.ActionLink("Details", "Details", new { id = item.Id })
                                             </td>
@@ -350,19 +302,7 @@
                         </div>
                         <div class="card-body collapse show" id="collapse3">
                             <div class="row">
-                                <div class="mg-20 form-inline wd-100p">
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label class="control-label">Status</label>
-                                            <select id="foo-filter-status" class="form-control">
-                                                <option value="">Show all</option>
-                                                <option value="active">Active</option>
-                                                <option value="disabled">Disabled</option>
-                                                <option value="suspended">Suspended</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
+
                             </div>
                             <table id="foo-filtering" class="table table-hover toggle-circle" data-page-size="7">
                                 <thead>
@@ -421,9 +361,6 @@
                                             </td>
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.Updated)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.IsArchived)
                                             </td>
                                             <td>
                                                 @*@Html.ActionLink("Edit", "Edit", new { id = item.Id }) |*@

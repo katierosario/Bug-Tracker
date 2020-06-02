@@ -12,6 +12,20 @@ namespace Bug_Tracker.ViewModel
         public int HighPriorityTicketCount { get; set; }
         public int NewTicketCount { get; set; }
         public int TotalComments { get; set; }
+        public int UnassignedTickets { get; set; }
+        public int NumberofProjects { get; set; }
+        public int RecentlyAssigned { get; set; }
+
+
+        public int TicketStatusNew { get; set; }
+        public int TicketStatusAssigned { get; set; }
+        public int TicketStatusCompleted { get; set; }
+        public int TicketStatusUnAssigned { get; set; }
+
+        public int TicketPriorityImmediate { get; set; }
+        public int TicketPriorityHigh { get; set; }
+        public int TicketPriorityMedium { get; set; }
+        public int TicketPriorityLow { get; set; }
 
         public List<Ticket> AllTickets { get; set; }
 

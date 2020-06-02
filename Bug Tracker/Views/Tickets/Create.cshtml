@@ -58,7 +58,7 @@
                             @Html.ValidationMessageFor(model => model.TicketPriorityId, "", new { @class = "text-danger" })
                         </div>
                     </div>
-                    }
+               
 
                     @if (User.IsInRole("Submitter"))
                     {
@@ -73,7 +73,7 @@
                 <div>
                     @Html.ActionLink("Back to List", "Index")
                 </div>
-
+            }
             </div>
         </div>
     </div>

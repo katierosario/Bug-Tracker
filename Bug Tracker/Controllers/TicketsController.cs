@@ -43,6 +43,7 @@ namespace Bug_Tracker.Controllers
         }
 
         // GET: Tickets/Details/5
+        [Authorize(Roles = "Developer, Submitter, ProjectManager, Admin")]
         public ActionResult Details(int? id, int? notificationId)
         {
             if (notificationId == null)
@@ -64,6 +65,7 @@ namespace Bug_Tracker.Controllers
         }
 
         // GET: Tickets/Create
+        [Authorize(Roles = "Submitter")]
         public ActionResult Create(int? projectId)
         {
             var myUserId = User.Identity.GetUserId();

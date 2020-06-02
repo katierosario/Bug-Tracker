@@ -30,7 +30,7 @@ namespace Bug_Tracker.Models
 
         public virtual ICollection<Ticket> Tickets { get; set; }
 
-        //public virtual ApplicationUser ProjectManagerId { get; set; }
+        public virtual ApplicationUser ProjectManager { get; set; }
 
         //Constructor
         public Project()

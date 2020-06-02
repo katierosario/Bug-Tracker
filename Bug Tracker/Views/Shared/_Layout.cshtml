@@ -12,7 +12,7 @@
     <meta name="keyword" content="">
     <meta name="author" content="" />
     <!-- Page Title -->
-    <title>Bug Tracker | </title>
+    <title>Bug Tracker | By Katie Rosario</title>
     <!-- Main CSS -->
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
@@ -20,11 +20,13 @@
     <link href="~/Content/simple-line-icons.css" rel="stylesheet" />
     <link href="~/Content/ionicons.css" rel="stylesheet" />
     <link href="~/Content/jquery-ui.css" rel="stylesheet" />
+    <link href="~/Content/dataTables.jqueryui.min.css" rel="stylesheet" />
     <link href="~/Content/toastr.min.css" rel="stylesheet" />
     <link href="~/Content/chartist.css" rel="stylesheet" />
     <link href="~/Content/apexcharts.css" rel="stylesheet" />
     <link href="~/Content/footable.core.css" rel="stylesheet" />
     <link href="~/Content/dropify.min.css" rel="stylesheet" />
+    <link href="~/Content/morris.min.css" rel="stylesheet" />
     <link href="~/Content/app.min.css" rel="stylesheet" />
     <link href="~/Content/style.min.css" rel="stylesheet" />
     @*<link href="~/Content/style.css" rel="stylesheet" />*@
@@ -35,7 +37,7 @@
 
     <!-- Favicon -->
 
-    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="~/Images/small_bug_logo.png" type="image/x-icon">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 
 
@@ -49,7 +51,7 @@
         <div class="logo">
             <a class="logo-img" href="index.html">
                 <img class="desktop-logo" src="~/Images/bug_tracker_logo.png" alt="">
-                <img class="small-logo" src="assets/images/small-logo.png" alt="">
+                <img class="small-logo" src="~/Images/small_bug72px.png" alt="">
             </a>
             <i class="ion-ios-close-empty" id="sidebar-toggle-button-close"></i>
         </div>
@@ -94,25 +96,29 @@
                     }
 
                     @if (User.IsInRole("ProjectManager") || User.IsInRole("Admin"))
-                        {
-                            <li>
-                                <hr />
-                                <a href="@Url.Action("ManageProjectAssignments", "Projects")" class="page-sidebar-menu">
-                                    <i class="fas fa-project-diagram"></i>
-                                    <span>Assign Projects</span>
-                                </a>
-                            </li>
+                    {
+                        <li>
+                            <hr />
+                            <a href="@Url.Action("ManageProjectAssignments", "Projects")" class="page-sidebar-menu">
+                                <i class="fas fa-project-diagram"></i>
+                                <span>Assign Projects</span>
+                            </a>
+                        </li>
 
-                            <li>
-                                <hr />
-                                <a href="@Url.Action("ManageProjectAssignments", "Projects")" class="page-sidebar-menu">
-                                    <i class="fas fa-project-diagram"></i>
-                                    <span>Assign Tickets</span>
-                                </a>
-                            </li>
-                        }
+                    }
 
+
+                @if (User.IsInRole("Submitter"))
+                {
+                <li>
+                    <div class="center">
+                        <hr />
+                        @Html.ActionLink("Create New Ticket", "Create", "Tickets", null, new { @class = "btn-primary" })
+                    </div>
+                </li>
+                }
                 </ul>
+
             </div>
         </div>
         <!--/ Sidebar Menu End -->
@@ -130,11 +136,11 @@
     <!--================================-->
     <!-- Page Content Start -->
     <!--================================-->
-    
+
 
     <div class="page-content">
 
-    @Html.Action("_TopNav", "Home")
+        @Html.Action("_TopNav", "Home")
 
         @RenderBody()
 
@@ -167,17 +173,22 @@
     <script src="~/Scripts/popper.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
     <script src="~/Scripts/pace.min.js"></script>
+    <script src="~/Scripts/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/dataTables.responsive.js"></script>
+    <script src="~/Scripts/dataTables.jqueryui.min.js"></script>
+    <script src="~/Scripts/morris.min.js"></script>
+    <script src="~/Scripts/raphael.min.js"></script>
     <script src="~/Scripts/dropify.min.js"></script>
     <script src="~/Scripts/dropzone.js"></script>
     <script src="~/Scripts/toastr.min.js"></script>
     <script src="~/Scripts/counterup.min.js"></script>
     <script src="~/Scripts/waypoints.min.js"></script>
+    <script src="~/Scripts/apex-sample.js"></script>
     <script src="~/Scripts/chartjs.js"></script>
     <script src="~/Scripts/apexcharts.min.js"></script>
     <script src="~/Scripts/irregular-data-series.js"></script>
     <script src="~/Scripts/footable.all.min.js"></script>
     <script src="~/Scripts/jquery.simpler-sidebar.min.js"></script>
-    <script src="~/Scripts/sales-dashboard-init.js"></script>
     <script src="~/Scripts/jquery.slimscroll.min.js"></script>
     <script src="~/Scripts/highlight.min.js"></script>
     <script src="~/Scripts/app.js"></script>
@@ -188,10 +199,18 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
     <script>
-            $('.table').DataTable();
-    </script>
 
-    <script>
+        $('.dropify').dropify({
+            messages: {
+                'default': 'Drag and drop or click to choose from your computer.',
+                'replace': 'Drag and drop or click to replace.',
+                'remove': 'Remove',
+                'error': 'Ooops! Something went wrong.'
+            }
+        });
+
+        $('.table').DataTable();
+
         // Row Toggler
         $('#foo-row-toggler').footable();
 
@@ -221,16 +240,45 @@
             filtering.trigger('footable_filter', { filter: $(this).val() });
         });
 
-    </script>
-
-    <script>
-        $('.dropify').dropify({
-            messages: {
-                'default': 'Drag and drop or click to choose from your computer.',
-                'replace': 'Drag and drop or click to replace.',
-                'remove': 'Remove',
-                'error': 'Ooops! Something went wrong.'
+        // Compact DataTable
+        $('#compactTable').DataTable({
+            responsive: true,
+            language: {
+                searchPlaceholder: 'Search...',
+                sSearch: ''
             }
+        });
+
+        // Hoverable DataTable
+        $('#hoverTable').DataTable({
+            responsive: true,
+            language: {
+                searchPlaceholder: 'Search...',
+                sSearch: ''
+            }
+        });
+
+        // Hoverable DataTable
+        $('#orderActiveTable').DataTable({
+            responsive: true,
+            language: {
+                searchPlaceholder: 'Search...',
+                sSearch: ''
+            },
+            "order": [[1, "desc"]]
+        });
+
+        // Scrollable Table DataTable
+        $('#scrollableTable').DataTable({
+            responsive: true,
+            language: {
+                searchPlaceholder: 'Search...',
+                sSearch: ''
+            },
+            "order": [[1, "desc"]],
+            "scrollY": "250px",
+            "scrollCollapse": true,
+            "paging": false
         });
 
     </script>

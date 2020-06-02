@@ -108,6 +108,9 @@ namespace Bug_Tracker.Controllers
             projects.AllProjects = db.Projects.ToList();
             projects.MyProjects = projHelper.ListUserProjects(User.Identity.GetUserId()).ToList();
 
+            //ViewBag.ProjectManager = db.Users.Find(projects.ProjectManagerId).FullName;
+
+
             return View(projects);
         }
 
@@ -119,7 +122,7 @@ namespace Bug_Tracker.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Project project = db.Projects.Find(id);
-            //ViewBag.ProjectManagerId = db.Users.Find(project.ProjectManagerId).FullName;
+
             if (project == null)
             {
                 return HttpNotFound();
@@ -181,6 +184,7 @@ namespace Bug_Tracker.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.ProjectManagerId = new SelectList(db.Users, "Id", "FullName", project.ProjectManager);
             return View(project);
         }
 

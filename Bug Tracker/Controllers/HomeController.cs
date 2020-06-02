@@ -41,20 +41,30 @@ namespace Bug_Tracker.Controllers
         public ActionResult Dashboard()
         {
             var allTickets = db.Tickets.ToList();
-            //var dashboardVM = new DashboardViewModel()
-            //{
-            //    TicketCount = allTickets.Count(),
-            //    HighPriorityTicketCount = allTickets.Where(t => t.TicketStatus.Name == "High").Count(),
-            //    NewTicketCount = allTickets.Where,
-            //    TotalComments = 20
-            //    AllTickets = db.Tickets.ToList()
-            //};
+            var dashboardVM = new DashboardViewModel()
+            {
+                TicketCount = allTickets.Count,
+                HighPriorityTicketCount = allTickets.Where(t => t.TicketPriority.Name == "Immediate").Count(),
+                NewTicketCount = allTickets.Where(t => t.TicketStatus.Name == "New").Count(),
+                TotalComments = db.TicketComments.Count(),
+                AllTickets = allTickets
 
-            //dashboardVM.ProjectVM.ProjectCount = 5;
-            //dashboardVM.ProjectVM.AllProjects = db.Projects.ToList();
-            
+            };
 
-            return View();
+            dashboardVM.TicketStatusNew = db.Tickets.Where(t => t.TicketStatus.Name == "New").Count();
+            dashboardVM.TicketStatusAssigned = db.Tickets.Where(t => t.TicketStatus.Name == "Assigned").Count();
+            dashboardVM.TicketStatusCompleted = db.Tickets.Where(t => t.TicketStatus.Name == "Completed").Count();
+            dashboardVM.TicketStatusUnAssigned = db.Tickets.Where(t => t.TicketStatus.Name == "UnAssigned").Count();
+
+            dashboardVM.TicketPriorityImmediate = db.Tickets.Where(t => t.TicketStatus.Name == "Immediate").Count();
+            dashboardVM.TicketPriorityHigh = db.Tickets.Where(t => t.TicketStatus.Name == "High").Count();
+            dashboardVM.TicketPriorityMedium = db.Tickets.Where(t => t.TicketStatus.Name == "Medium").Count();
+            dashboardVM.TicketPriorityLow = db.Tickets.Where(t => t.TicketStatus.Name == "Low").Count();
+
+            dashboardVM.TicketCount = db.Tickets.Count();
+
+
+            return View(dashboardVM);
         }
 
 

@@ -93,7 +93,7 @@ namespace Bug_Tracker.Migrations
                 {
                     UserName = "developer@mailinator.com",
                     Email = "developer@mailinator.com",
-                    FirstName = "Mister",
+                    FirstName = "Senior",
                     LastName = "Developer",
                     DisplayName = "NumThreeDev",
                     EmailConfirmed = true,
@@ -324,7 +324,8 @@ namespace Bug_Tracker.Migrations
 
             var seedTicketType = db.TicketTypes.Select(t => t.Id).ToList();
             var seedTicketPriority = db.TicketPriorities.Select(t => t.Id).ToList();
-            var seedTicketStatus = db.TicketStatus.FirstOrDefault(t => t.Name == "New").Id;
+            //var seedTicketStatus = db.TicketStatus.FirstOrDefault(t => t.Name == "New").Id;
+            var seedTicketStatus = db.TicketStatus.Select(t => t.Id).ToList();
             var projects = db.Projects.ToList();
 
             foreach (var project in projects)
@@ -341,7 +342,7 @@ namespace Bug_Tracker.Migrations
                         Description = "This is a seeded demo Ticket.",
                         TicketTypeId = seedTicketType[rand.Next(0, seedTicketType.Count)],
                         TicketPriorityId = seedTicketPriority[rand.Next(0, seedTicketPriority.Count)],
-                        TicketStatusId = seedTicketStatus,
+                        TicketStatusId = seedTicketStatus[rand.Next(0, seedTicketStatus.Count)],
                         SubmitterId = seedSub.Id,
                         Created = DateTime.Now.AddDays(-7),
                     });
