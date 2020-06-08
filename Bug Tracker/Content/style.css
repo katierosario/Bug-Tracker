@@ -204,9 +204,6 @@ body {
 	background: #e0e7fd;
 }
 
-. {
-	background-color: #f3f5f7!important;
-}
 
 .bg-soft-primary {
 	background-color: rgba(93, 120, 255, .15)!important;
@@ -1427,7 +1424,7 @@ body:not(.page-sidebar-fixed) .page-sidebar .slimScrollDiv {
 	background: #ffffff;
 	margin-top: -42px;
 	margin-left: 50px;
-	font-size: 10px;
+	font-size: 12px;
 	display: block;
 	float: left;
 	text-transform: uppercase;
@@ -2557,8 +2554,8 @@ ul.accordion-menu li a span.badge.badge-danger[href]:hover,
 	color: #fff!important;
 }
 
-ul.accordion-menu li a span..badge.badge-warning[href]:focus,
-ul.accordion-menu li a span..badge.badge-warning[href]:hover {
+ul.accordion-menu li a span.badge.badge-warning[href]:focus,
+ul.accordion-menu li a span.badge.badge-warning[href]:hover {
 	color: #000!important;
 }
 

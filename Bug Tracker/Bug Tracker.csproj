@@ -222,6 +222,9 @@
     <Compile Include="ViewModel\ProjectsViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="android-chrome-72x72.png" />
+    <Content Include="apple-touch-icon.png" />
+    <Content Include="browserconfig.xml" />
     <Content Include="Content\all.css" />
     <Content Include="Content\apexcharts.css" />
     <Content Include="Content\app.min.css" />
@@ -249,6 +252,8 @@
     <Content Include="Content\themify-icons.css" />
     <Content Include="Content\toastr.min.css" />
     <Content Include="Content\ui.css" />
+    <Content Include="favicon-16x16.png" />
+    <Content Include="favicon-32x32.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\dropify.svg" />
     <Content Include="fonts\fa-brands-400.svg" />
@@ -342,6 +347,8 @@
     <Content Include="Images\sign_in.png" />
     <Content Include="Images\small_bug72px.png" />
     <Content Include="Images\small_bug_logo.png" />
+    <Content Include="mstile-150x150.png" />
+    <Content Include="safari-pinned-tab.svg" />
     <Content Include="Scripts\analytics-dashboard-init.js" />
     <Content Include="Scripts\apex-sample.js" />
     <Content Include="Scripts\apexcharts.min.js" />
