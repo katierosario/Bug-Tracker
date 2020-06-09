@@ -147,7 +147,7 @@
                                             <h6 class="tx-dark tx-13 mb-0">@ticketHistory.Property</h6>
                                             <span class="small">@ticketHistory.ChangedOn.ToString("MM/dd/yyyy h:mm tt") </span>
                                         </div>
-                                        <p class="mt-2 tx-12">@ticketHistory.Property changed from @ticketHistory.OldValue to @ticketHistory.NewValue by @HistoriesDisplayHelper.DisplayData(ticketHistory)</p>
+                                        <p class="mt-2 tx-12">@ticketHistory.Property changed from @ticketHistory.OldValue to @ticketHistory.NewValue by @HistoriesDisplayHelper.DisplayData(ticketHistory.UserId)</p>
                                         <div><span class="badge bg-soft-primary tx-uppercase">Design</span> <span class="badge bg-soft-danger  tx-uppercase">HTML</span> <span class="badge bg-soft-success  tx-uppercase">Css</span> <span class="badge bg-soft-teal  tx-uppercase">Dashboard</span></div>
                                     </div>
                                 </div>

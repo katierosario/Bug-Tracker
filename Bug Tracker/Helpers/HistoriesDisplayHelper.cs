@@ -9,13 +9,13 @@ namespace Bug_Tracker.Helpers
 {
     public class HistoriesDisplayHelper
     {
-        public static string DisplayData(TicketHistory ticketHistory)
+        public static string DisplayData(string userId)
         {
             var db = new ApplicationDbContext();
 
             var data = "";
 
-            data = db.Users.FirstOrDefault(u => u.Id == ticketHistory.UserId).FullName;
+            data = db.Users.FirstOrDefault(u => u.Id == userId).FullName;
 
             return data;
             

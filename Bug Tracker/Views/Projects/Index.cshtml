@@ -47,9 +47,9 @@
                                     <th></th>
                                 </tr>
                             </thead>
+                                <tbody>
                             @foreach (var item in Model.AllProjects)
                             {
-                                <tbody>
                                     <tr>
                                         <td>
                                             @Html.DisplayFor(modelItem => item.Name)
@@ -58,7 +58,15 @@
                                             @Html.DisplayFor(modelItem => item.Description)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.ProjectManager.FullName)
+                                            @if (item.ProjectManagerId != null)
+                                            {
+
+                                                @HistoriesDisplayHelper.DisplayData(item.ProjectManagerId)
+                                            }
+                                            else
+                                            {
+                                                <span>Unassigned</span>
+                                            }
                                         </td>
                                         <td>
                                             @Html.DisplayFor(modelItem => item.Created)
@@ -72,8 +80,8 @@
                                             @Html.ActionLink("Details", "Details", new { id = item.Id })
                                         </td>
                                     </tr>
-                                </tbody>
                             }
+                                </tbody>
                             <tfoot>
                                 <tr>
                                     <td colspan="5">
@@ -149,7 +157,15 @@
                                             @Html.DisplayFor(modelItem => item.Description)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.ProjectManager.FullName)
+                                            @if (item.ProjectManagerId != null)
+                                            {
+
+                                                @HistoriesDisplayHelper.DisplayData(item.ProjectManagerId)
+                                            }
+                                            else
+                                            {
+                                                <span>Unassigned</span>
+                                            }
                                         </td>
                                         <td>
                                             @Html.DisplayFor(modelItem => item.Created)
@@ -235,7 +251,15 @@
                                             @Html.DisplayFor(modelItem => item.Description)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.ProjectManager.FullName)
+                                            @if (item.ProjectManagerId != null)
+                                            {
+
+                                            @HistoriesDisplayHelper.DisplayData(item.ProjectManagerId)
+                                            }
+                                            else
+                                            {
+                                            <span>Unassigned</span> 
+                                            }
                                         </td>
                                         <td>
                                             @Html.DisplayFor(modelItem => item.Created)
@@ -307,7 +331,15 @@
                                             @Html.DisplayFor(modelItem => item.Description)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.ProjectManager.FullName)
+                                            @if (item.ProjectManagerId != null)
+                                            {
+
+                                                @HistoriesDisplayHelper.DisplayData(item.ProjectManagerId)
+                                            }
+                                            else
+                                            {
+                                                <span>Unassigned</span>
+                                            }
                                         </td>
                                         <td>
                                             @Html.DisplayFor(modelItem => item.Created)

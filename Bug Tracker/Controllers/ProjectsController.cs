@@ -1,15 +1,14 @@
-﻿ using System;
+﻿using Bug_Tracker.Helpers;
+using Bug_Tracker.Models;
+using Bug_Tracker.ViewModel;
+using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using Bug_Tracker.Helpers;
-using Bug_Tracker.Models;
-using Bug_Tracker.ViewModel;
-using Microsoft.AspNet.Identity;
 
 namespace Bug_Tracker.Controllers
 {
@@ -68,8 +67,13 @@ namespace Bug_Tracker.Controllers
                 foreach(var userId in userIds)
                 {
                     projHelper.AddUserToProject(userId, projectId);
+                    if (rolesHelper.IsUserInRole(userId, "ProjectManager"))
+                    {
+                        var proj = db.Projects.Find(projectId);
+                        proj.ProjectManagerId = userId;
+                        db.SaveChanges();
+                    }
                 }
-
             }
 
             return RedirectToAction("ManageProjectLevelUsers", new { id = projectId });
@@ -94,6 +98,7 @@ namespace Bug_Tracker.Controllers
                         db.SaveChanges();
                     }
                     projHelper.AddUserToProject(userId, projectId);
+                    db.SaveChanges();
                 }
             }
 
@@ -184,7 +189,7 @@ namespace Bug_Tracker.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.ProjectManagerId = new SelectList(db.Users, "Id", "FullName", project.ProjectManager);
+            ViewBag.ProjectManagerId = new SelectList(db.Users, "Id", "FullName", project.ProjectManagerId);
             return View(project);
         }
 
