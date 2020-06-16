@@ -54,25 +54,40 @@ namespace Bug_Tracker.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ManageProjectLevelUsers(List<string> userIds, int projectId)
         {
-            if(userIds != null)
+            if (userIds != null)
             {
 
-                var projMembersIds = projHelper.UsersOnProject(projectId).Select(u => u.Id).ToList();
+                //var projMembersIds = projHelper.UsersOnProject(projectId).Select(u => u.Id).ToList();
 
-                foreach(var memberId in projMembersIds)
-                {
-                    projHelper.RemoveUserFromProject(memberId, projectId);
-                }
+                //foreach(var memberId in projMembersIds)
+                //{
+                //    projHelper.RemoveUserFromProject(memberId, projectId);
+                //}
 
-                foreach(var userId in userIds)
+                foreach (var userId in userIds)
                 {
-                    projHelper.AddUserToProject(userId, projectId);
-                    if (rolesHelper.IsUserInRole(userId, "ProjectManager"))
+                    if (!projHelper.IsUserOnProject(userId, projectId))
                     {
-                        var proj = db.Projects.Find(projectId);
-                        proj.ProjectManagerId = userId;
-                        db.SaveChanges();
+                        projHelper.AddUserToProject(userId, projectId);
+                        if (rolesHelper.IsUserInRole(userId, "ProjectManager"))
+                        {
+                            var proj = db.Projects.Find(projectId);
+                            proj.ProjectManagerId = userId;
+                            db.SaveChanges();
+                        }
+
                     }
+                    else
+                    {
+                        projHelper.RemoveUserFromProject(userId, projectId);
+                        if (rolesHelper.IsUserInRole(userId, "ProjectManager"))
+                        {
+                            var proj = db.Projects.Find(projectId);
+                            proj.ProjectManagerId = null;
+                            db.SaveChanges();
+                        }
+                    }
+
                 }
             }
 
@@ -87,11 +102,11 @@ namespace Bug_Tracker.Controllers
             if (userIds == null)
                 return RedirectToAction("ManageProjectAssignments");
 
-            foreach(var userId in userIds)
+            foreach (var userId in userIds)
             {
-                foreach(var projectId in projectIds)
+                foreach (var projectId in projectIds)
                 {
-                    if(rolesHelper.IsUserInRole(userId, "ProjectManager"))
+                    if (rolesHelper.IsUserInRole(userId, "ProjectManager"))
                     {
                         var proj = db.Projects.Find(projectId);
                         proj.ProjectManagerId = userId;
@@ -180,7 +195,7 @@ namespace Bug_Tracker.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Description,ProjectManagerId,Created,Updated")] Project project)
+        public ActionResult Edit([Bind(Include = "Id,Name,Description,ProjectManagerId,Updated")] Project project)
         {
             if (ModelState.IsValid)
             {

@@ -25,20 +25,6 @@
                             </div>
                         </div>
                         <div class="card-body collapse show" id="collapse3">
-                            @*<div class="row">
-                                <div class="mg-20 form-inline wd-100p">
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label class="control-label">Status: </label>
-                                            <select id="foo-filter-status" class="form-control">
-                                                <option value="">Show all</option>
-                                                <option value="active">Active</option>
-                                                <option value="disabled">Archived</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>*@
                             <table id="foo-filtering" class="table table-hover toggle-circle" data-page-size="7">
                                 <thead>
                                     <tr>
@@ -99,7 +85,7 @@
                                             </td>
                                             <td>
                                                 @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                                                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                                                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) 
                                             </td>
                                         </tr>
                                     }
@@ -187,7 +173,7 @@
                                             </td>
                                             <td>
                                                 @*@Html.ActionLink("Edit", "Edit", new { id = item.Id }) |*@
-                                                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                                                @Html.ActionLink("Details", "Details", new { id = item.Id }) 
                                             </td>
                                         </tr>
                                     }
@@ -361,7 +347,6 @@
                                                 @Html.DisplayFor(modelItem => item.Updated)
                                             </td>
                                             <td>
-                                                @*@Html.ActionLink("Edit", "Edit", new { id = item.Id }) |*@
                                                 @Html.ActionLink("Details", "Details", new { id = item.Id })
                                             </td>
                                         </tr>

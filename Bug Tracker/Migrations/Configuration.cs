@@ -189,7 +189,7 @@ namespace Bug_Tracker.Migrations
                 {
                     UserName = "demopm@mailinator.com",
                     Email = "demopm@mailinator.com",
-                    FirstName = "Mister",
+                    FirstName = "John",
                     LastName = "Manager",
                     DisplayName = "DemoPM",
                     EmailConfirmed = true,
@@ -227,7 +227,7 @@ namespace Bug_Tracker.Migrations
                 {
                     UserName = "demodeveloper@mailinator.com",
                     Email = "demodeveloper@mailinator.com",
-                    FirstName = "Mister",
+                    FirstName = "Johnny",
                     LastName = "Developer",
                     DisplayName = "DemoDev",
                     EmailConfirmed = true,

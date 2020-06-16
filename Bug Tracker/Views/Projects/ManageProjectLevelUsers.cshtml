@@ -1,26 +1,82 @@
 ﻿@model Bug_Tracker.Models.Project
+@using Bug_Tracker.Helpers 
 
 @{
     ViewBag.Title = "ManageProjectLevelUsers";
+    RolesHelper rolesHelper = new RolesHelper();
+
 }
 
-<h2>Managing Members for the @Model.Name Project</h2>
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    @Html.Hidden("ProjectId", Model.Id)
 
-    <div class="row">
-        <div class="col">
-            @Html.ListBox("UserIds")
+<div class="page-inner">
+    <div class="card">
+        <div class="card-body">
+
+            <h2>Manage Members for the @Model.Name</h2>
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                @Html.Hidden("ProjectId", Model.Id)
+
+                <div class="row">
+                    <div class="col-8">
+                        @Html.ListBox("UserIds")
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col">
+                        <button type="submit" class="btn btn-primary" style="width:100%;">Manage Projects Assignments</button>
+                    </div>
+                </div>
+            }
+            <br />
+            <!-- Members Start -->
+            <!--================================-->
+            <div class="col-sm-6 col-xl-4">
+                <div class="card mg-b-20">
+                    <div class="card-header">
+                        <h4 class="card-header-title">
+                            Users On Project
+                        </h4>
+                        <div class="card-header-btn">
+                            <a href="" data-toggle="collapse" class="btn card-collapse" data-target="#newUsers" aria-expanded="true" data-original-title="" title="" data-init="true"><i class="ion-ios-arrow-down"></i></a>
+                            <a href="" data-toggle="refresh" class="btn card-refresh"><i class="ion-android-refresh"></i></a>
+                            <a href="" data-toggle="expand" class="btn card-expand"><i class="ion-android-expand"></i></a>
+                            <a href="" data-toggle="remove" class="btn card-remove"><i class="ion-android-close"></i></a>
+                        </div>
+                    </div>
+
+                    @foreach (var usermember in Model.Users)
+                    {
+                        <div class="card-body pd-0 collapse show" id="newUsers">
+                            <div class="table-responsive">
+                                <table class="table table-hover mg-0">
+                                    <tbody>
+                                        <tr>
+                                            <td class="d-flex pd-y-10-force">
+                                                <div class="avatar mr-2">
+                                                    <img src="@usermember.AvatarPath" class="img-fluid wd-35 ht-35 rounded-circle" alt="">
+                                                </div>
+                                                <div class="d-block">
+                                                    <a href="" class="my-0 mt-1 tx-13">@usermember.FullName</a>
+                                                    <p class="mg-0 tx-12">@usermember.Email</p>
+                                                </div>
+                                            </td>
+                                            <td class="tx-right align-middle">
+                                                <a href="" class="btn btn-sm btn-label-success">@rolesHelper.ListUserRoles(usermember.Id).FirstOrDefault()</a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+            </div>
         </div>
     </div>
-
-    <div class="row">
-        <div class="col">
-            <button type="submit" class="btn btn-primary" style="width:100%;">Manage Projects Assignments</button>
-        </div>
-    </div>
-}
-
+</div>

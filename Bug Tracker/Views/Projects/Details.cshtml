@@ -7,7 +7,11 @@
 
 @{
     ViewBag.Title = "Details";
+    RolesHelper rolesHelper = new RolesHelper();
+    TixHelper tixHelper = new TixHelper();
 }
+
+
 <div class="page-inner">
     <!-- Main Wrapper -->
     <div id="main-wrapper">
@@ -19,7 +23,7 @@
                 <h1 class="pd-0 mg-0 tx-20">@Model.Name</h1>
             </div>
             <div class="breadcrumb pd-0 mg-0">
-                @Html.ActionLink("All Tickets", "Index", null, new { @class = "breadcrumb-item" })
+                @Html.ActionLink("All Projects", "Index", null, new { @class = "breadcrumb-item" })
                 <span class="breadcrumb-item active">@Model.Description</span>
             </div>
         </div>
@@ -46,7 +50,7 @@
                                     }
                                     else
                                     {
-                                        <h2 class="tx-20 tx-sm-18 tx-md-24 mb-0 mt-2 mt-sm-0 tx-normal tx-rubik tx-dark"><span class="counter">@Model.ProjectManager.FullName</span><small class="tx-15"></small></h2>
+                                        <h2 class="tx-20 tx-sm-18 tx-md-24 mb-0 mt-2 mt-sm-0 tx-normal tx-rubik tx-dark"><span class="counter">@HistoriesDisplayHelper.DisplayData(Model.ProjectManagerId)</span><small class="tx-15"></small></h2>
 
                                     }
                                 </div>
@@ -55,27 +59,6 @@
                     </div>
                 </div>
             </div>
-
-            @*<div class="col-sm-6 col-xl-3">
-            <div class="card mg-b-20">
-                <div class="card-body pd-y-0">
-                    <div class="custom-fieldset mb-4">
-                        <div class="clearfix">
-                            <label>Type</label>
-                        </div>
-                        <div class="d-flex align-items-center text-dark">
-                            <div class="wd-40 wd-md-50 ht-40 ht-md-50 mg-r-10 mg-md-r-10 d-flex align-items-center justify-content-center rounded card-icon-success">
-                                <i class="icon-screen-desktop tx-success tx-20"></i>
-                            </div>
-                            <div>
-                                <h2 class="tx-20 tx-sm-18 tx-md-24 mb-0 mt-2 mt-sm-0 tx-normal tx-rubik tx-dark"><span class="counter">@Model.Name</span><small class="tx-15"></small></h2>
-                                <div class="d-flex align-items-center tx-gray-500"><span class="text-danger mr-2 d-flex align-items-center"><i class="ion-android-arrow-down mr-1"></i>-310</span>avg. sales</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>*@
 
             <div class="col-sm-6 col-xl-3">
                 <div class="card mg-b-20">
@@ -118,60 +101,214 @@
                 </div>
             </div>
 
+            <div class="col-sm-3 col-xl-6">
+                <div class="card mg-b-20">
+                    <div class="card-header">
+                        <h4 class="card-header-title">
+                            Project Details
+                        </h4>
+                        <div class="card-header-btn">
+                            <a href="" data-toggle="collapse" class="btn card-collapse" data-target="#activityLog3" aria-expanded="true"><i class="ion-ios-arrow-down"></i></a>
+                        </div>
+                    </div>
+                    <div class="card-body card-activities collapse show" id="activityLog3">
+                        <div class="media-list">
+                            <div class="media pd-b-30">
+                                <div class="activity-icon bg-primary op-6">
+                                    <i class="icon ion-stats-bars"></i>
+                                </div>
+                                <div class="ml-3 align-items-center">
+                                    <h6 class="tx-13 tx-dark">Project Name:</h6>
+                                    <p class="tx-12 mb-0">@Html.DisplayFor(model => model.Name)</p>
+                                </div>
+                            </div>
+                            <div class="media pd-b-30">
+                                <div class="activity-icon bg-success op-6">
+                                    <i class="icon ion-android-clipboard"></i>
+                                </div>
+                                <div class="ml-3 align-items-center">
+                                    <h6 class="tx-13 tx-dark">Description:</h6>
+                                    <p class="tx-12 mb-0">@Html.DisplayFor(model => model.Description)</p>
+                                </div>
+                            </div>
+                            <div class="media pd-b-30">
+                                <div class="activity-icon bg-purple op-6">
+                                    <i class="icon ion-checkmark"></i>
+                                </div>
+                                <div class="ml-3 align-items-center">
+                                    <h6 class="tx-13 tx-dark">Created:</h6>
+                                    <p class="tx-12 mb-0">@Html.DisplayFor(model => model.Created)</p>
+                                </div>
+                            </div>
+                            <div class="media pd-b-30">
+                                <div class="activity-icon bg-danger op-6">
+                                    <i class="icon ion-ios-arrow-up"></i>
+                                </div>
+                                <div class="ml-3 align-items-center">
+                                    <h6 class="tx-13 tx-dark">Last Updated:</h6>
+                                    <p class="tx-12 mb-0">@Html.DisplayFor(model => model.Updated)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Users Start -->
+            <!--================================-->
+            <div class="col-sm-6 col-xl-3">
+                <div class="card mg-b-20">
+                    <div class="card-header">
+                        <h4 class="card-header-title">
+                            Users on Project
+                        </h4>
+                        <div class="card-header-btn">
+                            <a href="" data-toggle="collapse" class="btn card-collapse" data-target="#newUsers" aria-expanded="true" data-original-title="" title="" data-init="true"><i class="ion-ios-arrow-down"></i></a>
+
+                        </div>
+                    </div>
+
+                    @foreach (var projectUser in Model.Users)
+                    {
+                        <div class="card-body pd-0 collapse show" id="newUsers">
+                            <div class="table-responsive">
+                                <table class="table table-hover mg-0">
+                                    <tbody>
+                                        <tr>
+                                            <td class="d-flex pd-y-10-force">
+                                                <div class="avatar mr-2">
+                                                    <img src="@projectUser.AvatarPath" class="img-fluid wd-35 ht-35 rounded-circle" alt="">
+                                                </div>
+                                                <div class="d-block">
+                                                    <a href="" class="my-0 mt-1 tx-13">@projectUser.FullName</a>
+                                                    <p class="mg-0 tx-12">@rolesHelper.ListUserRoles(projectUser.Id).FirstOrDefault()</p>
+                                                </div>
+                                            </td>
+                                            <td class="tx-right align-middle">
+                                                <a href="mailto:@projectUser.Email" class="btn btn-sm btn-label-success">Email</a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+            </div>
+            <!-- Users End -->
+            <!--================================-->
+
         </div>
-        <hr />
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.Name)
-            </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.Name)
-            </dd>
+        <div class="row row-xs clearfix">
+            <br />
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Description)
-            </dt>
+            @if (User.IsInRole("ProjectManager") || User.IsInRole("Admin") || User.IsInRole("Developer") || User.IsInRole("Submitter"))
+            {
+                <div class="col-md-12 col-lg-12">
+                    <div class="card mg-b-20">
+                        <div class="card-header">
+                            <h4 class="card-header-title">
+                                Tickets on Project
+                            </h4>
+                            <div class="card-header-btn">
+                                <a href="#" data-toggle="collapse" class="btn card-collapse" data-target="#collapse3" aria-expanded="true"><i class="ion-ios-arrow-down"></i></a>
+                            </div>
+                        </div>
+                        <div class="card-body collapse show" id="collapse3">
+                            <div class="row">
+                            </div>
+                            <table id="compactTable_filter" class="table table-bordered table-hover toggle-circle" data-page-size="7">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            @Html.DisplayName("Developer")
+                                        </th>
+                                        <th>
+                                            @Html.DisplayName("Project")
+                                        </th>
+                                        <th>
+                                            @Html.DisplayName("Type")
+                                        </th>
+                                        <th>
+                                            @Html.DisplayName("Status")
+                                        </th>
+                                        <th>
+                                            @Html.DisplayName("Priority")
+                                        </th>
+                                        <th>
+                                            @Html.DisplayName("Title")
+                                        </th>
+                                        <th>
+                                            @Html.DisplayName("Created")
+                                        </th>
+                                        <th>
+                                            @Html.DisplayName("Updated")
+                                        </th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.Tickets)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Developer.FullName)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Project.Name)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.TicketType.Name)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.TicketStatus.Name)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.TicketPriority.Name)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Title)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Created)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Updated)
+                                            </td>
+                                            <td>
+                                                @*@Html.ActionLink("Edit", "Edit", new { id = item.Id }) |*@
+                                                @*@Html.ActionLink("Details", "Details", new { id = item.Id })*@
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                                <tfoot>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
 
-            <dd>
-                @Html.DisplayFor(model => model.Description)
-            </dd>
+            }
 
-            <dt>
-                @Html.DisplayNameFor(model => model.ProjectManager.FullName)
-            </dt>
+            @if (User.IsInRole("Submitter"))
+            {
+                <p>
+                    @Html.ActionLink("Create New Ticket", "Create", null, new { @class = "btn btn-primary" })
+                </p>
+            }
 
-            <dd>
-                @Html.DisplayFor(model => model.ProjectManager.FullName)
-            </dd>
+            @if (User.IsInRole("ProjectManager") || User.IsInRole("Admin"))
+            {
+                <p>
+                    @Html.ActionLink("Edit Project", "Edit", new { id = Model.Id }) |
+                    @Html.ActionLink("Back to List", "Index")
+                </p>
+            }
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Created)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Created)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Updated)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Updated)
-            </dd>
-
-            @*<dt>
-                    @Html.DisplayNameFor(model => model.IsArchived)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.IsArchived)
-                </dd>*@
-
-        </dl>
+            <br />
+        </div>
     </div>
-    <p>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-        @Html.ActionLink("Back to List", "Index")
-    </p>
+</div>
