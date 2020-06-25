@@ -5,6 +5,8 @@
 
 @using Bug_Tracker.Helpers
 
+@model DashboardViewModel
+
 <!--================================-->
 <!-- Page Container Start -->
 <!--================================-->
@@ -72,7 +74,7 @@
                                             <i class="icon-screen-desktop tx-success tx-20"></i>
                                         </div>
                                         <div>
-                                            <h2 class="tx-20 tx-sm-18 tx-md-24 mb-0 mt-2 mt-sm-0 tx-normal tx-rubik tx-dark"><span class="counter">@Model.TicketStatusNew</span><small class="tx-15"></small></h2>
+                                            <h2 class="tx-20 tx-sm-18 tx-md-24 mb-0 mt-2 mt-sm-0 tx-normal tx-rubik tx-dark"><span class="counter">@Model.NewTicketCount</span><small class="tx-15"></small></h2>
                                         </div>
                                     </div>
                                 </div>
@@ -121,7 +123,6 @@
                     </div>
                 </div>
             }
-
 
             @if (User.IsInRole("Developer"))
             {

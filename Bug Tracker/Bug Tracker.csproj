@@ -214,6 +214,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModel\DashboardViewModel.cs" />
     <Compile Include="ViewModel\MorrisChartViewModel.cs" />
+    <Compile Include="ViewModel\ProjectDetailsViewModel.cs" />
     <Compile Include="ViewModel\ProjectViewModel.cs" />
     <Compile Include="ViewModel\UserProfileViewModel.cs" />
     <Compile Include="ViewModel\CustomUserData.cs" />

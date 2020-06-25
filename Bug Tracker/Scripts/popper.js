@@ -18,7 +18,7 @@
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISign FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
@@ -1622,7 +1622,7 @@ function parseOffset(offset, popperOffsets, referenceOffsets, basePlacement) {
     return frag.trim();
   });
 
-  // Detect if the offset string contains a pair of values or a single one
+  // Detect if the offset string contains a pair of values or a Signle one
   // they could be separated by comma or space
   var divider = fragments.indexOf(find(fragments, function (frag) {
     return frag.search(/,|\s/) !== -1;
@@ -1919,7 +1919,7 @@ var modifiers = {
    * This means that if the placement is `top` or `bottom`, the length will be the
    * `width`. In case of `left` or `right`, it will be the height.
    *
-   * You can provide a single value (as `Number` or `String`), or a pair of values
+   * You can provide a Signle value (as `Number` or `String`), or a pair of values
    * as `String` divided by a comma or one (or more) white spaces.<br />
    * The latter is a deprecated method because it leads to confusion and will be
    * removed in v2.<br />

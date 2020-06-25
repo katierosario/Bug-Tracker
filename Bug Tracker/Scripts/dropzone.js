@@ -28,7 +28,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISign FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  *
@@ -135,7 +135,7 @@ var Dropzone = function (_Emitter) {
     key: "initClass",
     value: function initClass() {
 
-      // Exposing the emitter class, mainly for tests
+      // ExpoSign the emitter class, mainly for tests
       this.prototype.Emitter = Emitter;
 
       /*
@@ -143,7 +143,7 @@ var Dropzone = function (_Emitter) {
         You can register an event handler like this:
         dropzone.on("dragEnter", function() { });
         */
-      this.prototype.events = ["drop", "dragstart", "dragend", "dragenter", "dragover", "dragleave", "addedfile", "addedfiles", "removedfile", "thumbnail", "error", "errormultiple", "processing", "processingmultiple", "uploadprogress", "totaluploadprogress", "sending", "sendingmultiple", "success", "successmultiple", "canceled", "canceledmultiple", "complete", "completemultiple", "reset", "maxfilesexceeded", "maxfilesreached", "queuecomplete"];
+      this.prototype.events = ["drop", "dragstart", "dragend", "dragenter", "dragover", "dragleave", "addedfile", "addedfiles", "removedfile", "thumbnail", "error", "errormultiple", "procesSign", "procesSignmultiple", "uploadprogress", "totaluploadprogress", "sending", "sendingmultiple", "success", "successmultiple", "canceled", "canceledmultiple", "complete", "completemultiple", "reset", "maxfilesexceeded", "maxfilesreached", "queuecomplete"];
 
       this.prototype.defaultOptions = {
         /**
@@ -180,7 +180,7 @@ var Dropzone = function (_Emitter) {
          * Whether to send multiple files in one request. If
          * this it set to true, then the fallback file input element will
          * have the `multiple` attribute as well. This option will
-         * also trigger additional events (like `processingmultiple`). See the events
+         * also trigger additional events (like `procesSignmultiple`). See the events
          * documentation section for more information.
          */
         uploadMultiple: false,
@@ -892,15 +892,15 @@ var Dropzone = function (_Emitter) {
         // Called when a file gets processed. Since there is a cue, not all added
         // files are processed immediately.
         // Receives `file`
-        processing: function processing(file) {
+        procesSign: function procesSign(file) {
           if (file.previewElement) {
-            file.previewElement.classList.add("dz-processing");
+            file.previewElement.classList.add("dz-procesSign");
             if (file._removeLink) {
               return file._removeLink.innerHTML = this.options.dictCancelUpload;
             }
           }
         },
-        processingmultiple: function processingmultiple() {},
+        procesSignmultiple: function procesSignmultiple() {},
 
 
         // Called whenever the upload progress gets updated.
@@ -975,7 +975,7 @@ var Dropzone = function (_Emitter) {
       };
 
       this.prototype._thumbnailQueue = [];
-      this.prototype._processingThumbnail = false;
+      this.prototype._procesSignThumbnail = false;
     }
 
     // global utility
@@ -1834,7 +1834,7 @@ var Dropzone = function (_Emitter) {
       return this.accept(file, function (error) {
         if (error) {
           file.accepted = false;
-          _this7._errorProcessing([file], error); // Will set the file.status
+          _this7._errorProcesSign([file], error); // Will set the file.status
         } else {
           file.accepted = true;
           if (_this7.options.autoQueue) {
@@ -1901,15 +1901,15 @@ var Dropzone = function (_Emitter) {
     value: function _processThumbnailQueue() {
       var _this10 = this;
 
-      if (this._processingThumbnail || this._thumbnailQueue.length === 0) {
+      if (this._procesSignThumbnail || this._thumbnailQueue.length === 0) {
         return;
       }
 
-      this._processingThumbnail = true;
+      this._procesSignThumbnail = true;
       var file = this._thumbnailQueue.shift();
       return this.createThumbnail(file, this.options.thumbnailWidth, this.options.thumbnailHeight, this.options.thumbnailMethod, true, function (dataUrl) {
         _this10.emit("thumbnail", file, dataUrl);
-        _this10._processingThumbnail = false;
+        _this10._procesSignThumbnail = false;
         return _this10._processThumbnailQueue();
       });
     }
@@ -2118,11 +2118,11 @@ var Dropzone = function (_Emitter) {
     value: function processQueue() {
       var parallelUploads = this.options.parallelUploads;
 
-      var processingLength = this.getUploadingFiles().length;
-      var i = processingLength;
+      var procesSignLength = this.getUploadingFiles().length;
+      var i = procesSignLength;
 
       // There are already at least as many files uploading than should be
-      if (processingLength >= parallelUploads) {
+      if (procesSignLength >= parallelUploads) {
         return;
       }
 
@@ -2134,7 +2134,7 @@ var Dropzone = function (_Emitter) {
 
       if (this.options.uploadMultiple) {
         // The files should be uploaded in one request
-        return this.processFiles(queuedFiles.slice(0, parallelUploads - processingLength));
+        return this.processFiles(queuedFiles.slice(0, parallelUploads - procesSignLength));
       } else {
         while (i < parallelUploads) {
           if (!queuedFiles.length) {
@@ -2173,14 +2173,14 @@ var Dropzone = function (_Emitter) {
 
         var file = _ref18;
 
-        file.processing = true; // Backwards compatibility
+        file.procesSign = true; // Backwards compatibility
         file.status = Dropzone.UPLOADING;
 
-        this.emit("processing", file);
+        this.emit("procesSign", file);
       }
 
       if (this.options.uploadMultiple) {
-        this.emit("processingmultiple", files);
+        this.emit("procesSignmultiple", files);
       }
 
       return this.uploadFiles(files);
@@ -2772,7 +2772,7 @@ var Dropzone = function (_Emitter) {
 
         var file = _ref29;
 
-        this._errorProcessing(files, response || this.options.dictResponseError.replace("{{statusCode}}", xhr.status), xhr);
+        this._errorProcesSign(files, response || this.options.dictResponseError.replace("{{statusCode}}", xhr.status), xhr);
       }
     }
   }, {
@@ -2781,7 +2781,7 @@ var Dropzone = function (_Emitter) {
       xhr.send(formData);
     }
 
-    // Called internally when processing is finished.
+    // Called internally when procesSign is finished.
     // Individual callbacks have to be called in the appropriate sections.
 
   }, {
@@ -2815,12 +2815,12 @@ var Dropzone = function (_Emitter) {
       }
     }
 
-    // Called internally when processing is finished.
+    // Called internally when procesSign is finished.
     // Individual callbacks have to be called in the appropriate sections.
 
   }, {
-    key: "_errorProcessing",
-    value: function _errorProcessing(files, message, xhr) {
+    key: "_errorProcesSign",
+    value: function _errorProcesSign(files, message, xhr) {
       for (var _iterator32 = files, _isArray32 = true, _i34 = 0, _iterator32 = _isArray32 ? _iterator32 : _iterator32[Symbol.iterator]();;) {
         var _ref31;
 
@@ -3221,7 +3221,7 @@ Dropzone.QUEUED = "queued";
 Dropzone.ACCEPTED = Dropzone.QUEUED;
 
 Dropzone.UPLOADING = "uploading";
-Dropzone.PROCESSING = Dropzone.UPLOADING; // alias
+Dropzone.PROCESSign = Dropzone.UPLOADING; // alias
 
 Dropzone.CANCELED = "canceled";
 Dropzone.ERROR = "error";
@@ -3510,7 +3510,7 @@ var contentLoaded = function contentLoaded(win, fn) {
   }
 };
 
-// As a single function to be able to write tests.
+// As a Signle function to be able to write tests.
 Dropzone._autoDiscoverFunction = function () {
   if (Dropzone.autoDiscover) {
     return Dropzone.discover();

@@ -43,6 +43,7 @@ namespace Bug_Tracker.Controllers
             return View(emptyCustomUserDataList);
         }
 
+        [Authorize(Roles = "Admin, ProjectManager")]
         public ActionResult ManageProjectLevelUsers(int id)
         {
             var userIds = projHelper.UsersOnProject(id).Select(u => u.Id).ToList();
@@ -121,6 +122,7 @@ namespace Bug_Tracker.Controllers
         }
 
         // GET: Projects
+        [Authorize(Roles = "Admin, Submitter, ProjectManager, Developer")]
         public ActionResult Index()
         {
             var projects = new ProjectsViewModel();
@@ -135,6 +137,7 @@ namespace Bug_Tracker.Controllers
         }
 
         // GET: Projects/Details/5
+        [Authorize(Roles = "Admin, Submitter, ProjectManager, Developer")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -143,12 +146,29 @@ namespace Bug_Tracker.Controllers
             }
             Project project = db.Projects.Find(id);
 
+            ViewBag.ProjectManagerId = new SelectList(rolesHelper.UsersInRole("ProjectManager"), "Id", "FullName");
+
             if (project == null)
             {
                 return HttpNotFound();
             }
             return View(project);
         }
+
+        // POST: Project/AssignProjectManager
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AssignProjectManager(int ProjectId, string ProjectManagerId)
+        {
+            if (ProjectId != 0 && ProjectManagerId != null)
+            {
+                projHelper.AssignProjectManager(ProjectId, ProjectManagerId);
+            }
+            return RedirectToAction("Details", new { id = ProjectId });
+        }
+
+
+
 
         // GET: Projects/Create
         [Authorize(Roles = "Admin, ProjectManager")]
@@ -235,13 +255,13 @@ namespace Bug_Tracker.Controllers
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
+        protected override void Dispose(bool dispoSign)
         {
-            if (disposing)
+            if (dispoSign)
             {
                 db.Dispose();
             }
-            base.Dispose(disposing);
+            base.Dispose(dispoSign);
         }
     }
 }

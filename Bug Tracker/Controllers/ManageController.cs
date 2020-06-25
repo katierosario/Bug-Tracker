@@ -322,15 +322,15 @@ namespace Bug_Tracker.Controllers
             return result.Succeeded ? RedirectToAction("ManageLogins") : RedirectToAction("ManageLogins", new { Message = ManageMessageId.Error });
         }
 
-        protected override void Dispose(bool disposing)
+        protected override void Dispose(bool dispoSign)
         {
-            if (disposing && _userManager != null)
+            if (dispoSign && _userManager != null)
             {
                 _userManager.Dispose();
                 _userManager = null;
             }
 
-            base.Dispose(disposing);
+            base.Dispose(dispoSign);
         }
 
 #region Helpers

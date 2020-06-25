@@ -71,7 +71,7 @@ $( "document" ).ready( function() {
 			quitter: ".quitter"
 		},
 		animation: {
-			easing: "easeOutQuint"
+			eaSign: "easeOutQuint"
 		}
 	} );
 } );
@@ -93,7 +93,7 @@ $( "document" ).ready( function() {
 			quitter: ".quitter"
 		},
 		animation: {
-			easing: "easeOutQuint"
+			eaSign: "easeOutQuint"
 		}
 	} );
 } );
@@ -168,8 +168,8 @@ var handleDropdownAnimation = function() {
 //		var $hideDuration = $('#hideDuration');
 //		var $timeOut = $('#timeOut');
 //		var $extendedTimeOut = $('#extendedTimeOut');
-//		var $showEasing = $('#showEasing');
-//		var $hideEasing = $('#hideEasing');
+//		var $showEaSign = $('#showEaSign');
+//		var $hideEaSign = $('#hideEaSign');
 //		var $showMethod = $('#showMethod');
 //		var $hideMethod = $('#hideMethod');
 //		var toastIndex = toastCount++;
@@ -198,11 +198,11 @@ var handleDropdownAnimation = function() {
 //		if ($extendedTimeOut.val().length) {
 //			toastr.options.extendedTimeOut = $extendedTimeOut.val();
 //		}
-//		if ($showEasing.val().length) {
-//			toastr.options.showEasing = $showEasing.val();
+//		if ($showEaSign.val().length) {
+//			toastr.options.showEaSign = $showEaSign.val();
 //		}
-//		if ($hideEasing.val().length) {
-//			toastr.options.hideEasing = $hideEasing.val();
+//		if ($hideEaSign.val().length) {
+//			toastr.options.hideEaSign = $hideEaSign.val();
 //		}
 //		if ($showMethod.val().length) {
 //			toastr.options.showMethod = $showMethod.val();

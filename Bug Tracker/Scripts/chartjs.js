@@ -2265,7 +2265,7 @@ var helpers = require(45);
 
 defaults._set('bubble', {
 	hover: {
-		mode: 'single'
+		mode: 'Signle'
 	},
 
 	scales: {
@@ -2453,7 +2453,7 @@ defaults._set('doughnut', {
 		animateScale: false
 	},
 	hover: {
-		mode: 'single'
+		mode: 'Signle'
 	},
 	legendCallback: function(chart) {
 		var text = [];
@@ -3475,7 +3475,7 @@ var defaults = require(25);
 
 defaults._set('scatter', {
 	hover: {
-		mode: 'single'
+		mode: 'Signle'
 	},
 
 	scales: {
@@ -3523,7 +3523,7 @@ var helpers = require(45);
 defaults._set('global', {
 	animation: {
 		duration: 1000,
-		easing: 'easeOutQuart',
+		eaSign: 'easeOutQuart',
 		onProgress: helpers.noop,
 		onComplete: helpers.noop
 	}
@@ -3535,7 +3535,7 @@ module.exports = function(Chart) {
 		chart: null, // the animation associated chart instance
 		currentStep: 0, // the current animation step
 		numSteps: 60, // default number of steps
-		easing: '', // the easing to use for this animation
+		eaSign: '', // the eaSign to use for this animation
 		render: null, // render function used by the animation service
 
 		onAnimationProgress: null, // user specified callback to fire on each step of the animation
@@ -3594,7 +3594,7 @@ module.exports = function(Chart) {
 			var me = this;
 			if (me.request === null) {
 				// Skip animation frame requests until the active one is executed.
-				// This can happen when processing mouse events, e.g. 'mousemove'
+				// This can happen when procesSign mouse events, e.g. 'mousemove'
 				// and 'mouseout' events will trigger multiple renders.
 				me.request = helpers.requestAnimFrame.call(window, function() {
 					me.request = null;
@@ -4074,7 +4074,7 @@ module.exports = function(Chart) {
 			if (me._bufferedRender) {
 				me._bufferedRequest = {
 					duration: config.duration,
-					easing: config.easing,
+					eaSign: config.eaSign,
 					lazy: config.lazy
 				};
 			} else {
@@ -4175,14 +4175,14 @@ module.exports = function(Chart) {
 			if (animationOptions && ((typeof duration !== 'undefined' && duration !== 0) || (typeof duration === 'undefined' && animationOptions.duration !== 0))) {
 				var animation = new Chart.Animation({
 					numSteps: (duration || animationOptions.duration) / 16.66, // 60 fps
-					easing: config.easing || animationOptions.easing,
+					eaSign: config.eaSign || animationOptions.eaSign,
 
 					render: function(chart, animationObject) {
-						var easingFunction = helpers.easing.effects[animationObject.easing];
+						var eaSignFunction = helpers.eaSign.effects[animationObject.eaSign];
 						var currentStep = animationObject.currentStep;
 						var stepDecimal = currentStep / animationObject.numSteps;
 
-						chart.draw(easingFunction(stepDecimal), stepDecimal, currentStep);
+						chart.draw(eaSignFunction(stepDecimal), stepDecimal, currentStep);
 					},
 
 					onAnimationProgress: animationOptions.onProgress,
@@ -4200,18 +4200,18 @@ module.exports = function(Chart) {
 			return me;
 		},
 
-		draw: function(easingValue) {
+		draw: function(eaSignValue) {
 			var me = this;
 
 			me.clear();
 
-			if (helpers.isNullOrUndef(easingValue)) {
-				easingValue = 1;
+			if (helpers.isNullOrUndef(eaSignValue)) {
+				eaSignValue = 1;
 			}
 
-			me.transition(easingValue);
+			me.transition(eaSignValue);
 
-			if (plugins.notify(me, 'beforeDraw', [easingValue]) === false) {
+			if (plugins.notify(me, 'beforeDraw', [eaSignValue]) === false) {
 				return;
 			}
 
@@ -4224,25 +4224,25 @@ module.exports = function(Chart) {
 				me.scale.draw();
 			}
 
-			me.drawDatasets(easingValue);
-			me._drawTooltip(easingValue);
+			me.drawDatasets(eaSignValue);
+			me._drawTooltip(eaSignValue);
 
-			plugins.notify(me, 'afterDraw', [easingValue]);
+			plugins.notify(me, 'afterDraw', [eaSignValue]);
 		},
 
 		/**
 		 * @private
 		 */
-		transition: function(easingValue) {
+		transition: function(eaSignValue) {
 			var me = this;
 
 			for (var i = 0, ilen = (me.data.datasets || []).length; i < ilen; ++i) {
 				if (me.isDatasetVisible(i)) {
-					me.getDatasetMeta(i).controller.transition(easingValue);
+					me.getDatasetMeta(i).controller.transition(eaSignValue);
 				}
 			}
 
-			me.tooltip.transition(easingValue);
+			me.tooltip.transition(eaSignValue);
 		},
 
 		/**
@@ -4250,21 +4250,21 @@ module.exports = function(Chart) {
 		 * hook, in which case, plugins will not be called on `afterDatasetsDraw`.
 		 * @private
 		 */
-		drawDatasets: function(easingValue) {
+		drawDatasets: function(eaSignValue) {
 			var me = this;
 
-			if (plugins.notify(me, 'beforeDatasetsDraw', [easingValue]) === false) {
+			if (plugins.notify(me, 'beforeDatasetsDraw', [eaSignValue]) === false) {
 				return;
 			}
 
 			// Draw datasets reversed to support proper line stacking
 			for (var i = (me.data.datasets || []).length - 1; i >= 0; --i) {
 				if (me.isDatasetVisible(i)) {
-					me.drawDataset(i, easingValue);
+					me.drawDataset(i, eaSignValue);
 				}
 			}
 
-			plugins.notify(me, 'afterDatasetsDraw', [easingValue]);
+			plugins.notify(me, 'afterDatasetsDraw', [eaSignValue]);
 		},
 
 		/**
@@ -4272,20 +4272,20 @@ module.exports = function(Chart) {
 		 * hook, in which case, plugins will not be called on `afterDatasetDraw`.
 		 * @private
 		 */
-		drawDataset: function(index, easingValue) {
+		drawDataset: function(index, eaSignValue) {
 			var me = this;
 			var meta = me.getDatasetMeta(index);
 			var args = {
 				meta: meta,
 				index: index,
-				easingValue: easingValue
+				eaSignValue: eaSignValue
 			};
 
 			if (plugins.notify(me, 'beforeDatasetDraw', [args]) === false) {
 				return;
 			}
 
-			meta.controller.draw(easingValue);
+			meta.controller.draw(eaSignValue);
 
 			plugins.notify(me, 'afterDatasetDraw', [args]);
 		},
@@ -4295,12 +4295,12 @@ module.exports = function(Chart) {
 		 * hook, in which case, plugins will not be called on `afterTooltipDraw`.
 		 * @private
 		 */
-		_drawTooltip: function(easingValue) {
+		_drawTooltip: function(eaSignValue) {
 			var me = this;
 			var tooltip = me.tooltip;
 			var args = {
 				tooltip: tooltip,
-				easingValue: easingValue
+				eaSignValue: eaSignValue
 			};
 
 			if (plugins.notify(me, 'beforeTooltipDraw', [args]) === false) {
@@ -4312,10 +4312,10 @@ module.exports = function(Chart) {
 			plugins.notify(me, 'afterTooltipDraw', [args]);
 		},
 
-		// Get the single element that was clicked on
+		// Get the Signle element that was clicked on
 		// @return : An object containing the dataset index and element index of the matching element. Also contains the rectangle that was draw
 		getElementAtEvent: function(e) {
-			return Interaction.modes.single(this, e);
+			return Interaction.modes.Signle(this, e);
 		},
 
 		getElementsAtEvent: function(e) {
@@ -4803,18 +4803,18 @@ module.exports = function(Chart) {
 
 		update: helpers.noop,
 
-		transition: function(easingValue) {
+		transition: function(eaSignValue) {
 			var meta = this.getMeta();
 			var elements = meta.data || [];
 			var ilen = elements.length;
 			var i = 0;
 
 			for (; i < ilen; ++i) {
-				elements[i].transition(easingValue);
+				elements[i].transition(eaSignValue);
 			}
 
 			if (meta.dataset) {
-				meta.dataset.transition(easingValue);
+				meta.dataset.transition(eaSignValue);
 			}
 		},
 
@@ -5815,7 +5815,7 @@ function indexMode(chart, e, options) {
 module.exports = {
 	// Helper function for different modes
 	modes: {
-		single: function(chart, e) {
+		Signle: function(chart, e) {
 			var position = getRelativePosition(e, chart);
 			var elements = [];
 
@@ -6183,7 +6183,7 @@ module.exports = function(Chart) {
 			// The areas L1 and L2 are the left axes. R1 is the right axis, T1 is the top axis and
 			// B1 is the bottom axis
 			// There are also 4 quadrant-like locations (left to right instead of clockwise) reserved for chart overlays
-			// These locations are single-box locations only, when trying to register a chartArea location that is already taken,
+			// These locations are Signle-box locations only, when trying to register a chartArea location that is already taken,
 			// an error will be thrown.
 			//
 			// |----------------------------------------------------|
@@ -6481,7 +6481,7 @@ defaults._set('global', {
 module.exports = function(Chart) {
 
 	/**
-	 * The plugin service singleton
+	 * The plugin service Signleton
 	 * @namespace Chart.plugins
 	 * @since 2.1.0
 	 */
@@ -6736,19 +6736,19 @@ module.exports = function(Chart) {
 	/**
 	 * @method IPlugin#beforeDraw
 	 * @desc Called before drawing `chart` at every animation frame specified by the given
-	 * easing value. If any plugin returns `false`, the frame drawing is cancelled until
+	 * eaSign value. If any plugin returns `false`, the frame drawing is cancelled until
 	 * another `render` is triggered.
 	 * @param {Chart.Controller} chart - The chart instance.
-	 * @param {Number} easingValue - The current animation value, between 0.0 and 1.0.
+	 * @param {Number} eaSignValue - The current animation value, between 0.0 and 1.0.
 	 * @param {Object} options - The plugin options.
 	 * @returns {Boolean} `false` to cancel the chart drawing.
 	 */
 	/**
 	 * @method IPlugin#afterDraw
-	 * @desc Called after the `chart` has been drawn for the specific easing value. Note
+	 * @desc Called after the `chart` has been drawn for the specific eaSign value. Note
 	 * that this hook will not be called if the drawing has been previously cancelled.
 	 * @param {Chart.Controller} chart - The chart instance.
-	 * @param {Number} easingValue - The current animation value, between 0.0 and 1.0.
+	 * @param {Number} eaSignValue - The current animation value, between 0.0 and 1.0.
 	 * @param {Object} options - The plugin options.
 	 */
 	/**
@@ -6756,7 +6756,7 @@ module.exports = function(Chart) {
  	 * @desc Called before drawing the `chart` datasets. If any plugin returns `false`,
 	 * the datasets drawing is cancelled until another `render` is triggered.
 	 * @param {Chart.Controller} chart - The chart instance.
-	 * @param {Number} easingValue - The current animation value, between 0.0 and 1.0.
+	 * @param {Number} eaSignValue - The current animation value, between 0.0 and 1.0.
 	 * @param {Object} options - The plugin options.
 	 * @returns {Boolean} `false` to cancel the chart datasets drawing.
 	 */
@@ -6765,7 +6765,7 @@ module.exports = function(Chart) {
 	 * @desc Called after the `chart` datasets have been drawn. Note that this hook
 	 * will not be called if the datasets drawing has been previously cancelled.
 	 * @param {Chart.Controller} chart - The chart instance.
-	 * @param {Number} easingValue - The current animation value, between 0.0 and 1.0.
+	 * @param {Number} eaSignValue - The current animation value, between 0.0 and 1.0.
 	 * @param {Object} options - The plugin options.
 	 */
 	/**
@@ -6777,7 +6777,7 @@ module.exports = function(Chart) {
 	 * @param {Object} args - The call arguments.
 	 * @param {Number} args.index - The dataset index.
 	 * @param {Object} args.meta - The dataset metadata.
-	 * @param {Number} args.easingValue - The current animation value, between 0.0 and 1.0.
+	 * @param {Number} args.eaSignValue - The current animation value, between 0.0 and 1.0.
 	 * @param {Object} options - The plugin options.
 	 * @returns {Boolean} `false` to cancel the chart datasets drawing.
 	 */
@@ -6790,7 +6790,7 @@ module.exports = function(Chart) {
 	 * @param {Object} args - The call arguments.
 	 * @param {Number} args.index - The dataset index.
 	 * @param {Object} args.meta - The dataset metadata.
-	 * @param {Number} args.easingValue - The current animation value, between 0.0 and 1.0.
+	 * @param {Number} args.eaSignValue - The current animation value, between 0.0 and 1.0.
 	 * @param {Object} options - The plugin options.
 	 */
 	/**
@@ -6800,7 +6800,7 @@ module.exports = function(Chart) {
 	 * @param {Chart} chart - The chart instance.
 	 * @param {Object} args - The call arguments.
 	 * @param {Object} args.tooltip - The tooltip.
-	 * @param {Number} args.easingValue - The current animation value, between 0.0 and 1.0.
+	 * @param {Number} args.eaSignValue - The current animation value, between 0.0 and 1.0.
 	 * @param {Object} options - The plugin options.
 	 * @returns {Boolean} `false` to cancel the chart tooltip drawing.
   	 */
@@ -6811,12 +6811,12 @@ module.exports = function(Chart) {
  	 * @param {Chart} chart - The chart instance.
  	 * @param {Object} args - The call arguments.
  	 * @param {Object} args.tooltip - The tooltip.
-	 * @param {Number} args.easingValue - The current animation value, between 0.0 and 1.0.
+	 * @param {Number} args.eaSignValue - The current animation value, between 0.0 and 1.0.
  	 * @param {Object} options - The plugin options.
  	 */
 	/**
 	 * @method IPlugin#beforeEvent
- 	 * @desc Called before processing the specified `event`. If any plugin returns `false`,
+ 	 * @desc Called before procesSign the specified `event`. If any plugin returns `false`,
 	 * the event will be discarded.
 	 * @param {Chart.Controller} chart - The chart instance.
 	 * @param {IEvent} event - The event object.
@@ -10101,9 +10101,9 @@ helpers.getValueAtIndexOrDefault = helpers.valueAtIndexOrDefault;
 var helpers = require(42);
 
 /**
- * Easing functions adapted from Robert Penner's easing equations.
- * @namespace Chart.helpers.easingEffects
- * @see http://www.robertpenner.com/easing/
+ * EaSign functions adapted from Robert Penner's eaSign equations.
+ * @namespace Chart.helpers.eaSignEffects
+ * @see http://www.robertpenner.com/eaSign/
  */
 var effects = {
 	linear: function(t) {
@@ -10339,13 +10339,13 @@ module.exports = {
 // DEPRECATIONS
 
 /**
- * Provided for backward compatibility, use Chart.helpers.easing.effects instead.
- * @function Chart.helpers.easingEffects
+ * Provided for backward compatibility, use Chart.helpers.eaSign.effects instead.
+ * @function Chart.helpers.eaSignEffects
  * @deprecated since version 2.7.0
  * @todo remove at version 3
  * @private
  */
-helpers.easingEffects = effects;
+helpers.eaSignEffects = effects;
 
 },{"42":42}],44:[function(require,module,exports){
 'use strict';
@@ -10449,7 +10449,7 @@ module.exports = {
 'use strict';
 
 module.exports = require(42);
-module.exports.easing = require(43);
+module.exports.eaSign = require(43);
 module.exports.canvas = require(41);
 module.exports.options = require(44);
 
@@ -10710,7 +10710,7 @@ function watchForRender(node, handler) {
 	});
 
 	// #4737: Chrome might skip the CSS animation when the CSS_RENDER_MONITOR class
-	// is removed then added back immediately (same animation frame?). Accessing the
+	// is removed then added back immediately (same animation frame?). AccesSign the
 	// `offsetParent` property will force a reflow and re-evaluate the CSS animation.
 	// https://gist.github.com/paulirish/5d52fb081b3570c81e3a#box-metrics
 	// https://github.com/chartjs/Chart.js/issues/4737
@@ -12685,7 +12685,7 @@ module.exports = function(Chart) {
 							if (opts.relativePoints) {
 								values[index] = 100;
 							} else {
-								// Don't need to split positive and negative since the log scale can't handle a 0 crossing
+								// Don't need to split positive and negative since the log scale can't handle a 0 crosSign
 								values[index] += value;
 							}
 						});
@@ -13565,7 +13565,7 @@ function interpolate(table, skey, sval, tkey) {
 
 /**
  * Convert the given value to a moment object using the given time options.
- * @see http://momentjs.com/docs/#/parsing/
+ * @see http://momentjs.com/docs/#/parSign/
  */
 function momentify(value, options) {
 	var parser = options.parser;
@@ -13813,8 +13813,8 @@ module.exports = function(Chart) {
 		bounds: 'data',
 
 		time: {
-			parser: false, // false == a pattern string from http://momentjs.com/docs/#/parsing/string-format/ or a custom callback that converts its argument to a moment
-			format: false, // DEPRECATED false == date objects, moment object, callback or a pattern string from http://momentjs.com/docs/#/parsing/string-format/
+			parser: false, // false == a pattern string from http://momentjs.com/docs/#/parSign/string-format/ or a custom callback that converts its argument to a moment
+			format: false, // DEPRECATED false == date objects, moment object, callback or a pattern string from http://momentjs.com/docs/#/parSign/string-format/
 			unit: false, // false == automatic or override with week, month, year, etc.
 			round: false, // none, or override with week, month, year, etc.
 			displayFormat: false, // DEPRECATED

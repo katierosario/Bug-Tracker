@@ -26,7 +26,18 @@
                         </div>
                     </div>
                     <div class="card-body collapse show" id="collapse5">
-                        <table id="hoverTable" class="table hover responsive nowrap">
+                        <div class="row">
+                            <div class="mg-20 form-inline wd-100p">
+                                <div class="col-sm-6">
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group ft-right">
+                                        <input id="foo-search2" type="text" placeholder="Search" class="form-control" autocomplete="off">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <table id="hoverTable" class="table table-bordered table-hover toggle-circle">
                             <thead>
                                 <tr>
                                     <th>
@@ -47,9 +58,9 @@
                                     <th></th>
                                 </tr>
                             </thead>
-                                <tbody>
-                            @foreach (var item in Model.AllProjects)
-                            {
+                            <tbody>
+                                @foreach (var item in Model.AllProjects)
+                                {
                                     <tr>
                                         <td>
                                             @Html.DisplayFor(modelItem => item.Name)
@@ -80,11 +91,11 @@
                                             @Html.ActionLink("Details", "Details", new { id = item.Id })
                                         </td>
                                     </tr>
-                            }
-                                </tbody>
+                                }
+                            </tbody>
                             <tfoot>
                                 <tr>
-                                    <td colspan="5">
+                                    <td colspan="6">
                                         <div class="ft-right">
                                             <ul class="pagination"></ul>
                                         </div>
@@ -146,9 +157,9 @@
                                     <th></th>
                                 </tr>
                             </thead>
-                                <tbody>
-                            @foreach (var item in Model.MyProjects)
-                            {
+                            <tbody>
+                                @foreach (var item in Model.MyProjects)
+                                {
                                     <tr>
                                         <td>
                                             @Html.DisplayFor(modelItem => item.Name)
@@ -180,11 +191,11 @@
 
                                         </td>
                                     </tr>
-                            }
-                                </tbody>
+                                }
+                            </tbody>
                             <tfoot>
                                 <tr>
-                                    <td colspan="5">
+                                    <td colspan="6">
                                         <div class="ft-right">
                                             <ul class="pagination"></ul>
                                         </div>

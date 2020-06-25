@@ -24,6 +24,8 @@ namespace Bug_Tracker.Controllers
         private HistoryHelper historyHelper = new HistoryHelper();
         private NotificationHelper notificationHelper = new NotificationHelper();
 
+
+        [Authorize(Roles = "Admin, Submitter, ProjectManager, Developer")]
         public ActionResult Dashboard()
         {
             return View();
@@ -83,6 +85,7 @@ namespace Bug_Tracker.Controllers
         // POST: Tickets/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin, Submitter, ProjectManager, Developer")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ProjectId,TicketTypeId,TicketPriorityId,Title,Description")] Ticket ticket)
@@ -155,7 +158,7 @@ namespace Bug_Tracker.Controllers
             ViewBag.TicketTypeId = new SelectList(db.TicketTypes, "Id", "Name", ticket.TicketTypeId);
             ViewBag.TicketPriorityId = new SelectList(db.TicketPriorities, "Id", "Name", ticket.TicketPriorityId);
             ViewBag.TicketStatusId = new SelectList(db.TicketStatus, "Id", "Name", ticket.TicketStatusId);
-            ViewBag.DeveloperId = new SelectList(rolesHelper.UsersInRole("Developer"), "Id", "FullName");
+            ViewBag.DeveloperId = new SelectList(rolesHelper.UsersInRole("Developer"), "Id", "FullName",ticket.DeveloperId);
             return View(ticket);
         }
 
@@ -213,13 +216,13 @@ namespace Bug_Tracker.Controllers
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
+        protected override void Dispose(bool dispoSign)
         {
-            if (disposing)
+            if (dispoSign)
             {
                 db.Dispose();
             }
-            base.Dispose(disposing);
+            base.Dispose(dispoSign);
         }
     }
 }

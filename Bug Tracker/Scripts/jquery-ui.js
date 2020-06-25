@@ -727,7 +727,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
 		if ( hasOptions && $.effects && $.effects.effect[ effectName ] ) {
 			element[ method ]( options );
 		} else if ( effectName !== method && element[ effectName ] ) {
-			element[ effectName ]( options.duration, options.easing, callback );
+			element[ effectName ]( options.duration, options.eaSign, callback );
 		} else {
 			element.queue( function( next ) {
 				$( this )[ method ]();
@@ -899,7 +899,7 @@ $.fn.position = function( options ) {
 	basePosition = $.extend( {}, targetOffset );
 
 	// Force my and at to have valid horizontal and vertical positions
-	// if a value is missing or invalid, it will be converted to center
+	// if a value is misSign or invalid, it will be converted to center
 	$.each( [ "my", "at" ], function() {
 		var pos = ( options[ this ] || "" ).split( " " ),
 			horizontalOffset,
@@ -1308,7 +1308,7 @@ var disableSelection = $.fn.extend( {
 //>>label: Effects Core
 //>>group: Effects
 // jscs:disable maximumLineLength
-//>>description: Extends the internal jQuery effects. Includes morphing and easing. Required by all other effects.
+//>>description: Extends the internal jQuery effects. Includes morphing and eaSign. Required by all other effects.
 // jscs:enable maximumLineLength
 //>>docs: http://api.jqueryui.com/category/effects-core/
 //>>demos: http://jqueryui.com/effect/
@@ -2089,8 +2089,8 @@ if ( !$.fn.addBack ) {
 	};
 }
 
-$.effects.animateClass = function( value, duration, easing, callback ) {
-	var o = $.speed( duration, easing, callback );
+$.effects.animateClass = function( value, duration, eaSign, callback ) {
+	var o = $.speed( duration, eaSign, callback );
 
 	return this.queue( function() {
 		var animated = $( this ),
@@ -2166,25 +2166,25 @@ $.effects.animateClass = function( value, duration, easing, callback ) {
 
 $.fn.extend( {
 	addClass: ( function( orig ) {
-		return function( classNames, speed, easing, callback ) {
+		return function( classNames, speed, eaSign, callback ) {
 			return speed ?
 				$.effects.animateClass.call( this,
-					{ add: classNames }, speed, easing, callback ) :
+					{ add: classNames }, speed, eaSign, callback ) :
 				orig.apply( this, arguments );
 		};
 	} )( $.fn.addClass ),
 
 	removeClass: ( function( orig ) {
-		return function( classNames, speed, easing, callback ) {
+		return function( classNames, speed, eaSign, callback ) {
 			return arguments.length > 1 ?
 				$.effects.animateClass.call( this,
-					{ remove: classNames }, speed, easing, callback ) :
+					{ remove: classNames }, speed, eaSign, callback ) :
 				orig.apply( this, arguments );
 		};
 	} )( $.fn.removeClass ),
 
 	toggleClass: ( function( orig ) {
-		return function( classNames, force, speed, easing, callback ) {
+		return function( classNames, force, speed, eaSign, callback ) {
 			if ( typeof force === "boolean" || force === undefined ) {
 				if ( !speed ) {
 
@@ -2193,22 +2193,22 @@ $.fn.extend( {
 				} else {
 					return $.effects.animateClass.call( this,
 						( force ? { add: classNames } : { remove: classNames } ),
-						speed, easing, callback );
+						speed, eaSign, callback );
 				}
 			} else {
 
 				// Without force parameter
 				return $.effects.animateClass.call( this,
-					{ toggle: classNames }, force, speed, easing );
+					{ toggle: classNames }, force, speed, eaSign );
 			}
 		};
 	} )( $.fn.toggleClass ),
 
-	switchClass: function( remove, add, speed, easing, callback ) {
+	switchClass: function( remove, add, speed, eaSign, callback ) {
 		return $.effects.animateClass.call( this, {
 			add: add,
 			remove: remove
-		}, speed, easing, callback );
+		}, speed, eaSign, callback );
 	}
 } );
 
@@ -2557,7 +2557,7 @@ $.extend( $.effects, {
 // Return an effect options object for the given parameters:
 function _normalizeArguments( effect, options, speed, callback ) {
 
-	// Allow passing all options as the first parameter
+	// Allow pasSign all options as the first parameter
 	if ( $.isPlainObject( effect ) ) {
 		options = effect;
 		effect = effect.effect;
@@ -2823,7 +2823,7 @@ $.fn.extend( {
 					width: element.innerWidth(),
 					position: targetFixed ? "fixed" : "absolute"
 				} )
-				.animate( animation, options.duration, options.easing, function() {
+				.animate( animation, options.duration, options.eaSign, function() {
 					transfer.remove();
 					if ( $.isFunction( done ) ) {
 						done();
@@ -2866,22 +2866,22 @@ $.fx.step.clip = function( fx ) {
 } )();
 
 /******************************************************************************/
-/*********************************** EASING ***********************************/
+/*********************************** EASign ***********************************/
 /******************************************************************************/
 
 ( function() {
 
-// Based on easing equations from Robert Penner (http://www.robertpenner.com/easing)
+// Based on eaSign equations from Robert Penner (http://www.robertpenner.com/eaSign)
 
-var baseEasings = {};
+var baseEaSigns = {};
 
 $.each( [ "Quad", "Cubic", "Quart", "Quint", "Expo" ], function( i, name ) {
-	baseEasings[ name ] = function( p ) {
+	baseEaSigns[ name ] = function( p ) {
 		return Math.pow( p, i + 2 );
 	};
 } );
 
-$.extend( baseEasings, {
+$.extend( baseEaSigns, {
 	Sine: function( p ) {
 		return 1 - Math.cos( p * Math.PI / 2 );
 	},
@@ -2904,12 +2904,12 @@ $.extend( baseEasings, {
 	}
 } );
 
-$.each( baseEasings, function( name, easeIn ) {
-	$.easing[ "easeIn" + name ] = easeIn;
-	$.easing[ "easeOut" + name ] = function( p ) {
+$.each( baseEaSigns, function( name, easeIn ) {
+	$.eaSign[ "easeIn" + name ] = easeIn;
+	$.eaSign[ "easeOut" + name ] = function( p ) {
 		return 1 - easeIn( 1 - p );
 	};
-	$.easing[ "easeInOut" + name ] = function( p ) {
+	$.eaSign[ "easeInOut" + name ] = function( p ) {
 		return p < 0.5 ?
 			easeIn( p * 2 ) / 2 :
 			1 - easeIn( p * -2 + 2 ) / 2;
@@ -2965,13 +2965,13 @@ var effectsEffectBlind = $.effects.define( "blind", "hide", function( options, d
 	}
 
 	if ( placeholder ) {
-		placeholder.animate( $.effects.clipToBox( animate ), options.duration, options.easing );
+		placeholder.animate( $.effects.clipToBox( animate ), options.duration, options.eaSign );
 	}
 
 	element.animate( animate, {
 		queue: false,
 		duration: options.duration,
-		easing: options.easing,
+		eaSign: options.eaSign,
 		complete: done
 	} );
 } );
@@ -3009,7 +3009,7 @@ var effectsEffectBounce = $.effects.define( "bounce", function( options, done ) 
 		// Number of internal animations
 		anims = times * 2 + ( show || hide ? 1 : 0 ),
 		speed = options.duration / anims,
-		easing = options.easing,
+		eaSign = options.eaSign,
 
 		// Utility:
 		ref = ( direction === "up" || direction === "down" ) ? "top" : "left",
@@ -3036,7 +3036,7 @@ var effectsEffectBounce = $.effects.define( "bounce", function( options, done ) 
 		element
 			.css( "opacity", 0 )
 			.css( ref, motion ? -distance * 2 : distance * 2 )
-			.animate( downAnim, speed, easing );
+			.animate( downAnim, speed, eaSign );
 	}
 
 	// Start at the smallest distance if we are hiding
@@ -3053,8 +3053,8 @@ var effectsEffectBounce = $.effects.define( "bounce", function( options, done ) 
 		upAnim[ ref ] = ( motion ? "-=" : "+=" ) + distance;
 
 		element
-			.animate( upAnim, speed, easing )
-			.animate( downAnim, speed, easing );
+			.animate( upAnim, speed, eaSign )
+			.animate( downAnim, speed, eaSign );
 
 		distance = hide ? distance * 2 : distance / 2;
 	}
@@ -3064,7 +3064,7 @@ var effectsEffectBounce = $.effects.define( "bounce", function( options, done ) 
 		upAnim = { opacity: 0 };
 		upAnim[ ref ] = ( motion ? "-=" : "+=" ) + distance;
 
-		element.animate( upAnim, speed, easing );
+		element.animate( upAnim, speed, eaSign );
 	}
 
 	element.queue( done );
@@ -3117,7 +3117,7 @@ var effectsEffectClip = $.effects.define( "clip", "hide", function( options, don
 	element.animate( animate, {
 		queue: false,
 		duration: options.duration,
-		easing: options.easing,
+		eaSign: options.eaSign,
 		complete: done
 	} );
 
@@ -3173,7 +3173,7 @@ var effectsEffectDrop = $.effects.define( "drop", "hide", function( options, don
 	element.animate( animation, {
 		queue: false,
 		duration: options.duration,
-		easing: options.easing,
+		eaSign: options.eaSign,
 		complete: done
 	} );
 } );
@@ -3262,7 +3262,7 @@ var effectsEffectExplode = $.effects.define( "explode", "hide", function( option
 						left: left + ( show ? 0 : mx * width ),
 						top: top + ( show ? 0 : my * height ),
 						opacity: show ? 1 : 0
-					}, options.duration || 500, options.easing, childComplete );
+					}, options.duration || 500, options.eaSign, childComplete );
 		}
 	}
 
@@ -3303,7 +3303,7 @@ var effectsEffectFade = $.effects.define( "fade", "toggle", function( options, d
 		}, {
 			queue: false,
 			duration: options.duration,
-			easing: options.easing,
+			eaSign: options.eaSign,
 			complete: done
 		} );
 } );
@@ -3370,14 +3370,14 @@ var effectsEffectFold = $.effects.define( "fold", "hide", function( options, don
 		.queue( function( next ) {
 			if ( placeholder ) {
 				placeholder
-					.animate( $.effects.clipToBox( animation1 ), duration, options.easing )
-					.animate( $.effects.clipToBox( animation2 ), duration, options.easing );
+					.animate( $.effects.clipToBox( animation1 ), duration, options.eaSign )
+					.animate( $.effects.clipToBox( animation2 ), duration, options.eaSign );
 			}
 
 			next();
 		} )
-		.animate( animation1, duration, options.easing )
-		.animate( animation2, duration, options.easing )
+		.animate( animation1, duration, options.eaSign )
+		.animate( animation2, duration, options.eaSign )
 		.queue( done );
 
 	$.effects.unshift( element, queuelen, 4 );
@@ -3421,7 +3421,7 @@ var effectsEffectHighlight = $.effects.define( "highlight", "show", function( op
 		.animate( animation, {
 			queue: false,
 			duration: options.duration,
-			easing: options.easing,
+			eaSign: options.eaSign,
 			complete: done
 		} );
 } );
@@ -3564,7 +3564,7 @@ var effectsEffectSize = $.effects.define( "size", function( options, done ) {
 
 			// Animate children
 			child.css( childFrom );
-			child.animate( childTo, options.duration, options.easing, function() {
+			child.animate( childTo, options.duration, options.eaSign, function() {
 
 				// Restore children
 				if ( restore ) {
@@ -3578,7 +3578,7 @@ var effectsEffectSize = $.effects.define( "size", function( options, done ) {
 	element.animate( to, {
 		queue: false,
 		duration: options.duration,
-		easing: options.easing,
+		eaSign: options.eaSign,
 		complete: function() {
 
 			var offset = element.offset();
@@ -3710,11 +3710,11 @@ var effectsEffectPulsate = $.effects.define( "pulsate", "show", function( option
 
 	// Anims - 1 opacity "toggles"
 	for ( ; i < anims; i++ ) {
-		element.animate( { opacity: animateTo }, duration, options.easing );
+		element.animate( { opacity: animateTo }, duration, options.eaSign );
 		animateTo = 1 - animateTo;
 	}
 
-	element.animate( { opacity: animateTo }, duration, options.easing );
+	element.animate( { opacity: animateTo }, duration, options.eaSign );
 
 	element.queue( done );
 
@@ -3764,18 +3764,18 @@ var effectsEffectShake = $.effects.define( "shake", function( options, done ) {
 	animation2[ ref ] = ( positiveMotion ? "-=" : "+=" ) + distance * 2;
 
 	// Animate
-	element.animate( animation, speed, options.easing );
+	element.animate( animation, speed, options.eaSign );
 
 	// Shakes
 	for ( ; i < times; i++ ) {
 		element
-			.animate( animation1, speed, options.easing )
-			.animate( animation2, speed, options.easing );
+			.animate( animation1, speed, options.eaSign )
+			.animate( animation2, speed, options.eaSign );
 	}
 
 	element
-		.animate( animation1, speed, options.easing )
-		.animate( animation, speed / 2, options.easing )
+		.animate( animation1, speed, options.eaSign )
+		.animate( animation, speed / 2, options.eaSign )
 		.queue( done );
 
 	$.effects.unshift( element, queuelen, anims + 1 );
@@ -3838,7 +3838,7 @@ var effectsEffectSlide = $.effects.define( "slide", "show", function( options, d
 	element.animate( animation, {
 		queue: false,
 		duration: options.duration,
-		easing: options.easing,
+		eaSign: options.eaSign,
 		complete: done
 	} );
 } );
@@ -3992,7 +3992,7 @@ var formResetMixin = $.ui.formResetMixin = {
 		var instances = this.form.data( "ui-form-reset-instances" ) || [];
 		if ( !instances.length ) {
 
-			// We don't use _on() here because we use a single event handler per form
+			// We don't use _on() here because we use a Signle event handler per form
 			this.form.on( "reset.ui-form-reset", this._formResetHandler );
 		}
 		instances.push( this );
@@ -4713,13 +4713,13 @@ var widgetsAccordion = $.widget( "ui.accordion", {
 			active = this.active,
 			clicked = $( event.currentTarget ),
 			clickedIsActive = clicked[ 0 ] === active[ 0 ],
-			collapsing = clickedIsActive && options.collapsible,
-			toShow = collapsing ? $() : clicked.next(),
+			collapSign = clickedIsActive && options.collapsible,
+			toShow = collapSign ? $() : clicked.next(),
 			toHide = active.next(),
 			eventData = {
 				oldHeader: active,
 				oldPanel: toHide,
-				newHeader: collapsing ? $() : clicked,
+				newHeader: collapSign ? $() : clicked,
 				newPanel: toShow
 			};
 
@@ -4735,7 +4735,7 @@ var widgetsAccordion = $.widget( "ui.accordion", {
 			return;
 		}
 
-		options.active = collapsing ? false : this.headers.index( clicked );
+		options.active = collapSign ? false : this.headers.index( clicked );
 
 		// When the call to ._toggle() comes after the class changes
 		// it causes a very odd bug in IE 8 (see #6720)
@@ -4791,7 +4791,7 @@ var widgetsAccordion = $.widget( "ui.accordion", {
 
 		// if we're switching panels, remove the old header from the tab order
 		// if we're opening from collapsed state, remove the previous header from the tab order
-		// if we're collapsing, then keep the collapsing header in the tab order
+		// if we're collapSign, then keep the collapSign header in the tab order
 		if ( toShow.length && toHide.length ) {
 			toHide.prev().attr( {
 				"tabIndex": -1,
@@ -4815,7 +4815,7 @@ var widgetsAccordion = $.widget( "ui.accordion", {
 	},
 
 	_animate: function( toShow, toHide, data ) {
-		var total, easing, duration,
+		var total, eaSign, duration,
 			that = this,
 			adjust = 0,
 			boxSizing = toShow.css( "box-sizing" ),
@@ -4831,24 +4831,24 @@ var widgetsAccordion = $.widget( "ui.accordion", {
 			duration = options;
 		}
 		if ( typeof options === "string" ) {
-			easing = options;
+			eaSign = options;
 		}
 
 		// fall back from options to animation in case of partial down settings
-		easing = easing || options.easing || animate.easing;
+		eaSign = eaSign || options.eaSign || animate.eaSign;
 		duration = duration || options.duration || animate.duration;
 
 		if ( !toHide.length ) {
-			return toShow.animate( this.showProps, duration, easing, complete );
+			return toShow.animate( this.showProps, duration, eaSign, complete );
 		}
 		if ( !toShow.length ) {
-			return toHide.animate( this.hideProps, duration, easing, complete );
+			return toHide.animate( this.hideProps, duration, eaSign, complete );
 		}
 
 		total = toShow.show().outerHeight();
 		toHide.animate( this.hideProps, {
 			duration: duration,
-			easing: easing,
+			eaSign: eaSign,
 			step: function( now, fx ) {
 				fx.now = Math.round( now );
 			}
@@ -4857,7 +4857,7 @@ var widgetsAccordion = $.widget( "ui.accordion", {
 			.hide()
 			.animate( this.showProps, {
 				duration: duration,
-				easing: easing,
+				eaSign: eaSign,
 				complete: complete,
 				step: function( now, fx ) {
 					fx.now = Math.round( now );
@@ -4895,7 +4895,7 @@ var safeActiveElement = $.ui.safeActiveElement = function( document ) {
 	var activeElement;
 
 	// Support: IE 9 only
-	// IE9 throws an "Unspecified error" accessing document.activeElement from an <iframe>
+	// IE9 throws an "Unspecified error" accesSign document.activeElement from an <iframe>
 	try {
 		activeElement = document.activeElement;
 	} catch ( error ) {
@@ -4910,7 +4910,7 @@ var safeActiveElement = $.ui.safeActiveElement = function( document ) {
 	}
 
 	// Support: IE 11 only
-	// IE11 returns a seemingly empty object in some cases when accessing
+	// IE11 returns a seemingly empty object in some cases when accesSign
 	// document.activeElement from an <iframe>
 	if ( !activeElement.nodeName ) {
 		activeElement = document.body;
@@ -5638,7 +5638,7 @@ $.widget( "ui.autocomplete", {
 			isInput = nodeName === "input";
 
 		// Textareas are always multi-line
-		// Inputs are always single-line, even if inside a contentEditable element
+		// Inputs are always Signle-line, even if inside a contentEditable element
 		// IE also treats inputs as contentEditable
 		// All other element types are determined by whether or not they're contentEditable
 		this.isMultiLine = isTextarea || !isInput && this._isContentEditable( this.element );
@@ -5704,7 +5704,7 @@ $.widget( "ui.autocomplete", {
 						this.close( event );
 
 						// Different browsers have different default behavior for escape
-						// Single press can mean undo or clear
+						// Signle press can mean undo or clear
 						// Double press in IE means clear the whole form
 						event.preventDefault();
 					}
@@ -6349,7 +6349,7 @@ var widgetsControlgroup = $.widget( "ui.controlgroup", {
 					var instance = element[ widget ]( "instance" );
 
 					// We need to clone the default options for this type of widget to avoid
-					// polluting the variable options which has a wider scope than a single widget.
+					// polluting the variable options which has a wider scope than a Signle widget.
 					var instanceOptions = $.widget.extend( {}, options );
 
 					// If the button is the child of a spinner ignore it
@@ -7126,7 +7126,7 @@ if ( $.uiBackCompat !== false ) {
 				return orig.apply( this, arguments );
 			}
 			if ( !$.ui.checkboxradio ) {
-				$.error( "Checkboxradio widget missing" );
+				$.error( "Checkboxradio widget misSign" );
 			}
 			if ( arguments.length === 0 ) {
 				return this.checkboxradio( {
@@ -7139,7 +7139,7 @@ if ( $.uiBackCompat !== false ) {
 
 	$.fn.buttonset = function() {
 		if ( !$.ui.controlgroup ) {
-			$.error( "Controlgroup widget missing" );
+			$.error( "Controlgroup widget misSign" );
 		}
 		if ( arguments[ 0 ] === "option" && arguments[ 1 ] === "items" && arguments[ 2 ] ) {
 			return this.controlgroup.apply( this,
@@ -7211,7 +7211,7 @@ function datepicker_getZindex( elem ) {
 	return 0;
 }
 /* Date picker manager.
-   Use the singleton instance of this class, $.datepicker, to interact with the date picker.
+   Use the Signleton instance of this class, $.datepicker, to interact with the date picker.
    Settings for (groups of) date pickers are maintained in an instance object,
    allowing multiple different settings on the same page. */
 
@@ -7642,7 +7642,7 @@ $.extend( Datepicker.prototype, {
 			return $.data( target, "datepicker" );
 		}
 		catch ( err ) {
-			throw "Missing instance data for this datepicker";
+			throw "MisSign instance data for this datepicker";
 		}
 	},
 
@@ -8325,7 +8325,7 @@ $.extend( Datepicker.prototype, {
 					digits = new RegExp( "^\\d{" + minSize + "," + size + "}" ),
 					num = value.substring( iValue ).match( digits );
 				if ( !num ) {
-					throw "Missing number at position " + iValue;
+					throw "MisSign number at position " + iValue;
 				}
 				iValue += num[ 0 ].length;
 				return parseInt( num[ 0 ], 10 );
@@ -8483,7 +8483,7 @@ $.extend( Datepicker.prototype, {
 	 * @ - Unix timestamp (ms since 01/01/1970)
 	 * ! - Windows ticks (100ns since 01/01/0001)
 	 * "..." - literal text
-	 * '' - single quote
+	 * '' - Signle quote
 	 *
 	 * @param  format string - the desired format of the date
 	 * @param  date Date - the date value to format
@@ -9152,7 +9152,7 @@ $.extend( Datepicker.prototype, {
 			( !maxYear || date.getFullYear() <= maxYear ) );
 	},
 
-	/* Provide the configuration settings for formatting/parsing. */
+	/* Provide the configuration settings for formatting/parSign. */
 	_getFormatConfig: function( inst ) {
 		var shortYearCutoff = this._get( inst, "shortYearCutoff" );
 		shortYearCutoff = ( typeof shortYearCutoff !== "string" ? shortYearCutoff :
@@ -9258,7 +9258,7 @@ $.fn.datepicker = function( options ) {
 	} );
 };
 
-$.datepicker = new Datepicker(); // singleton instance
+$.datepicker = new Datepicker(); // Signleton instance
 $.datepicker.initialized = false;
 $.datepicker.uuid = new Date().getTime();
 $.datepicker.version = "1.12.1";
@@ -9412,8 +9412,8 @@ var widgetsMouse = $.widget( "ui.mouse", {
 				// during a drag (#14461)
 				if ( event.originalEvent.altKey || event.originalEvent.ctrlKey ||
 						event.originalEvent.metaKey || event.originalEvent.shiftKey ) {
-					this.ignoreMissingWhich = true;
-				} else if ( !this.ignoreMissingWhich ) {
+					this.ignoreMisSignWhich = true;
+				} else if ( !this.ignoreMisSignWhich ) {
 					return this._mouseUp( event );
 				}
 			}
@@ -9457,7 +9457,7 @@ var widgetsMouse = $.widget( "ui.mouse", {
 			delete this._mouseDelayTimer;
 		}
 
-		this.ignoreMissingWhich = false;
+		this.ignoreMisSignWhich = false;
 		mouseHandled = false;
 		event.preventDefault();
 	},
@@ -10784,7 +10784,7 @@ $.widget( "ui.resizable", $.ui.mouse, {
 		alsoResize: false,
 		animate: false,
 		animateDuration: "slow",
-		animateEasing: "swing",
+		animateEaSign: "swing",
 		aspectRatio: false,
 		autoHide: false,
 		classes: {
@@ -11555,7 +11555,7 @@ $.ui.plugin.add( "resizable", "animate", {
 		that.element.animate(
 			$.extend( style, top && left ? { top: top, left: left } : {} ), {
 				duration: o.animateDuration,
-				easing: o.animateEasing,
+				eaSign: o.animateEaSign,
 				step: function() {
 
 					var data = {
@@ -12342,7 +12342,7 @@ $.widget( "ui.dialog", {
 		} );
 
 		// Support: IE
-		// Use type="button" to prevent enter keypresses in textboxes from closing the
+		// Use type="button" to prevent enter keypresses in textboxes from cloSign the
 		// dialog in IE (#9312)
 		this.uiDialogTitlebarClose = $( "<button type='button'></button>" )
 			.button( {
@@ -12781,7 +12781,7 @@ $.widget( "ui.dialog", {
 		if ( !this.document.data( "ui-dialog-overlays" ) ) {
 
 			// Prevent use of anchors and inputs
-			// Using _on() for an event handler shared across many instances is
+			// using _on() for an event handler shared across many instances is
 			// safe because the dialogs stack and must be closed in reverse order
 			this._on( this.document, {
 				focusin: function( event ) {
@@ -14945,7 +14945,7 @@ var widgetsSlider = $.widget( "ui.slider", $.ui.mouse, {
 
 	//internal values getter
 	// _values() returns array of values trimmed by min and max, aligned by step
-	// _values( index ) returns single value trimmed by min and max, aligned by step
+	// _values( index ) returns Signle value trimmed by min and max, aligned by step
 	_values: function( index ) {
 		var val,
 			vals,
@@ -17471,14 +17471,14 @@ $.widget( "ui.tabs", {
 			break;
 		case $.ui.keyCode.SPACE:
 
-			// Activate only, no collapsing
+			// Activate only, no collapSign
 			event.preventDefault();
 			clearTimeout( this.activating );
 			this._activate( selectedIndex );
 			return;
 		case $.ui.keyCode.ENTER:
 
-			// Toggle (cancel delayed activation, allow collapsing)
+			// Toggle (cancel delayed activation, allow collapSign)
 			event.preventDefault();
 			clearTimeout( this.activating );
 
@@ -17870,13 +17870,13 @@ $.widget( "ui.tabs", {
 			anchor = $( event.currentTarget ),
 			tab = anchor.closest( "li" ),
 			clickedIsActive = tab[ 0 ] === active[ 0 ],
-			collapsing = clickedIsActive && options.collapsible,
-			toShow = collapsing ? $() : this._getPanelForTab( tab ),
+			collapSign = clickedIsActive && options.collapsible,
+			toShow = collapSign ? $() : this._getPanelForTab( tab ),
 			toHide = !active.length ? $() : this._getPanelForTab( active ),
 			eventData = {
 				oldTab: active,
 				oldPanel: toHide,
-				newTab: collapsing ? $() : tab,
+				newTab: collapSign ? $() : tab,
 				newPanel: toShow
 			};
 
@@ -17898,7 +17898,7 @@ $.widget( "ui.tabs", {
 			return;
 		}
 
-		options.active = collapsing ? false : this.tabs.index( tab );
+		options.active = collapSign ? false : this.tabs.index( tab );
 
 		this.active = clickedIsActive ? $() : tab;
 		if ( this.xhr ) {
@@ -17961,7 +17961,7 @@ $.widget( "ui.tabs", {
 
 		// If we're switching tabs, remove the old tab from the tab order.
 		// If we're opening from collapsed state, remove the previous tab from the tab order.
-		// If we're collapsing, then keep the collapsing tab in the tab order.
+		// If we're collapSign, then keep the collapSign tab in the tab order.
 		if ( toShow.length && toHide.length ) {
 			eventData.oldTab.attr( "tabIndex", -1 );
 		} else if ( toShow.length ) {
@@ -18567,9 +18567,9 @@ $.widget( "ui.tooltip", {
 
 		tooltip = tooltipData.tooltip;
 
-		// Disabling closes the tooltip, so we need to track when we're closing
+		// Disabling closes the tooltip, so we need to track when we're cloSign
 		// to avoid an infinite loop in case the tooltip becomes disabled on close
-		if ( tooltipData.closing ) {
+		if ( tooltipData.cloSign ) {
 			return;
 		}
 
@@ -18606,10 +18606,10 @@ $.widget( "ui.tooltip", {
 			} );
 		}
 
-		tooltipData.closing = true;
+		tooltipData.cloSign = true;
 		this._trigger( "close", event, { tooltip: tooltip } );
 		if ( !tooltipData.hiding ) {
-			tooltipData.closing = false;
+			tooltipData.cloSign = false;
 		}
 	},
 

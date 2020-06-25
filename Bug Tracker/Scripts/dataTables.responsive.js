@@ -79,7 +79,7 @@ var DataTable = $.fn.dataTable;
  * * Adding the class `responsive` or `dt-responsive` to the table. In this case
  *   Responsive will automatically be initialised with the default configuration
  *   options when the DataTable is created.
- * * Using the `responsive` option in the DataTables configuration options. This
+ * * using the `responsive` option in the DataTables configuration options. This
  *   can also be used to specify the configuration options, or simply set to
  *   `true` to use the defaults.
  *
@@ -788,7 +788,7 @@ $.extend( Responsive.prototype, {
 	 * Determine the width of each column in the table so the auto column hiding
 	 * has that information to work with. This method is never going to be 100%
 	 * perfect since column widths can change slightly per page, but without
-	 * seriously compromising performance this is quite effective.
+	 * seriously compromiSign performance this is quite effective.
 	 *
 	 * @private
 	 */
@@ -929,7 +929,7 @@ $.extend( Responsive.prototype, {
 	 * every table draw - that is potentially inefficient, but also the least
 	 * complex option given that column visibility can change on the fly. Its a
 	 * shame user-focus was removed from CSS 3 UI, as it would have solved this
-	 * issue with a single CSS statement.
+	 * issue with a Signle CSS statement.
 	 *
 	 * @private
 	 */

@@ -40,16 +40,55 @@ namespace Bug_Tracker.Controllers
         [Authorize(Roles = "Admin, Submitter, ProjectManager, Developer")]
         public ActionResult Dashboard()
         {
+            var userId = User.Identity.GetUserId();
             var allTickets = db.Tickets.ToList();
-            var dashboardVM = new DashboardViewModel()
+            var myRole = roleHelper.ListUserRoles(userId).FirstOrDefault();
+            var dashboardVM = new DashboardViewModel();
+            switch (myRole)
             {
-                TicketCount = allTickets.Count,
-                HighPriorityTicketCount = allTickets.Where(t => t.TicketPriority.Name == "Immediate").Count(),
-                NewTicketCount = allTickets.Where(t => t.TicketStatus.Name == "New").Count(),
-                TotalComments = db.TicketComments.Count(),
-                AllTickets = allTickets
+                case "Admin":
+                    dashboardVM = new DashboardViewModel()
+                    {
+                        TicketCount = allTickets.Count,
+                        HighPriorityTicketCount = allTickets.Where(t => t.TicketPriority.Name == "Immediate").Count(),
+                        NewTicketCount = allTickets.Where(t => t.TicketStatus.Name == "New").Count(),
+                        //TotalComments = db.TicketComments.Count(),
+                        AllTickets = allTickets
+                    };
+                    break;
+                case "ProjectManager":
+                    dashboardVM = new DashboardViewModel()
+                    {
+                        TicketCount = allTickets.Where(t => t.Project.ProjectManagerId == userId).Count(),
+                        HighPriorityTicketCount = allTickets.Where(t => t.TicketPriority.Name == "Immediate").Where(t => t.Project.ProjectManagerId == userId).Count(),
+                        NewTicketCount = allTickets.Where(t => t.Project.ProjectManagerId == userId).Where(t => t.TicketStatus.Name == "New").Count(),
+                        //TotalComments = db.TicketComments.Where(c => c.Ticket.Project.ProjectManagerId == userId).Count(),
+                        AllTickets = allTickets.Where(t => t.Project.ProjectManagerId == userId).ToList(),
+                    };
 
-            };
+                    break;
+                case "Developer":
+                    dashboardVM = new DashboardViewModel()
+                    {
+                        TicketCount = allTickets.Where(t => t.DeveloperId == userId).Count(),
+                        HighPriorityTicketCount = allTickets.Where(t => t.TicketPriority.Name == "Immediate").Where(t => t.DeveloperId == userId).Count(),
+                        NewTicketCount = allTickets.Where(t => t.TicketStatus.Name == "New").Where(t => t.DeveloperId == userId).Count(),
+                        //TotalComments = db.TicketComments.Where(t => t.DeveloperId == userId).Count(),
+                        AllTickets = allTickets
+                    };
+                    break;
+                default:
+                    dashboardVM = new DashboardViewModel()
+                    {
+                        TicketCount = allTickets.Count,
+                        HighPriorityTicketCount = allTickets.Where(t => t.TicketPriority.Name == "Immediate").Count(),
+                        NewTicketCount = allTickets.Where(t => t.TicketStatus.Name == "New").Count(),
+                        TotalComments = db.TicketComments.Count(),
+                        AllTickets = allTickets
+                    };
+
+                    break;
+            }
 
             dashboardVM.TicketStatusNew = db.Tickets.Where(t => t.TicketStatus.Name == "New").Count();
             dashboardVM.TicketStatusAssigned = db.Tickets.Where(t => t.TicketStatus.Name == "Assigned").Count();
@@ -89,7 +128,7 @@ namespace Bug_Tracker.Controllers
                 var emailSvc = new EmailService();
                 await emailSvc.SendAsync(email);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 await Task.FromResult(0);

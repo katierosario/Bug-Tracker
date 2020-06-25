@@ -1,6 +1,5 @@
-﻿@using Bug_Tracker.Models
+﻿@model Bug_Tracker.Models.Project
 
-@model Project
 
 @using Bug_Tracker.Helpers
 @using Bug_Tracker.ViewModel
@@ -46,7 +45,10 @@
                                 <div>
                                     @if (Model.ProjectManagerId == null)
                                     {
-                                        <h2 class="tx-20 tx-sm-18 tx-md-24 mb-0 mt-2 mt-sm-0 tx-normal tx-rubik tx-dark"><span class="counter">Unassigned</span><small class="tx-15"></small></h2>
+                                        <h2 class="tx-20 tx-sm-18 tx-md-24 mb-0 mt-2 mt-sm-0 tx-normal tx-rubik tx-dark">
+                                            <span class="counter">Unassigned </span>
+                                            <button type="button" class="btn btn-sm btn-label-success" data-toggle="modal" data-target="#m_modal_5">Assign</button>
+                                        </h2>
                                     }
                                     else
                                     {
@@ -309,6 +311,42 @@
             }
 
             <br />
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="m_modal_5" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel_5" aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel_5">Project Manager</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><i class="ion-ios-close-empty"></i></span>
+                </button>
+            </div>
+            <br />
+
+            @using (Html.BeginForm("AssignProjectManager", "Projects", FormMethod.Post, new { @class = "form"}))
+            {
+                @Html.AntiForgeryToken()
+                @Html.Hidden("ProjectId", Model.Id)
+
+
+                <div class="form-group">
+                    @*@Html.LabelFor(model => model.ProjectManagerId, "Developer : " + Model.ProjectManagerId, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                    <div class="col-md-10">
+                        @*<select class="form-control select2 select2-hidden-accessible" data-placeholder="Choose Project Manager" tabindex="-1" aria-hidden="true">
+                        <option label="Choose Project Manager"></option>
+                        <option value="A">List of PMs</option>
+                    </select>*@
+
+                        @Html.DropDownList("ProjectManagerId", null, "-- Select Project Manager --", htmlAttributes: new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Assign To Project</button>
+                </div>
+            }
         </div>
     </div>
 </div>

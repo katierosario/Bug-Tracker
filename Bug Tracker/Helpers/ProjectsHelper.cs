@@ -60,5 +60,14 @@ namespace Bug_Tracker.Helpers
         {
             return db.Users.Where(u => u.Projects.All(p => p.Id != projectId)).ToList();
         }
+
+        public void AssignProjectManager(int projectId, string projectmanagerId)
+        {
+            Project proj = db.Projects.Find(projectId);
+            proj.ProjectManagerId = projectmanagerId;
+
+            db.SaveChanges();
+            
+        }
     }
 }

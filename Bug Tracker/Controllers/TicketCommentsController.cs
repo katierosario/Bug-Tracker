@@ -138,13 +138,13 @@ namespace Bug_Tracker.Controllers
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
+        protected override void Dispose(bool dispoSign)
         {
-            if (disposing)
+            if (dispoSign)
             {
                 db.Dispose();
             }
-            base.Dispose(disposing);
+            base.Dispose(dispoSign);
         }
     }
 }

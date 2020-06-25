@@ -337,7 +337,7 @@ namespace Bug_Tracker.Migrations
                 {
                     db.Tickets.AddOrUpdate(t => t.Title, new Ticket
                     {
-                        Title = $"Ticket {db.Tickets.Count() + 1}",
+                        Title = $"Project {project.Name} - Ticket {j}",
                         ProjectId = project.Id,
                         Description = "This is a seeded demo Ticket.",
                         TicketTypeId = seedTicketType[rand.Next(0, seedTicketType.Count)],
@@ -347,8 +347,21 @@ namespace Bug_Tracker.Migrations
                         Created = DateTime.Now.AddDays(-7),
                     });
                 }
-                db.SaveChanges();
             }
+            db.SaveChanges();
+
+            foreach (var ticket in db.Tickets.ToList())
+            {
+                var comment = new TicketComment
+                {
+                    Body = $"This ticket needs to be fixed.",
+                    Created = DateTime.Now,
+                    TicketId = ticket.Id,
+                    UserId = developers.FirstOrDefault().Id
+                };
+                db.TicketComments.Add(comment);
+            }
+            db.SaveChanges();
         }
 
     }

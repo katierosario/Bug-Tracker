@@ -2573,14 +2573,14 @@ input[type="button"].btn-block {
 .collapse:not(.show) {
   display: none; }
 
-.collapsing {
+.collapSign {
   position: relative;
   height: 0;
   overflow: hidden;
   -webkit-transition: height 0.35s ease;
   transition: height 0.35s ease; }
   @media screen and (prefers-reduced-motion: reduce) {
-    .collapsing {
+    .collapSign {
       -webkit-transition: none;
       transition: none; } }
 

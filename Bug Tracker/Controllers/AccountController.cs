@@ -497,9 +497,9 @@ namespace Bug_Tracker.Controllers
             return View();
         }
 
-        protected override void Dispose(bool disposing)
+        protected override void Dispose(bool dispoSign)
         {
-            if (disposing)
+            if (dispoSign)
             {
                 if (_userManager != null)
                 {
@@ -514,7 +514,7 @@ namespace Bug_Tracker.Controllers
                 }
             }
 
-            base.Dispose(disposing);
+            base.Dispose(dispoSign);
         }
 
         #region Helpers
